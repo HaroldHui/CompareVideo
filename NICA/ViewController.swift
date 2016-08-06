@@ -11,7 +11,7 @@ import AVKit
 import AVFoundation
 import MobileCoreServices
 
-class ViewController: UIViewController, SelectVideoViewControllerDelegate {
+class ViewController: UIViewController, SelectVideoViewControllerDelegate, SelectImageDelegate {
     
     var path = ""
     
@@ -26,10 +26,20 @@ class ViewController: UIViewController, SelectVideoViewControllerDelegate {
         self.path = text
         let player = AVPlayer(URL: NSURL(fileURLWithPath: path))
         let playerController = AVPlayerViewController()
-        playerController.view.frame = CGRect(x: 10, y: 150, width: self.view.frame.size.width/2, height: self.view.frame.size.height/2)
+        playerController.view.frame = CGRect(x: 10, y: 150, width: self.view.frame.size.width/2, height: self.view.frame.size.width/2)
         playerController.player = player
         self.addChildViewController(playerController)
         self.view.addSubview(playerController.view)
+        controller.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func showImage(controller: SelectImageVC, path: String) {
+        self.path = path
+        let image = UIImage(contentsOfFile: path)
+        let imageView = UIImageView(image: image!)
+        imageView.frame = CGRect(x: 10, y: 150, width: self.view.frame.size.width/2, height: self.view.frame.size.width/2)
+        self.view.addSubview(imageView)
+        
         controller.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -42,6 +52,13 @@ class ViewController: UIViewController, SelectVideoViewControllerDelegate {
         }
     }
 
+    @IBAction func goToSelectImage(sender: UIButton) {
+        let vc = SelectImageVC()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
     // "Select A Local Video" button leading to local video library
     @IBAction func selectLocalVideo() {
         startMediaBrowserFromViewController(self, usingDelegate: self)

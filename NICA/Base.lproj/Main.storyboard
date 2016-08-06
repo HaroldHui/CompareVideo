@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iak-r5-aCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iak-r5-aCu">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -38,6 +38,13 @@
                                 </variation>
                                 <connections>
                                     <action selector="selectLocalVideo" destination="BYZ-38-t0r" eventType="touchUpInside" id="IJ1-ME-G7S"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ypl-mM-whX">
+                                <rect key="frame" x="119" y="101" width="112" height="30"/>
+                                <state key="normal" title="Select An Image"/>
+                                <connections>
+                                    <action selector="goToSelectImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hJw-e7-dfK"/>
                                 </connections>
                             </button>
                         </subviews>

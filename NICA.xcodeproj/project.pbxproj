@@ -17,6 +17,12 @@
 		A49E87051CEC438C002AC786 /* 1 Arm Press.MOV in Resources */ = {isa = PBXBuildFile; fileRef = A49E87031CEC438C002AC786 /* 1 Arm Press.MOV */; };
 		A49E87061CEC438C002AC786 /* Elbow low and push up.MOV in Resources */ = {isa = PBXBuildFile; fileRef = A49E87041CEC438C002AC786 /* Elbow low and push up.MOV */; };
 		A49E87081CEC5574002AC786 /* SelectVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E87071CEC5574002AC786 /* SelectVideoViewController.swift */; };
+		A4F0CFD71D558926005ED3FE /* SelectImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0CFD51D558926005ED3FE /* SelectImageVC.swift */; };
+		A4F0CFD81D558926005ED3FE /* SelectImageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */; };
+		A4F0CFDE1D5589B8005ED3FE /* Image 1.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFDC1D5589B8005ED3FE /* Image 1.png */; };
+		A4F0CFDF1D5589B8005ED3FE /* Image 2.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFDD1D5589B8005ED3FE /* Image 2.png */; };
+		A4F0CFE31D5589DC005ED3FE /* 1 Arm Press.MOV in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFE11D5589DC005ED3FE /* 1 Arm Press.MOV */; };
+		A4F0CFE41D5589DC005ED3FE /* Elbow low and push up.MOV in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFE21D5589DC005ED3FE /* Elbow low and push up.MOV */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +59,12 @@
 		A49E87031CEC438C002AC786 /* 1 Arm Press.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "1 Arm Press.MOV"; sourceTree = "<group>"; };
 		A49E87041CEC438C002AC786 /* Elbow low and push up.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Elbow low and push up.MOV"; sourceTree = "<group>"; };
 		A49E87071CEC5574002AC786 /* SelectVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectVideoViewController.swift; sourceTree = "<group>"; };
+		A4F0CFD51D558926005ED3FE /* SelectImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectImageVC.swift; sourceTree = "<group>"; };
+		A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectImageVC.xib; sourceTree = "<group>"; };
+		A4F0CFDC1D5589B8005ED3FE /* Image 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Image 1.png"; sourceTree = "<group>"; };
+		A4F0CFDD1D5589B8005ED3FE /* Image 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Image 2.png"; sourceTree = "<group>"; };
+		A4F0CFE11D5589DC005ED3FE /* 1 Arm Press.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "1 Arm Press.MOV"; sourceTree = "<group>"; };
+		A4F0CFE21D5589DC005ED3FE /* Elbow low and push up.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Elbow low and push up.MOV"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,9 +117,11 @@
 		A49E86D21CEC39D1002AC786 /* NICA */ = {
 			isa = PBXGroup;
 			children = (
+				A4F0CFD91D55899B005ED3FE /* Resources */,
+				A4F0CFD41D558907005ED3FE /* Controller */,
+				A4F0CFD31D558902005ED3FE /* View */,
+				A4F0CFD21D5588F9005ED3FE /* Model */,
 				A49E86D31CEC39D1002AC786 /* AppDelegate.swift */,
-				A49E86D51CEC39D1002AC786 /* ViewController.swift */,
-				A49E87071CEC5574002AC786 /* SelectVideoViewController.swift */,
 				A49E86D71CEC39D1002AC786 /* Main.storyboard */,
 				A49E86DA1CEC39D1002AC786 /* Assets.xcassets */,
 				A49E86DC1CEC39D1002AC786 /* LaunchScreen.storyboard */,
@@ -132,6 +146,58 @@
 				A49E86F51CEC39D1002AC786 /* Info.plist */,
 			);
 			path = NICAUITests;
+			sourceTree = "<group>";
+		};
+		A4F0CFD21D5588F9005ED3FE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		A4F0CFD31D558902005ED3FE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		A4F0CFD41D558907005ED3FE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A49E86D51CEC39D1002AC786 /* ViewController.swift */,
+				A49E87071CEC5574002AC786 /* SelectVideoViewController.swift */,
+				A4F0CFD51D558926005ED3FE /* SelectImageVC.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		A4F0CFD91D55899B005ED3FE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A4F0CFE01D5589D0005ED3FE /* Video */,
+				A4F0CFDA1D5589A5005ED3FE /* Images */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		A4F0CFDA1D5589A5005ED3FE /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				A4F0CFDC1D5589B8005ED3FE /* Image 1.png */,
+				A4F0CFDD1D5589B8005ED3FE /* Image 2.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		A4F0CFE01D5589D0005ED3FE /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				A4F0CFE11D5589DC005ED3FE /* 1 Arm Press.MOV */,
+				A4F0CFE21D5589DC005ED3FE /* Elbow low and push up.MOV */,
+			);
+			name = Video;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,9 +306,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A49E87051CEC438C002AC786 /* 1 Arm Press.MOV in Resources */,
+				A4F0CFDE1D5589B8005ED3FE /* Image 1.png in Resources */,
 				A49E87061CEC438C002AC786 /* Elbow low and push up.MOV in Resources */,
+				A4F0CFE31D5589DC005ED3FE /* 1 Arm Press.MOV in Resources */,
+				A4F0CFE41D5589DC005ED3FE /* Elbow low and push up.MOV in Resources */,
+				A4F0CFDF1D5589B8005ED3FE /* Image 2.png in Resources */,
 				A49E86DE1CEC39D1002AC786 /* LaunchScreen.storyboard in Resources */,
 				A49E86DB1CEC39D1002AC786 /* Assets.xcassets in Resources */,
+				A4F0CFD81D558926005ED3FE /* SelectImageVC.xib in Resources */,
 				A49E86D91CEC39D1002AC786 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +341,7 @@
 			files = (
 				A49E86D61CEC39D1002AC786 /* ViewController.swift in Sources */,
 				A49E86D41CEC39D1002AC786 /* AppDelegate.swift in Sources */,
+				A4F0CFD71D558926005ED3FE /* SelectImageVC.swift in Sources */,
 				A49E87081CEC5574002AC786 /* SelectVideoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
