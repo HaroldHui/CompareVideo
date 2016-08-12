@@ -14,9 +14,24 @@
 		A49E86DE1CEC39D1002AC786 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49E86DC1CEC39D1002AC786 /* LaunchScreen.storyboard */; };
 		A49E86E91CEC39D1002AC786 /* NICATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E86E81CEC39D1002AC786 /* NICATests.swift */; };
 		A49E86F41CEC39D1002AC786 /* NICAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E86F31CEC39D1002AC786 /* NICAUITests.swift */; };
-		A49E87051CEC438C002AC786 /* 1 Arm Press.MOV in Resources */ = {isa = PBXBuildFile; fileRef = A49E87031CEC438C002AC786 /* 1 Arm Press.MOV */; };
-		A49E87061CEC438C002AC786 /* Elbow low and push up.MOV in Resources */ = {isa = PBXBuildFile; fileRef = A49E87041CEC438C002AC786 /* Elbow low and push up.MOV */; };
 		A49E87081CEC5574002AC786 /* SelectVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E87071CEC5574002AC786 /* SelectVideoViewController.swift */; };
+		A4BBF84F1D5DAE840019A245 /* ActVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BBF84D1D5DAE840019A245 /* ActVC.swift */; };
+		A4BBF8501D5DAE840019A245 /* ActVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4BBF84E1D5DAE840019A245 /* ActVC.xib */; };
+		A4BE27611D5DCE23001C1EBF /* CategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BE275F1D5DCE23001C1EBF /* CategoryVC.swift */; };
+		A4BE27621D5DCE23001C1EBF /* CategoryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4BE27601D5DCE23001C1EBF /* CategoryVC.xib */; };
+		A4C51AE21D589F1800D6D733 /* SelectImageSVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AE01D589F1800D6D733 /* SelectImageSVC.swift */; };
+		A4C51AE31D589F1800D6D733 /* SelectImageSVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C51AE11D589F1800D6D733 /* SelectImageSVC.xib */; };
+		A4C51AE61D589FAB00D6D733 /* MasterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AE41D589FAB00D6D733 /* MasterVC.swift */; };
+		A4C51AE71D589FAB00D6D733 /* MasterVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C51AE51D589FAB00D6D733 /* MasterVC.xib */; };
+		A4C51AEC1D589FE100D6D733 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AEA1D589FE100D6D733 /* DetailVC.swift */; };
+		A4C51AED1D589FE100D6D733 /* DetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C51AEB1D589FE100D6D733 /* DetailVC.xib */; };
+		A4C51AEF1D58A0CA00D6D733 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AEE1D58A0CA00D6D733 /* Root.swift */; };
+		A4C51AF11D58A11A00D6D733 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AF01D58A11A00D6D733 /* Category.swift */; };
+		A4C51AF31D58A17300D6D733 /* Act.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AF21D58A17300D6D733 /* Act.swift */; };
+		A4C51AF51D58A40500D6D733 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AF41D58A40500D6D733 /* Dashboard.swift */; };
+		A4C51AF91D58A5E800D6D733 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AF81D58A5E800D6D733 /* Level.swift */; };
+		A4C51AFB1D58A66A00D6D733 /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AFA1D58A66A00D6D733 /* Skill.swift */; };
+		A4C51AFD1D58A71900D6D733 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AFC1D58A71900D6D733 /* Picture.swift */; };
 		A4F0CFD71D558926005ED3FE /* SelectImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0CFD51D558926005ED3FE /* SelectImageVC.swift */; };
 		A4F0CFD81D558926005ED3FE /* SelectImageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */; };
 		A4F0CFDE1D5589B8005ED3FE /* Image 1.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFDC1D5589B8005ED3FE /* Image 1.png */; };
@@ -56,9 +71,24 @@
 		A49E86EF1CEC39D1002AC786 /* NICAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NICAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A49E86F31CEC39D1002AC786 /* NICAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NICAUITests.swift; sourceTree = "<group>"; };
 		A49E86F51CEC39D1002AC786 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A49E87031CEC438C002AC786 /* 1 Arm Press.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "1 Arm Press.MOV"; sourceTree = "<group>"; };
-		A49E87041CEC438C002AC786 /* Elbow low and push up.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Elbow low and push up.MOV"; sourceTree = "<group>"; };
 		A49E87071CEC5574002AC786 /* SelectVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectVideoViewController.swift; sourceTree = "<group>"; };
+		A4BBF84D1D5DAE840019A245 /* ActVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActVC.swift; sourceTree = "<group>"; };
+		A4BBF84E1D5DAE840019A245 /* ActVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActVC.xib; sourceTree = "<group>"; };
+		A4BE275F1D5DCE23001C1EBF /* CategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryVC.swift; sourceTree = "<group>"; };
+		A4BE27601D5DCE23001C1EBF /* CategoryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryVC.xib; sourceTree = "<group>"; };
+		A4C51AE01D589F1800D6D733 /* SelectImageSVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectImageSVC.swift; sourceTree = "<group>"; };
+		A4C51AE11D589F1800D6D733 /* SelectImageSVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectImageSVC.xib; sourceTree = "<group>"; };
+		A4C51AE41D589FAB00D6D733 /* MasterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterVC.swift; sourceTree = "<group>"; };
+		A4C51AE51D589FAB00D6D733 /* MasterVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterVC.xib; sourceTree = "<group>"; };
+		A4C51AEA1D589FE100D6D733 /* DetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
+		A4C51AEB1D589FE100D6D733 /* DetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailVC.xib; sourceTree = "<group>"; };
+		A4C51AEE1D58A0CA00D6D733 /* Root.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
+		A4C51AF01D58A11A00D6D733 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		A4C51AF21D58A17300D6D733 /* Act.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Act.swift; sourceTree = "<group>"; };
+		A4C51AF41D58A40500D6D733 /* Dashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
+		A4C51AF81D58A5E800D6D733 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		A4C51AFA1D58A66A00D6D733 /* Skill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
+		A4C51AFC1D58A71900D6D733 /* Picture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		A4F0CFD51D558926005ED3FE /* SelectImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectImageVC.swift; sourceTree = "<group>"; };
 		A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectImageVC.xib; sourceTree = "<group>"; };
 		A4F0CFDC1D5589B8005ED3FE /* Image 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Image 1.png"; sourceTree = "<group>"; };
@@ -95,8 +125,6 @@
 		A49E86C71CEC39D1002AC786 = {
 			isa = PBXGroup;
 			children = (
-				A49E87031CEC438C002AC786 /* 1 Arm Press.MOV */,
-				A49E87041CEC438C002AC786 /* Elbow low and push up.MOV */,
 				A49E86D21CEC39D1002AC786 /* NICA */,
 				A49E86E71CEC39D1002AC786 /* NICATests */,
 				A49E86F21CEC39D1002AC786 /* NICAUITests */,
@@ -151,6 +179,13 @@
 		A4F0CFD21D5588F9005ED3FE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A4C51AEE1D58A0CA00D6D733 /* Root.swift */,
+				A4C51AF41D58A40500D6D733 /* Dashboard.swift */,
+				A4C51AF01D58A11A00D6D733 /* Category.swift */,
+				A4C51AF21D58A17300D6D733 /* Act.swift */,
+				A4C51AF81D58A5E800D6D733 /* Level.swift */,
+				A4C51AFA1D58A66A00D6D733 /* Skill.swift */,
+				A4C51AFC1D58A71900D6D733 /* Picture.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -158,6 +193,11 @@
 		A4F0CFD31D558902005ED3FE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A4C51AE51D589FAB00D6D733 /* MasterVC.xib */,
+				A4C51AEB1D589FE100D6D733 /* DetailVC.xib */,
+				A4BE27601D5DCE23001C1EBF /* CategoryVC.xib */,
+				A4BBF84E1D5DAE840019A245 /* ActVC.xib */,
+				A4C51AE11D589F1800D6D733 /* SelectImageSVC.xib */,
 				A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */,
 			);
 			name = View;
@@ -169,6 +209,11 @@
 				A49E86D51CEC39D1002AC786 /* ViewController.swift */,
 				A49E87071CEC5574002AC786 /* SelectVideoViewController.swift */,
 				A4F0CFD51D558926005ED3FE /* SelectImageVC.swift */,
+				A4C51AE01D589F1800D6D733 /* SelectImageSVC.swift */,
+				A4C51AE41D589FAB00D6D733 /* MasterVC.swift */,
+				A4C51AEA1D589FE100D6D733 /* DetailVC.swift */,
+				A4BE275F1D5DCE23001C1EBF /* CategoryVC.swift */,
+				A4BBF84D1D5DAE840019A245 /* ActVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -305,16 +350,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A49E87051CEC438C002AC786 /* 1 Arm Press.MOV in Resources */,
 				A4F0CFDE1D5589B8005ED3FE /* Image 1.png in Resources */,
-				A49E87061CEC438C002AC786 /* Elbow low and push up.MOV in Resources */,
+				A4C51AE71D589FAB00D6D733 /* MasterVC.xib in Resources */,
 				A4F0CFE31D5589DC005ED3FE /* 1 Arm Press.MOV in Resources */,
+				A4BBF8501D5DAE840019A245 /* ActVC.xib in Resources */,
 				A4F0CFE41D5589DC005ED3FE /* Elbow low and push up.MOV in Resources */,
 				A4F0CFDF1D5589B8005ED3FE /* Image 2.png in Resources */,
+				A4BE27621D5DCE23001C1EBF /* CategoryVC.xib in Resources */,
 				A49E86DE1CEC39D1002AC786 /* LaunchScreen.storyboard in Resources */,
 				A49E86DB1CEC39D1002AC786 /* Assets.xcassets in Resources */,
 				A4F0CFD81D558926005ED3FE /* SelectImageVC.xib in Resources */,
 				A49E86D91CEC39D1002AC786 /* Main.storyboard in Resources */,
+				A4C51AED1D589FE100D6D733 /* DetailVC.xib in Resources */,
+				A4C51AE31D589F1800D6D733 /* SelectImageSVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,10 +387,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4C51AE61D589FAB00D6D733 /* MasterVC.swift in Sources */,
+				A4C51AFB1D58A66A00D6D733 /* Skill.swift in Sources */,
+				A4BE27611D5DCE23001C1EBF /* CategoryVC.swift in Sources */,
+				A4BBF84F1D5DAE840019A245 /* ActVC.swift in Sources */,
+				A4C51AEF1D58A0CA00D6D733 /* Root.swift in Sources */,
+				A4C51AF51D58A40500D6D733 /* Dashboard.swift in Sources */,
+				A4C51AFD1D58A71900D6D733 /* Picture.swift in Sources */,
 				A49E86D61CEC39D1002AC786 /* ViewController.swift in Sources */,
+				A4C51AE21D589F1800D6D733 /* SelectImageSVC.swift in Sources */,
 				A49E86D41CEC39D1002AC786 /* AppDelegate.swift in Sources */,
+				A4C51AF91D58A5E800D6D733 /* Level.swift in Sources */,
+				A4C51AF11D58A11A00D6D733 /* Category.swift in Sources */,
 				A4F0CFD71D558926005ED3FE /* SelectImageVC.swift in Sources */,
 				A49E87081CEC5574002AC786 /* SelectVideoViewController.swift in Sources */,
+				A4C51AF31D58A17300D6D733 /* Act.swift in Sources */,
+				A4C51AEC1D589FE100D6D733 /* DetailVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
