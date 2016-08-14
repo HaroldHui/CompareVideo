@@ -10,18 +10,39 @@ import UIKit
 
 class ActVC: UITableViewController {
     
+    var dashboard: Dashboard = Dashboard(name: "")
+    var category: Category = Category(name: "")
     var acts: [Act] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Act"
+        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
+        backButton.setTitle("Back to Categories", forState: UIControlState.Normal)
+        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        backButton.addTarget(self, action: #selector(backToCategories), forControlEvents: UIControlEvents.TouchUpInside)
+        let leftBarButton = UIBarButtonItem()
+        leftBarButton.customView = backButton
+        self.navigationItem.leftBarButtonItem = leftBarButton
+        
+        self.title = "Acts"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func backToCategories(sender: UIButton!) {
+        let vc = CategoryVC()
+        vc.categories = dashboard.categories
+        
+        let nc = UINavigationController()
+        nc.viewControllers = [vc]
+        
+        self.showDetailViewController(nc, sender: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,6 +68,22 @@ class ActVC: UITableViewController {
         cell.textLabel?.text = act.name
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let act = acts[indexPath.row]
+        
+        let vc = LevelVC()
+        vc.dashboard = dashboard
+        vc.category = category
+        vc.act = act
+        vc.levels = act.levels
+        
+        let nc = UINavigationController()
+        nc.viewControllers = [vc]
+        
+        self.showDetailViewController(nc, sender: self)
     }
 
     /*

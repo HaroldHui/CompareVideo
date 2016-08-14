@@ -12,14 +12,15 @@ class Skill {
     
     var name : String
     //var introduction : String
-    //var video : Video
+    var video : Video
     var pictures : [Picture]
     
     init(name: String) {
         self.name = name
-        pictures = [
-            Picture(name: "Image 1"),
-            Picture(name: "Image 2")
+        self.pictures = [
+            Picture(name: "Picture 1"),
+            Picture(name: "Picture 2")
         ]
+        self.video = Video(name: "Video 1")
     }
 }

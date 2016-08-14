@@ -49,6 +49,7 @@ class MasterVC: UITableViewController {
         
         let vc = CategoryVC()
         vc.categories = dashboard.categories
+        vc.dashboard = Root.rootInstance.dashboard[indexPath.row]
         
         let nc = UINavigationController()
         nc.viewControllers = [vc]

@@ -10,12 +10,13 @@ import UIKit
 
 class CategoryVC: UITableViewController {
     
+    var dashboard: Dashboard = Dashboard(name: "")
     var categories: [Category] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Category"
+        self.title = "Categories"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -54,6 +55,8 @@ class CategoryVC: UITableViewController {
         let category = categories[indexPath.row]
         
         let vc = ActVC()
+        vc.dashboard = dashboard
+        vc.category = category
         vc.acts = category.acts
         
         let nc = UINavigationController()
