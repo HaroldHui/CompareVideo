@@ -78,35 +78,37 @@ class PictureVideoVC: UITableViewController {
         }
     }
     
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        if (indexPath.row == 0) {
-//            let vc = ViewVideoVC()
-//            vc.dashboard = dashboard
-//            vc.category = category
-//            vc.act = act
-//            vc.level = level
-//            vc.skill = skill
-//            vc.video = video
-//            
-//            let nc = UINavigationController()
-//            nc.viewControllers = [vc]
-//            
-//            self.showDetailViewController(nc, sender: self)
-//        } else {
-//            let vc = ViewPictureVC()
-//            vc.dashboard = dashboard
-//            vc.category = category
-//            vc.act = act
-//            vc.level = level
-//            vc.skill = skill
-//            vc.picture = pictures[indexPath.row - 1]
-//            
-//            let nc = UINavigationController()
-//            nc.viewControllers = [vc]
-//            
-//            self.showDetailViewController(nc, sender: self)
-//        }
-//    }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if (indexPath.row == 0) {
+            let vc = ViewController()
+            vc.dashboard = dashboard
+            vc.category = category
+            vc.act = act
+            vc.level = level
+            vc.skill = skill
+            vc.video = video
+            self.splitViewController!.preferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden
+            
+            let nc = UINavigationController()
+            nc.viewControllers = [vc]
+            
+            self.showDetailViewController(nc, sender: self)
+        } else {
+            let vc = ViewController()
+            vc.dashboard = dashboard
+            vc.category = category
+            vc.act = act
+            vc.level = level
+            vc.skill = skill
+            vc.picture = pictures[indexPath.row - 1]
+            self.splitViewController!.preferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden
+
+            let nc = UINavigationController()
+            nc.viewControllers = [vc]
+            
+            self.showDetailViewController(nc, sender: self)
+        }
+    }
     
     /*
      // Override to support conditional editing of the table view.
