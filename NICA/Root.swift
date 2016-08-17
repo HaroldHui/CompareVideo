@@ -10,7 +10,7 @@ import Foundation
 
 class Root {
     
-    var dashboard : [Dashboard]
+    var dashboard : [Dashboard] = []
     
     class var rootInstance : Root {
         struct Static {
@@ -26,5 +26,4 @@ class Root {
             Dashboard(name: "Group Acts")
         ]
     }
-    
 }

@@ -10,8 +10,12 @@ import Foundation
 
 class Video {
     
-    var name : String
+    var name : String = ""
     //var dir : String
+    
+    init() {
+        
+    }
     
     init(name: String) {
         self.name = name

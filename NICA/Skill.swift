@@ -10,10 +10,14 @@ import Foundation
 
 class Skill {
     
-    var name : String
+    var name : String = ""
     //var introduction : String
-    var video : Video
-    var pictures : [Picture]
+    var video : Video = Video()
+    var pictures : [Picture] = []
+    
+    init() {
+        
+    }
     
     init(name: String) {
         self.name = name

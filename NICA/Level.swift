@@ -10,9 +10,13 @@ import Foundation
 
 class Level {
     
-    var name : String
+    var name : String = ""
     //var video : Video
-    var skills : [Skill]
+    var skills : [Skill] = []
+    
+    init() {
+        
+    }
     
     init(name: String) {
         self.name = name

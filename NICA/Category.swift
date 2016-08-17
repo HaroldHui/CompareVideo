@@ -10,9 +10,13 @@ import Foundation
 
 class Category {
     
-    var name : String
+    var name : String = ""
     //var tag : String
-    var acts : [Act]
+    var acts : [Act] = []
+    
+    init() {
+        
+    }
     
     init(name: String) {
         self.name = name

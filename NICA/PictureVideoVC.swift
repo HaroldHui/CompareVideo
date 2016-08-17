@@ -10,12 +10,12 @@ import UIKit
 
 class PictureVideoVC: UITableViewController {
     
-    var dashboard: Dashboard = Dashboard(name: "")
-    var category: Category = Category(name: "")
-    var act: Act = Act(name: "")
-    var level: Level = Level(name: "")
-    var skill: Skill = Skill(name: "")
-    var video: Video = Video(name: "")
+    var dashboard: Dashboard = Dashboard()
+    var category: Category = Category()
+    var act: Act = Act()
+    var level: Level = Level()
+    var skill: Skill = Skill()
+    var video: Video = Video()
     var pictures: [Picture] = []
     
     override func viewDidLoad() {
