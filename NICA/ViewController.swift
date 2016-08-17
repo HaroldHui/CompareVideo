@@ -13,6 +13,14 @@ import MobileCoreServices
 
 class ViewController: UIViewController, SelectVideoViewControllerDelegate, SelectImageDelegate, UIScrollViewDelegate {
     
+    var dashboard: Dashboard = Dashboard()
+    var category: Category = Category()
+    var act: Act = Act()
+    var level: Level = Level()
+    var skill: Skill = Skill()
+    var video: Video = Video()
+    var picture: Picture = Picture()
+    
     // URL path for any video or image
     var path = ""
     
@@ -23,6 +31,7 @@ class ViewController: UIViewController, SelectVideoViewControllerDelegate, Selec
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.clearColor()
         scrollView.delegate = self
         scrollView.frame = CGRect(x: 10, y: 150, width: self.view.frame.width/2, height: self.view.frame.width/2)
         scrollView.backgroundColor = UIColor.darkGrayColor()
@@ -31,6 +40,26 @@ class ViewController: UIViewController, SelectVideoViewControllerDelegate, Selec
         
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 10.0
+        
+        let videoImageUrl = UILabel(frame: CGRect(x: 10, y: 100, width: 150, height: 50))
+        videoImageUrl.text = video.dir
+        self.view.addSubview(videoImageUrl)
+        
+        let player = AVPlayer(URL: NSURL(fileURLWithPath: video.dir))
+        
+        playerController.view.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.width)
+        playerController.player = player
+        // DISABLE ALL THE USER INTERACITON, INCLUDING THE PINCH GESTURE
+        // THIS WAY, THE VIDEO CAN BE ZOOMED LIKE AN IMAGE
+        // HOWEVER NEED TO IMPLEMENT ALL THE BUTTONS OUTSIDE
+        // THE VIDEO PLAYER
+        playerController.view.userInteractionEnabled = false
+        playerController.showsPlaybackControls = false
+        
+        self.addChildViewController(playerController)
+        
+        self.view.addSubview(scrollView)
+        scrollView.addSubview(playerController.view)
         
         // BUTTONS FOR CONTROLLING THE VIDEO
         // PLAY, PAUSE, SLOW MOTION

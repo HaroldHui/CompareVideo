@@ -10,11 +10,15 @@ import Foundation
 
 class Video {
     
-    var name : String
-    //var dir : String
+    var name : String = ""
+    var dir : String = ""
+    
+    init() {
+        
+    }
     
     init(name: String) {
         self.name = name
-        //self.dir = dir
+        self.dir = NSBundle.mainBundle().pathForResource("1 Arm Press", ofType:"MOV")!
     }
 }

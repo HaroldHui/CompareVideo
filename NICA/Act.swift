@@ -10,12 +10,16 @@ import Foundation
 
 class Act {
     
-    var name : String
+    var name : String = ""
     //var introduction : String
     //var trainer : String
     //var equipments : String
     //var prerequisites : [Prerequisite]
-    var levels : [Level]
+    var levels : [Level] = []
+    
+    init() {
+        
+    }
     
     init(name: String) {
         self.name = name

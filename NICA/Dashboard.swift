@@ -10,8 +10,12 @@ import Foundation
 
 class Dashboard {
     
-    var name : String
-    var categories : [Category]
+    var name : String = ""
+    var categories : [Category] = []
+    
+    init() {
+        
+    }
     
     init(name: String) {
         self.name = name
