@@ -10,8 +10,8 @@ import UIKit
 
 class ActVC: UITableViewController {
     
-    var dashboard: Dashboard = Dashboard(name: "")
-    var category: Category = Category(name: "")
+    var dashboard: Dashboard = Dashboard()
+    var category: Category = Category()
     var acts: [Act] = []
     
     override func viewDidLoad() {
@@ -37,6 +37,7 @@ class ActVC: UITableViewController {
     
     func backToCategories(sender: UIButton!) {
         let vc = CategoryVC()
+        vc.dashboard = dashboard
         vc.categories = dashboard.categories
         
         let nc = UINavigationController()

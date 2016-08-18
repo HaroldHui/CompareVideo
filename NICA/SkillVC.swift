@@ -10,10 +10,10 @@ import UIKit
 
 class SkillVC: UITableViewController {
     
-    var dashboard: Dashboard = Dashboard(name: "")
-    var category: Category = Category(name: "")
-    var act: Act = Act(name: "")
-    var level: Level = Level(name: "")
+    var dashboard: Dashboard = Dashboard()
+    var category: Category = Category()
+    var act: Act = Act()
+    var level: Level = Level()
     var skills: [Skill] = []
     
     override func viewDidLoad() {
@@ -38,6 +38,9 @@ class SkillVC: UITableViewController {
     
     func backToLevels(sender: UIButton!) {
         let vc = LevelVC()
+        vc.dashboard = dashboard
+        vc.category = category
+        vc.act = act
         vc.levels = act.levels
         
         let nc = UINavigationController()

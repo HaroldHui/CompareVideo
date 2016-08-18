@@ -10,6 +10,7 @@ import Foundation
 
 class Act {
     
+    var aid : String = ""
     var name : String = ""
     //var introduction : String
     //var trainer : String

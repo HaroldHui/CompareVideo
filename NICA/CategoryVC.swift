@@ -10,7 +10,7 @@ import UIKit
 
 class CategoryVC: UITableViewController {
     
-    var dashboard: Dashboard = Dashboard(name: "")
+    var dashboard: Dashboard = Dashboard()
     var categories: [Category] = []
     
     override func viewDidLoad() {

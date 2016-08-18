@@ -9,10 +9,68 @@
 import UIKit
 
 class MasterVC: UITableViewController {
+    
+    var basics : [Category] = []
         
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // Load categories from API
+        let todoEndpoint: String = "https://jsonplaceholder.typicode.com/todos"
+        guard let url = NSURL(string: todoEndpoint) else {
+            print("Error: cannot create URL")
+            return
+        }
+        
+        let urlRequest = NSURLRequest(URL: url)
+        
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: config)
+        
+        let task = session.dataTaskWithRequest(urlRequest) {
+            (data, response, error) in
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            guard error == nil else {
+                print("error calling GET on /todos")
+                print(error)
+                return
+            }
+            // parse the result as JSON, since that's what the API provides
+            do {
+                guard let todos = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [[String: AnyObject]] else {
+                    // TODO: handle
+                    print("Couldn't convert received data to JSON dictionary")
+                    return
+                }
+                // now we have the todo, let's just print it to prove we can access it
+                print("The todo is: " + todos[0].description)
+                
+                // the todo object is a dictionary
+                // so we just access the title using the "title" key
+                // so check for a title and print it if we have one
+                guard let todoTitle = todos[0]["title"] as? String else {
+                    print("Could not get todo title from JSON")
+                    return
+                }
+                print("The title is: " + todoTitle)
+                
+                // Create categories from retrieved data
+                for todo in todos[0..<5] {
+                    let category = Category(name: todo["title"] as! String)
+                    self.basics += [category]
+                }
+                Root.rootInstance.dashboard[0].categories = self.basics
+                Root.rootInstance.dashboard[1].categories = self.basics
+                Root.rootInstance.dashboard[2].categories = self.basics
+            } catch  {
+                print("error trying to convert data to JSON")
+            }
+        }
+        task.resume()
+        
         self.title = "Root"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
 

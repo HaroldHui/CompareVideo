@@ -21,9 +21,9 @@ class Root {
     
     init() {
         dashboard = [
-            Dashboard(name: "Basics"),
-            Dashboard(name: "Specialties"),
-            Dashboard(name: "Group Acts")
+            Dashboard(name: "Basics", categories: []),
+            Dashboard(name: "Specialties", categories: []),
+            Dashboard(name: "Group Acts", categories: [])
         ]
     }
 }
