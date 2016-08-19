@@ -17,18 +17,19 @@ class Dashboard {
         
     }
     
-    init(name: String) {
+    init(name: String, categories : [Category]) {
         self.name = name
-        categories = [
-            Category(name: "Category 1"),
-            Category(name: "Category 2"),
-            Category(name: "Category 3")
-        ]
+        self.categories = categories
+//        categories = [
+//            Category(name: "Category 1"),
+//            Category(name: "Category 2"),
+//            Category(name: "Category 3")
+//        ]
     }
     
     class var none : Dashboard {
         struct Static {
-            static let instance = Dashboard(name: "Home")
+            static let instance = Dashboard(name: "Home", categories: [])
         }
         return Static.instance
     }

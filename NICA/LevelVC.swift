@@ -10,9 +10,9 @@ import UIKit
 
 class LevelVC: UITableViewController {
     
-    var dashboard: Dashboard = Dashboard(name: "")
-    var category: Category = Category(name: "")
-    var act: Act = Act(name: "")
+    var dashboard: Dashboard = Dashboard()
+    var category: Category = Category()
+    var act: Act = Act()
     var levels: [Level] = []
     
     override func viewDidLoad() {
@@ -37,6 +37,8 @@ class LevelVC: UITableViewController {
     
     func backToActs(sender: UIButton!) {
         let vc = ActVC()
+        vc.dashboard = dashboard
+        vc.category = category
         vc.acts = category.acts
         
         let nc = UINavigationController()

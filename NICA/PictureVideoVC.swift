@@ -40,6 +40,10 @@ class PictureVideoVC: UITableViewController {
     
     func backToSkills(sender: UIButton!) {
         let vc = SkillVC()
+        vc.dashboard = dashboard
+        vc.category = category
+        vc.act = act
+        vc.level = level
         vc.skills = level.skills
         
         let nc = UINavigationController()

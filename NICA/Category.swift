@@ -10,8 +10,9 @@ import Foundation
 
 class Category {
     
+    var cid : String = ""
     var name : String = ""
-    //var tag : String
+    var tag : String = ""
     var acts : [Act] = []
     
     init() {
