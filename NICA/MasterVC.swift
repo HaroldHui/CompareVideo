@@ -62,6 +62,7 @@ class MasterVC: UITableViewController {
                     let category = Category(name: todo["title"] as! String)
                     self.basics += [category]
                 }
+                self.basics = [Category(name: "Category 1"), Category(name: "Category 2"), Category(name: "Category 3")];
                 Root.rootInstance.dashboard[0].categories = self.basics
                 Root.rootInstance.dashboard[1].categories = self.basics
                 Root.rootInstance.dashboard[2].categories = self.basics
