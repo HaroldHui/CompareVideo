@@ -9,6 +9,7 @@
 import UIKit
 
 class CategoryVC: UITableViewController {
+    var sDelegate:SelectionDelegate? = nil
     
     var dashboard: Dashboard = Dashboard()
     var categories: [Category] = []
@@ -55,6 +56,7 @@ class CategoryVC: UITableViewController {
         let category = categories[indexPath.row]
         
         let vc = ActVC()
+        vc.sDelegate = self.sDelegate
         vc.dashboard = dashboard
         vc.category = category
         vc.acts = category.acts
@@ -62,7 +64,8 @@ class CategoryVC: UITableViewController {
         let nc = UINavigationController()
         nc.viewControllers = [vc]
         
-        self.showDetailViewController(nc, sender: self)
+        self.navigationController?.pushViewController(vc, animated: true)
+//        self.showDetailViewController(nc, sender: self)
     }
 
     /*

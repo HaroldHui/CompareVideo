@@ -9,6 +9,7 @@
 import UIKit
 
 class PictureVideoVC: UITableViewController {
+    var sDelegate: SelectionDelegate?
     
     var dashboard: Dashboard = Dashboard()
     var category: Category = Category()
@@ -21,13 +22,13 @@ class PictureVideoVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
-        backButton.setTitle("Back to Skills", forState: UIControlState.Normal)
-        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        backButton.addTarget(self, action: #selector(backToSkills), forControlEvents: UIControlEvents.TouchUpInside)
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.customView = backButton
-        self.navigationItem.leftBarButtonItem = leftBarButton
+//        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
+//        backButton.setTitle("Back to Skills", forState: UIControlState.Normal)
+//        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+//        backButton.addTarget(self, action: #selector(backToSkills), forControlEvents: UIControlEvents.TouchUpInside)
+//        let leftBarButton = UIBarButtonItem()
+//        leftBarButton.customView = backButton
+//        self.navigationItem.leftBarButtonItem = leftBarButton
         
         self.title = "Pictures and Videos"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -91,12 +92,15 @@ class PictureVideoVC: UITableViewController {
             vc.level = level
             vc.skill = skill
             vc.video = video
-            self.splitViewController!.preferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden
             
             let nc = UINavigationController()
             nc.viewControllers = [vc]
+//
+//            self.showDetailViewController(nc, sender: self)
             
-            self.showDetailViewController(nc, sender: self)
+            sDelegate!.myVCDidFinish(self, path: video.dir)
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
         } else {
             let vc = ViewController()
             vc.dashboard = dashboard
@@ -105,12 +109,15 @@ class PictureVideoVC: UITableViewController {
             vc.level = level
             vc.skill = skill
             vc.picture = pictures[indexPath.row - 1]
-            self.splitViewController!.preferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden
 
             let nc = UINavigationController()
             nc.viewControllers = [vc]
+//
+//            self.showDetailViewController(nc, sender: self)
             
-            self.showDetailViewController(nc, sender: self)
+            sDelegate!.myVCDidFinish(self, path: video.dir)
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
