@@ -22,6 +22,18 @@ class Act {
         
     }
     
+    init(name: String, aid: String) {
+        self.name = name
+        self.aid = aid
+        levels = [
+            Level(name: "Elementary"),
+            Level(name: "Preliminary"),
+            Level(name: "Foundation"),
+            Level(name: "Intermediate"),
+            Level(name: "Advanced")
+        ]
+    }
+    
     init(name: String) {
         self.name = name
         levels = [

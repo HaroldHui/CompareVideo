@@ -19,6 +19,12 @@ class Category {
         
     }
     
+    init (name: String, cid: String) {
+        self.name = name
+        self.cid = cid
+        acts = []
+    }
+    
     init(name: String) {
         self.name = name
         acts = [
