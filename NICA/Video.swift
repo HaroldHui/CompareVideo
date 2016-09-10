@@ -1,5 +1,5 @@
 //
-//  Picture.swift
+//  Video.swift
 //  NICA
 //
 //  Created by Johan Albert on 8/08/2016.

@@ -13,18 +13,17 @@ class PictureVideoVC: UITableViewController {
     var dashboard: Dashboard = Dashboard()
     var category: Category = Category()
     var act: Act = Act()
-    var level: Level = Level()
-    var skill: Skill = Skill()
-    var video: Video = Video()
+    var folders : [Folder] = []
+    var videos: [Video] = []
     var pictures: [Picture] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
-        backButton.setTitle("Back to Skills", forState: UIControlState.Normal)
+        backButton.setTitle("Back to Folders", forState: UIControlState.Normal)
         backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        backButton.addTarget(self, action: #selector(backToSkills), forControlEvents: UIControlEvents.TouchUpInside)
+        backButton.addTarget(self, action: #selector(backToFolders), forControlEvents: UIControlEvents.TouchUpInside)
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = backButton
         self.navigationItem.leftBarButtonItem = leftBarButton
@@ -38,13 +37,12 @@ class PictureVideoVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    func backToSkills(sender: UIButton!) {
-        let vc = SkillVC()
+    func backToFolders(sender: UIButton!) {
+        let vc = FolderVC()
         vc.dashboard = dashboard
         vc.category = category
         vc.act = act
-        vc.level = level
-        vc.skills = level.skills
+        vc.folders = folders
         
         let nc = UINavigationController()
         nc.viewControllers = [vc]
@@ -66,16 +64,17 @@ class PictureVideoVC: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (1 + pictures.count)
+        return videos.count + pictures.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if (indexPath.row == 0) {
+        if (indexPath.row < videos.count) {
+            let video = videos[indexPath.row]
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
             cell.textLabel?.text = video.name
             return cell
         } else {
-            let picture = pictures[indexPath.row - 1]
+            let picture = pictures[indexPath.row - videos.count]
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
             cell.textLabel?.text = picture.name
             return cell
@@ -83,14 +82,12 @@ class PictureVideoVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if (indexPath.row == 0) {
+        if (indexPath.row < videos.count) {
             let vc = ViewController()
             vc.dashboard = dashboard
             vc.category = category
             vc.act = act
-            vc.level = level
-            vc.skill = skill
-            vc.video = video
+            vc.video = videos[indexPath.row]
             self.splitViewController!.preferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden
             
             let nc = UINavigationController()
@@ -102,9 +99,7 @@ class PictureVideoVC: UITableViewController {
             vc.dashboard = dashboard
             vc.category = category
             vc.act = act
-            vc.level = level
-            vc.skill = skill
-            vc.picture = pictures[indexPath.row - 1]
+            vc.picture = pictures[indexPath.row - videos.count]
             self.splitViewController!.preferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden
 
             let nc = UINavigationController()

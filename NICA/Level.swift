@@ -11,8 +11,6 @@ import Foundation
 class Level {
     
     var name : String = ""
-    //var video : Video
-    var skills : [Skill] = []
     
     init() {
         
@@ -20,10 +18,5 @@ class Level {
     
     init(name: String) {
         self.name = name
-        skills = [
-            Skill(name: "Skill 1"),
-            Skill(name: "Skill 2"),
-            Skill(name: "Skill 3")
-        ]
     }
 }

@@ -1,5 +1,5 @@
 //
-//  LevelVC.swift
+//  FolderVC.swift
 //  NICA
 //
 //  Created by Johan Albert on 12/08/2016.
@@ -8,13 +8,12 @@
 
 import UIKit
 
-class SkillVC: UITableViewController {
+class FolderVC: UITableViewController {
     
     var dashboard: Dashboard = Dashboard()
     var category: Category = Category()
     var act: Act = Act()
-    var level: Level = Level()
-    var skills: [Skill] = []
+    var folders : [Folder] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +26,7 @@ class SkillVC: UITableViewController {
         leftBarButton.customView = backButton
         self.navigationItem.leftBarButtonItem = leftBarButton
         
-        self.title = "Skills"
+        self.title = "Folders"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -41,7 +40,6 @@ class SkillVC: UITableViewController {
         vc.dashboard = dashboard
         vc.category = category
         vc.act = act
-        vc.levels = act.levels
         
         let nc = UINavigationController()
         nc.viewControllers = [vc]
@@ -63,29 +61,29 @@ class SkillVC: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return skills.count
+        return folders.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let skill = skills[indexPath.row]
+        let folder = folders[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        cell.textLabel?.text = skill.name
+        print(folder.name)
+        cell.textLabel?.text = folder.name
         
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let skill = skills[indexPath.row]
+        let folder = folders[indexPath.row]
         
         let vc = PictureVideoVC()
         vc.dashboard = dashboard
         vc.category = category
         vc.act = act
-        vc.level = level
-        vc.skill = skill
-        vc.video = skill.video
-        vc.pictures = skill.pictures
+        vc.folders = folders
+        vc.videos = folder.videos
+        vc.pictures = folder.pictures
         
         let nc = UINavigationController()
         nc.viewControllers = [vc]

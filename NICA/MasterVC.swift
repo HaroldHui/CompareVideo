@@ -98,6 +98,7 @@ class MasterVC: UITableViewController {
         let dashboard = Root.rootInstance.dashboard[indexPath.row]
         
         let vc = CategoryVC()
+        dashboard.categories = [Category(name: "Cat 1"), Category(name: "Cat 2")]
         vc.categories = dashboard.categories
         vc.dashboard = Root.rootInstance.dashboard[indexPath.row]
         

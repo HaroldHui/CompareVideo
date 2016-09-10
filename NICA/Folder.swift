@@ -1,5 +1,5 @@
 //
-//  Skill.swift
+//  Folder.swift
 //  NICA
 //
 //  Created by Johan Albert on 8/08/2016.
@@ -8,23 +8,31 @@
 
 import Foundation
 
-class Skill {
+class Folder {
     
+    var fid : String = ""
     var name : String = ""
-    //var introduction : String
-    var video : Video = Video()
+    var description : String = ""
+
+    var videos : [Video] = []
     var pictures : [Picture] = []
     
     init() {
         
     }
     
+    init (name: String, fid: String) {
+        self.name = name
+        self.fid = fid
+    }
+    
     init(name: String) {
         self.name = name
-        self.pictures = [
-            Picture(name: "Picture 1"),
-            Picture(name: "Picture 2")
+        self.videos = [
+            Video(name: "Vid 1")
         ]
-        self.video = Video(name: "Video 1")
+        self.pictures = [
+            Picture(name: "Pic 1")
+        ]
     }
 }

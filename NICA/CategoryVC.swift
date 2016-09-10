@@ -53,6 +53,17 @@ class CategoryVC: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let category = categories[indexPath.row]
+        category.acts = [Act(name: "Act1"), Act(name: "Act2")]
+        
+        let vc = ActVC()
+        vc.dashboard = self.dashboard
+        vc.category = category
+        vc.acts = category.acts
+        
+        let nc = UINavigationController()
+        nc.viewControllers = [vc]
+        
+        self.showDetailViewController(nc, sender: self)
         
         // Get acts from API based on category id
         let todoEndpoint: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/category/" + category.cid

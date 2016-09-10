@@ -79,7 +79,6 @@ class ActVC: UITableViewController {
         vc.dashboard = dashboard
         vc.category = category
         vc.act = act
-        vc.levels = act.levels
         
         let nc = UINavigationController()
         nc.viewControllers = [vc]
