@@ -13,11 +13,13 @@ class FolderVC: UITableViewController {
     var dashboard: Dashboard = Dashboard()
     var category: Category = Category()
     var act: Act = Act()
+    var level: String = ""
     var folders : [Folder] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Draw the back button
         let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
         backButton.setTitle("Back to Levels", forState: UIControlState.Normal)
         backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -35,6 +37,7 @@ class FolderVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    // Go back to level view
     func backToLevels(sender: UIButton!) {
         let vc = LevelVC()
         vc.dashboard = dashboard
@@ -77,6 +80,62 @@ class FolderVC: UITableViewController {
         
         let folder = folders[indexPath.row]
         
+        // Load acts from API
+        let todoEndpoint: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/category" + category.cid + "/act/" + act.aid + "/level/" + level + "/folder/" + folder.fid
+        guard let url = NSURL(string: todoEndpoint) else {
+            print("Error: cannot create URL")
+            return
+        }
+        
+        let urlRequest = NSURLRequest(URL: url)
+        
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: config)
+        
+        let task = session.dataTaskWithRequest(urlRequest) {
+            (data, response, error) in
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            guard error == nil else {
+                print("error calling GET")
+                print(error)
+                return
+            }
+            // parse the result as JSON, since that's what the API provides
+            do {
+                guard let folderdetail = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
+                    // TODO: handle
+                    print("Couldn't convert received data to JSON dictionary")
+                    return
+                }
+                
+                // Get folder details from retrieved data
+                folder.description = folderdetail["description"] as! String
+                folder.name = folderdetail["name"] as! String
+                
+                // Create videos and pictures for folder from retrieved data
+                if let videos = folderdetail["videos"] as? [[String: AnyObject]] {
+                    for v in videos {
+                        let video = Video(name: v["name"] as! String)
+                        folder.videos += [video]
+                    }
+                }
+                if let pictures = folderdetail["pictures"] as? [[String: AnyObject]] {
+                    for p in pictures {
+                        let picture = Picture(name: p["name"] as! String)
+                        folder.pictures += [picture]
+                    }
+                }
+                
+            } catch  {
+                print("error trying to convert data to JSON")
+            }
+        }
+        task.resume()
+        
+        // Navigate to the picture and video view
         let vc = PictureVideoVC()
         vc.dashboard = dashboard
         vc.category = category

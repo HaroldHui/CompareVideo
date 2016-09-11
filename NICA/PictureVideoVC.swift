@@ -20,6 +20,7 @@ class PictureVideoVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Draw the back button
         let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
         backButton.setTitle("Back to Folders", forState: UIControlState.Normal)
         backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -37,6 +38,7 @@ class PictureVideoVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    // Go back to folder view
     func backToFolders(sender: UIButton!) {
         let vc = FolderVC()
         vc.dashboard = dashboard

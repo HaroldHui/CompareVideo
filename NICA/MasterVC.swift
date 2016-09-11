@@ -54,6 +54,7 @@ class MasterVC: UITableViewController {
                     self.basics += [category]
                 }
 
+                // Set the categories for basics, specialties and group acts
                 Root.rootInstance.dashboard[0].categories = self.basics
                 Root.rootInstance.dashboard[1].categories = self.basics
                 Root.rootInstance.dashboard[2].categories = self.basics
@@ -97,7 +98,9 @@ class MasterVC: UITableViewController {
         
         let dashboard = Root.rootInstance.dashboard[indexPath.row]
         
+        // Navigate to category view
         let vc = CategoryVC()
+        // Temporary
         dashboard.categories = [Category(name: "Cat 1"), Category(name: "Cat 2")]
         vc.categories = dashboard.categories
         vc.dashboard = Root.rootInstance.dashboard[indexPath.row]

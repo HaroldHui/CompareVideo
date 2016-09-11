@@ -52,6 +52,7 @@ class CategoryVC: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        // Temporary
         let category = categories[indexPath.row]
         category.acts = [Act(name: "Act1"), Act(name: "Act2")]
         
@@ -96,6 +97,7 @@ class CategoryVC: UITableViewController {
                     return
                 }
                 
+                // Create acts from retrieved data
                 category.tag = categorydetail["tag"] as! String
                 if let actsarray = categorydetail["acts"] as? [[String: AnyObject]] {
                     for act in actsarray {
@@ -104,6 +106,7 @@ class CategoryVC: UITableViewController {
                     }
                 }
                 
+                // Navigate to act view
                 let vc = ActVC()
                 vc.dashboard = self.dashboard
                 vc.category = category

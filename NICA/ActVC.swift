@@ -17,6 +17,7 @@ class ActVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Draw the back button
         let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
         backButton.setTitle("Back to Categories", forState: UIControlState.Normal)
         backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -35,6 +36,7 @@ class ActVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    // Go back to category view
     func backToCategories(sender: UIButton!) {
         let vc = CategoryVC()
         vc.dashboard = dashboard
@@ -75,6 +77,7 @@ class ActVC: UITableViewController {
         
         let act = acts[indexPath.row]
         
+        // Navigate to level view
         let vc = LevelVC()
         vc.dashboard = dashboard
         vc.category = category
