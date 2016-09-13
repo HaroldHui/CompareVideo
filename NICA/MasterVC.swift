@@ -9,6 +9,7 @@
 import UIKit
 
 class MasterVC: UITableViewController {
+    var sDelegate:SelectionDelegate? = nil
     
     var basics : [Category] = []
         
@@ -106,6 +107,7 @@ class MasterVC: UITableViewController {
         let dashboard = Root.rootInstance.dashboard[indexPath.row]
         
         let vc = CategoryVC()
+        vc.sDelegate = self.sDelegate
         vc.categories = dashboard.categories
         vc.dashboard = Root.rootInstance.dashboard[indexPath.row]
         

@@ -8,8 +8,14 @@
 
 import UIKit
 
-class SelectImageSVC: UISplitViewController, UISplitViewControllerDelegate {
+protocol SelectionDelegate {
+    func myVCDidFinish(controller:UIViewController, path:String)
+}
 
+class SelectImageSVC: UISplitViewController, UISplitViewControllerDelegate {
+    
+    var sDelegate:SelectionDelegate? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,9 +25,12 @@ class SelectImageSVC: UISplitViewController, UISplitViewControllerDelegate {
         let master = UINavigationController()
         let detail = UINavigationController()
         
+        let masterVC = MasterVC()
+        masterVC.sDelegate = self.sDelegate
+        
         // make a view controller for each navigation controller
-        master.viewControllers = [MasterVC()]
-        detail.viewControllers = [DetailVC()]
+        master.viewControllers = [masterVC]
+        detail.viewControllers = [CategoryVC()]
         
         // the split view controller has those two controllers
         self.viewControllers = [master, detail]
