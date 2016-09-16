@@ -70,7 +70,6 @@ class FolderVC: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let folder = folders[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        print(folder.name)
         cell.textLabel?.text = folder.name
         
         return cell

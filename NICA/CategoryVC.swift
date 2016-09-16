@@ -55,7 +55,7 @@ class CategoryVC: UITableViewController {
         // Temporary
         let category = categories[indexPath.row]
         category.acts = [Act(name: "Act1"), Act(name: "Act2")]
-        
+
         let vc = ActVC()
         vc.dashboard = self.dashboard
         vc.category = category
