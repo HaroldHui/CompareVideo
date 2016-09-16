@@ -11,7 +11,6 @@ import Foundation
 class Picture {
     
     var name : String = ""
-    //var dir : String
     
     init() {
         
@@ -19,6 +18,5 @@ class Picture {
     
     init(name: String) {
         self.name = name
-        //self.dir = dir
     }
 }

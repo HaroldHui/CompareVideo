@@ -53,19 +53,83 @@ class CategoryVC: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        // Temporary
         let category = categories[indexPath.row]
-        
+        category.acts = [Act(name: "Act1"), Act(name: "Act2")]
+
         let vc = ActVC()
+        
         vc.sDelegate = self.sDelegate
         vc.dashboard = dashboard
+
         vc.category = category
         vc.acts = category.acts
         
         let nc = UINavigationController()
         nc.viewControllers = [vc]
+
+        self.navigationController?.pushViewController(vc, animated: true)
         
+        // Get acts from API based on category id
+        let todoEndpoint: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/category/" + category.cid
+        guard let url = NSURL(string: todoEndpoint) else {
+            print("Error: cannot create URL")
+            return
+        }
+        
+        let urlRequest = NSURLRequest(URL: url)
+        
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: config)
+        
+        let task = session.dataTaskWithRequest(urlRequest) {
+            (data, response, error) in
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            guard error == nil else {
+                print("error calling GET")
+                print(error)
+                return
+            }
+            // parse the result as JSON, since that's what the API provides
+            do {
+                guard let categorydetail = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
+                    // TODO: handle
+                    print("Couldn't convert received data to JSON dictionary")
+                    return
+                }
+                
+                // Create acts from retrieved data
+                category.tag = categorydetail["tag"] as! String
+                if let actsarray = categorydetail["acts"] as? [[String: AnyObject]] {
+                    for act in actsarray {
+                        let newact = Act(name: act["name"] as! String, aid: act["aid"] as! String!)
+                        category.acts += [newact]
+                    }
+                }
+                
+                // Navigate to act view
+                let vc = ActVC()
+                vc.dashboard = self.dashboard
+                vc.category = category
+                vc.acts = category.acts
+                
+                let nc = UINavigationController()
+                nc.viewControllers = [vc]
+                
+                self.showDetailViewController(nc, sender: self)
+
+            } catch  {
+                print("error trying to convert data to JSON")
+            }
+        }
+        task.resume()
+
         self.navigationController?.pushViewController(vc, animated: true)
 //        self.showDetailViewController(nc, sender: self)
+
     }
 
     /*

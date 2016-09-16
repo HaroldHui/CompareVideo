@@ -14,9 +14,8 @@ class PictureVideoVC: UITableViewController {
     var dashboard: Dashboard = Dashboard()
     var category: Category = Category()
     var act: Act = Act()
-    var level: Level = Level()
-    var skill: Skill = Skill()
-    var video: Video = Video()
+    var folders : [Folder] = []
+    var videos: [Video] = []
     var pictures: [Picture] = []
     
     override func viewDidLoad() {
@@ -39,13 +38,13 @@ class PictureVideoVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    func backToSkills(sender: UIButton!) {
-        let vc = SkillVC()
+    // Go back to folder view
+    func backToFolders(sender: UIButton!) {
+        let vc = FolderVC()
         vc.dashboard = dashboard
         vc.category = category
         vc.act = act
-        vc.level = level
-        vc.skills = level.skills
+        vc.folders = folders
         
         let nc = UINavigationController()
         nc.viewControllers = [vc]
@@ -67,16 +66,17 @@ class PictureVideoVC: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (1 + pictures.count)
+        return videos.count + pictures.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if (indexPath.row == 0) {
+        if (indexPath.row < videos.count) {
+            let video = videos[indexPath.row]
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
             cell.textLabel?.text = video.name
             return cell
         } else {
-            let picture = pictures[indexPath.row - 1]
+            let picture = pictures[indexPath.row - videos.count]
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
             cell.textLabel?.text = picture.name
             return cell
@@ -84,21 +84,19 @@ class PictureVideoVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if (indexPath.row == 0) {
+        if (indexPath.row < videos.count) {
             let vc = ViewController()
             vc.dashboard = dashboard
             vc.category = category
             vc.act = act
-            vc.level = level
-            vc.skill = skill
-            vc.video = video
+            vc.video = videos[indexPath.row]
             
             let nc = UINavigationController()
             nc.viewControllers = [vc]
 //
 //            self.showDetailViewController(nc, sender: self)
             
-            sDelegate!.myVCDidFinish(self, path: video.dir)
+            sDelegate!.myVCDidFinish(self, path: vc.video.dir)
             
             self.dismissViewControllerAnimated(true, completion: nil)
         } else {
@@ -106,16 +104,14 @@ class PictureVideoVC: UITableViewController {
             vc.dashboard = dashboard
             vc.category = category
             vc.act = act
-            vc.level = level
-            vc.skill = skill
-            vc.picture = pictures[indexPath.row - 1]
+            vc.picture = pictures[indexPath.row - videos.count]
 
             let nc = UINavigationController()
             nc.viewControllers = [vc]
 //
 //            self.showDetailViewController(nc, sender: self)
             
-            sDelegate!.myVCDidFinish(self, path: video.dir)
+//            sDelegate!.myVCDidFinish(self, path: vc.picture.dir)
             
             self.dismissViewControllerAnimated(true, completion: nil)
         }

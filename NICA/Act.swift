@@ -12,11 +12,15 @@ class Act {
     
     var aid : String = ""
     var name : String = ""
-    //var introduction : String
-    //var trainer : String
-    //var equipments : String
-    //var prerequisites : [Prerequisite]
-    var levels : [Level] = []
+    var description : String = ""
+    var trainer : String = ""
+    var equipments : String = ""
+    
+    var prerequisites : [Folder] = []
+    var foundation : [Folder] = []
+    var intermediate : [Folder] = []
+    var advanced : [Folder] = []
+    var professional : [Folder] = []
     
     init() {
         
@@ -24,12 +28,31 @@ class Act {
     
     init(name: String) {
         self.name = name
-        levels = [
-            Level(name: "Elementary"),
-            Level(name: "Preliminary"),
-            Level(name: "Foundation"),
-            Level(name: "Intermediate"),
-            Level(name: "Advanced")
+        self.prerequisites = [
+            Folder(name: "Folder 1"),
+            Folder(name: "FOlder 2")
+        ]
+        self.foundation = [
+            Folder(name: "Folder 1"),
+            Folder(name: "FOlder 2")
+        ]
+        self.intermediate = [
+            Folder(name: "Folder 1"),
+            Folder(name: "FOlder 2")
+        ]
+        self.advanced = [
+            Folder(name: "Folder 1"),
+            Folder(name: "FOlder 2")
+        ]
+        self.professional = [
+            Folder(name: "Folder 1"),
+            Folder(name: "FOlder 2")
         ]
     }
+    
+    init(name: String, aid: String) {
+        self.name = name
+        self.aid = aid
+    }
+    
 }

@@ -19,12 +19,16 @@ class Category {
         
     }
     
+    init (name: String, cid: String) {
+        self.name = name
+        self.cid = cid
+    }
+    
     init(name: String) {
         self.name = name
         acts = [
             Act(name: "Act 1"),
-            Act(name: "Act 2"),
-            Act(name: "Act 3")
+            Act(name: "Act 2")
         ]
     }
 }

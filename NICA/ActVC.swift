@@ -36,6 +36,7 @@ class ActVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    // Go back to category view
     func backToCategories(sender: UIButton!) {
         let vc = CategoryVC()
         vc.dashboard = dashboard
@@ -80,12 +81,12 @@ class ActVC: UITableViewController {
         
         let act = acts[indexPath.row]
         
+        // Navigate to level view
         let vc = LevelVC()
         vc.sDelegate = self.sDelegate
         vc.dashboard = dashboard
         vc.category = category
         vc.act = act
-        vc.levels = act.levels
         
         let nc = UINavigationController()
         nc.viewControllers = [vc]

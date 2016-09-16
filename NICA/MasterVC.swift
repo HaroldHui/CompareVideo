@@ -12,12 +12,14 @@ class MasterVC: UITableViewController {
     var sDelegate:SelectionDelegate? = nil
     
     var basics : [Category] = []
+    var specialties : [Category] = []
+    var groupacts : [Category] = []
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Load categories from API
-        let todoEndpoint: String = "https://jsonplaceholder.typicode.com/todos"
+        let todoEndpoint: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/basics"
         guard let url = NSURL(string: todoEndpoint) else {
             print("Error: cannot create URL")
             return
@@ -35,42 +37,121 @@ class MasterVC: UITableViewController {
                 return
             }
             guard error == nil else {
-                print("error calling GET on /todos")
+                print("error calling GET")
                 print(error)
                 return
             }
             // parse the result as JSON, since that's what the API provides
             do {
-                guard let todos = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [[String: AnyObject]] else {
+                guard let basics = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [[String: AnyObject]] else {
                     // TODO: handle
                     print("Couldn't convert received data to JSON dictionary")
                     return
                 }
-                // now we have the todo, let's just print it to prove we can access it
-                print("The todo is: " + todos[0].description)
-                
-                // the todo object is a dictionary
-                // so we just access the title using the "title" key
-                // so check for a title and print it if we have one
-                guard let todoTitle = todos[0]["title"] as? String else {
-                    print("Could not get todo title from JSON")
-                    return
-                }
-                print("The title is: " + todoTitle)
                 
                 // Create categories from retrieved data
-                for todo in todos[0..<5] {
-                    let category = Category(name: todo["title"] as! String)
+                for categorybrief in basics {
+                    let category = Category(name: categorybrief["name"] as! String, cid: categorybrief["cid"] as! String)
                     self.basics += [category]
                 }
+
+                // Set the categories for basics, specialties and group acts
                 Root.rootInstance.dashboard[0].categories = self.basics
-                Root.rootInstance.dashboard[1].categories = self.basics
-                Root.rootInstance.dashboard[2].categories = self.basics
             } catch  {
                 print("error trying to convert data to JSON")
             }
         }
         task.resume()
+        
+        // Load categories from API
+        let todoEndpoint2: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/specialties"
+        guard let url2 = NSURL(string: todoEndpoint2) else {
+            print("Error: cannot create URL")
+            return
+        }
+        
+        let urlRequest2 = NSURLRequest(URL: url2)
+        
+        let config2 = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session2 = NSURLSession(configuration: config2)
+        
+        let task2 = session2.dataTaskWithRequest(urlRequest2) {
+            (data, response, error) in
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            guard error == nil else {
+                print("error calling GET")
+                print(error)
+                return
+            }
+            // parse the result as JSON, since that's what the API provides
+            do {
+                guard let specialties = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [[String: AnyObject]] else {
+                    // TODO: handle
+                    print("Couldn't convert received data to JSON dictionary")
+                    return
+                }
+                
+                // Create categories from retrieved data
+                for categorybrief in specialties {
+                    let category = Category(name: categorybrief["name"] as! String, cid: categorybrief["cid"] as! String)
+                    self.specialties += [category]
+                }
+                
+                // Set the categories for basics, specialties and group acts
+                Root.rootInstance.dashboard[1].categories = self.specialties
+            } catch  {
+                print("error trying to convert data to JSON")
+            }
+        }
+        task2.resume()
+        
+        // Load categories from API
+        let todoEndpoint3: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/group-acts"
+        guard let url3 = NSURL(string: todoEndpoint3) else {
+            print("Error: cannot create URL")
+            return
+        }
+        
+        let urlRequest3 = NSURLRequest(URL: url3)
+        
+        let config3 = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session3 = NSURLSession(configuration: config3)
+        
+        let task3 = session3.dataTaskWithRequest(urlRequest3) {
+            (data, response, error) in
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            guard error == nil else {
+                print("error calling GET")
+                print(error)
+                return
+            }
+            // parse the result as JSON, since that's what the API provides
+            do {
+                guard let groupacts = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [[String: AnyObject]] else {
+                    // TODO: handle
+                    print("Couldn't convert received data to JSON dictionary")
+                    return
+                }
+                
+                // Create categories from retrieved data
+                for categorybrief in groupacts {
+                    let category = Category(name: categorybrief["name"] as! String, cid: categorybrief["cid"] as! String)
+                    self.groupacts += [category]
+                }
+                
+                // Set the categories for basics, specialties and group acts
+                Root.rootInstance.dashboard[2].categories = self.groupacts
+            } catch  {
+                print("error trying to convert data to JSON")
+            }
+        }
+        task3.resume()
         
         self.title = "Root"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -106,8 +187,11 @@ class MasterVC: UITableViewController {
         
         let dashboard = Root.rootInstance.dashboard[indexPath.row]
         
+        // Navigate to category view
         let vc = CategoryVC()
+
         vc.sDelegate = self.sDelegate
+
         vc.categories = dashboard.categories
         vc.dashboard = Root.rootInstance.dashboard[indexPath.row]
         

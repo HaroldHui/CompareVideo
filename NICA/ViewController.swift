@@ -18,7 +18,6 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
     var category: Category = Category()
     var act: Act = Act()
     var level: Level = Level()
-    var skill: Skill = Skill()
     var video: Video = Video()
     var picture: Picture = Picture()
     
