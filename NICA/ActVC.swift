@@ -9,6 +9,7 @@
 import UIKit
 
 class ActVC: UITableViewController {
+    var sDelegate: SelectionDelegate?
     
     var dashboard: Dashboard = Dashboard()
     var category: Category = Category()
@@ -17,14 +18,13 @@ class ActVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Draw the back button
-        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
-        backButton.setTitle("Back to Categories", forState: UIControlState.Normal)
-        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        backButton.addTarget(self, action: #selector(backToCategories), forControlEvents: UIControlEvents.TouchUpInside)
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.customView = backButton
-        self.navigationItem.leftBarButtonItem = leftBarButton
+//        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
+//        backButton.setTitle("Back to Categories", forState: UIControlState.Normal)
+//        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+//        backButton.addTarget(self, action: #selector(backToCategories), forControlEvents: UIControlEvents.TouchUpInside)
+//        let leftBarButton = UIBarButtonItem()
+//        leftBarButton.customView = backButton
+//        self.navigationItem.leftBarButtonItem = leftBarButton
         
         self.title = "Acts"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -59,6 +59,10 @@ class ActVC: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Title"
+    }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -79,6 +83,7 @@ class ActVC: UITableViewController {
         
         // Navigate to level view
         let vc = LevelVC()
+        vc.sDelegate = self.sDelegate
         vc.dashboard = dashboard
         vc.category = category
         vc.act = act
@@ -86,7 +91,8 @@ class ActVC: UITableViewController {
         let nc = UINavigationController()
         nc.viewControllers = [vc]
         
-        self.showDetailViewController(nc, sender: self)
+        self.navigationController?.pushViewController(vc, animated: true)
+//        self.showDetailViewController(nc, sender: self)
     }
 
     /*

@@ -9,6 +9,7 @@
 import UIKit
 
 class CategoryVC: UITableViewController {
+    var sDelegate:SelectionDelegate? = nil
     
     var dashboard: Dashboard = Dashboard()
     var categories: [Category] = []
@@ -57,14 +58,17 @@ class CategoryVC: UITableViewController {
         category.acts = [Act(name: "Act1"), Act(name: "Act2")]
 
         let vc = ActVC()
-        vc.dashboard = self.dashboard
+        
+        vc.sDelegate = self.sDelegate
+        vc.dashboard = dashboard
+
         vc.category = category
         vc.acts = category.acts
         
         let nc = UINavigationController()
         nc.viewControllers = [vc]
-        
-        self.showDetailViewController(nc, sender: self)
+
+        self.navigationController?.pushViewController(vc, animated: true)
         
         // Get acts from API based on category id
         let todoEndpoint: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/category/" + category.cid
@@ -122,6 +126,10 @@ class CategoryVC: UITableViewController {
             }
         }
         task.resume()
+
+        self.navigationController?.pushViewController(vc, animated: true)
+//        self.showDetailViewController(nc, sender: self)
+
     }
 
     /*

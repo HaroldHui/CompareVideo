@@ -11,8 +11,9 @@ import AVKit
 import AVFoundation
 import MobileCoreServices
 
-class ViewController: UIViewController, SelectVideoViewControllerDelegate, SelectImageDelegate, UIScrollViewDelegate {
+class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate {
     
+    // ------------------- VARIABLES FOR INIT --------------------
     var dashboard: Dashboard = Dashboard()
     var category: Category = Category()
     var act: Act = Act()
@@ -23,146 +24,152 @@ class ViewController: UIViewController, SelectVideoViewControllerDelegate, Selec
     // URL path for any video or image
     var path = ""
     
-    // use the scroll view to enable the zoom in and zoom out feature
-    var scrollView = UIScrollView()
-    var playerController = AVPlayerViewController()
+    // Scroll View for two videos' view
+    var sview1 = UIScrollView()
+    var sview2 = UIScrollView()
+    
+    // two video view controllers
+    var player1vc = AVPlayerViewController?()
+    var player2vc = AVPlayerViewController?()
+    
+    // two video players
+    var player1 = AVPlayer?()
+    var player2 = AVPlayer?()
+    
+    // -------------------- FUNCTIONS --------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.clearColor()
-        scrollView.delegate = self
-        scrollView.frame = CGRect(x: 10, y: 150, width: self.view.frame.width/2, height: self.view.frame.width/2)
-        scrollView.backgroundColor = UIColor.darkGrayColor()
-        scrollView.showsVerticalScrollIndicator = true
-        scrollView.flashScrollIndicators()
+        // loading the ui scroll views
+        self.sview1.delegate = self
+        self.sview1.minimumZoomScale = 1.0
+        self.sview1.maximumZoomScale = 10.0
         
-        scrollView.minimumZoomScale = 1.0
-        scrollView.maximumZoomScale = 10.0
+        self.view.addSubview(self.sview1)
         
-        let videoImageUrl = UILabel(frame: CGRect(x: 10, y: 100, width: 150, height: 50))
-        videoImageUrl.text = video.dir
-        self.view.addSubview(videoImageUrl)
+        self.sview2.delegate = self
+        self.sview2.minimumZoomScale = 1.0
+        self.sview2.maximumZoomScale = 10.0
         
-        let player = AVPlayer(URL: NSURL(fileURLWithPath: video.dir))
+        self.view.addSubview(self.sview2)
         
-        playerController.view.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.width)
-        playerController.player = player
-        // DISABLE ALL THE USER INTERACITON, INCLUDING THE PINCH GESTURE
-        // THIS WAY, THE VIDEO CAN BE ZOOMED LIKE AN IMAGE
-        // HOWEVER NEED TO IMPLEMENT ALL THE BUTTONS OUTSIDE
-        // THE VIDEO PLAYER
-        playerController.view.userInteractionEnabled = false
-        playerController.showsPlaybackControls = false
-        
-        self.addChildViewController(playerController)
-        
-        self.view.addSubview(scrollView)
-        scrollView.addSubview(playerController.view)
-        
-        // BUTTONS FOR CONTROLLING THE VIDEO
-        // PLAY, PAUSE, SLOW MOTION
-        let button1 = UIButton(frame: CGRect(x: 10, y: 175 + self.view.frame.width/2, width: 100, height: 50))
-        button1.setTitle("Play", forState: UIControlState.Normal)
-        button1.titleLabel?.text = "Play"
-        button1.backgroundColor = UIColor.blackColor()
-        
-        button1.addTarget(self, action: #selector(self.play(_:)), forControlEvents: .TouchUpInside)
-        
-        self.view.addSubview(button1)
-        
-        let button2 = UIButton(frame: CGRect(x: 120, y: 175 + self.view.frame.width/2, width: 100, height: 50))
-        button2.setTitle("Pause", forState: UIControlState.Normal)
-        button2.titleLabel?.text = "Pause"
-        button2.backgroundColor = UIColor.blackColor()
-        
-        button2.addTarget(self, action: #selector(self.pause(_:)), forControlEvents: .TouchUpInside)
-        
-        self.view.addSubview(button2)
-        
-        let button3 = UIButton(frame: CGRect(x: 230, y: 175 + self.view.frame.width/2, width: 100, height: 50))
-        button3.setTitle("Slow-Mo", forState: UIControlState.Normal)
-        button3.titleLabel?.text = "Slow-Mo"
-        button3.backgroundColor = UIColor.blackColor()
-        
-        button3.addTarget(self, action: #selector(self.slowmo(_:)), forControlEvents: .TouchUpInside)
-        
-        self.view.addSubview(button3)
+        displaySelectionButtons()
     }
     
-    func play(sender: UIButton) {
-        playerController.player?.play()
-    }
-    
-    func pause(sender: UIButton) {
-        playerController.player?.pause()
-    }
-    
-    func slowmo(sender: UIButton) {
-        playerController.player!.rate = 0.5
-    }
-    
-    // when the SelectVideoViewController finished selecting the path, it sends the url path
-    // to this ViewController then play the video
-    func myVCDidFinish(controller: SelectVideoViewController, text: String) {
-        self.path = text
-        
-        let player = AVPlayer(URL: NSURL(fileURLWithPath: path))
-        
-        playerController.view.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.width)
-        playerController.player = player
-        // DISABLE ALL THE USER INTERACITON, INCLUDING THE PINCH GESTURE
-        // THIS WAY, THE VIDEO CAN BE ZOOMED LIKE AN IMAGE
-        // HOWEVER NEED TO IMPLEMENT ALL THE BUTTONS OUTSIDE
-        // THE VIDEO PLAYER
-        playerController.view.userInteractionEnabled = false
-        playerController.showsPlaybackControls = false
-        
-        self.addChildViewController(playerController)
-        
-        self.view.addSubview(scrollView)
-        scrollView.addSubview(playerController.view)
-        
-        controller.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return self.scrollView.subviews[0]
-    }
-    
-    func showImage(controller: SelectImageVC, path: String) {
+    // this function adds the a new UIScrollView and a new video controller
+    // based on the given path (URL) from the selection page
+    // also, it removes the previous UIScrollView and video controller if there existed
+    func myVCDidFinish(controller: UIViewController, path: String) {
         self.path = path
         
-        let image = UIImage(contentsOfFile: path)
-        let imageView = UIImageView(image: image!)
-        imageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.width)
+        // if a uiscrollview already exists, remove it first
+        // then add a new one
+        self.sview1.removeFromSuperview()
         
-        self.view.addSubview(scrollView)
-        scrollView.addSubview(imageView)
+        self.sview1 = UIScrollView()
         
-        controller.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    // prepare for segue
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "mySegue"{
-            let vc = segue.destinationViewController as! SelectVideoViewController
-            vc.path = self.path
-            vc.delegate = self
+        self.sview1.delegate = self
+        self.sview1.minimumZoomScale = 1.0
+        self.sview1.maximumZoomScale = 10.0
+        
+        self.view.addSubview(self.sview1)
+        
+        // if there is no video on the right side, show it wide
+        // otherwise, divie the view
+        if player2vc == nil {
+            self.sview1.frame = CGRect(x: 10, y: 125, width: self.view.frame.width-20, height: self.view.frame.width/2)
+        } else {
+            self.sview1.frame = CGRect(x: 10, y: 125, width: (self.view.frame.width/2)-15, height: self.view.frame.width/2)
+            // update the frame of the ui scroll view, labels, and ui slider
+            self.sview2.frame = CGRect(x: (self.view.frame.width/2)+5, y: 125, width: (self.view.frame.width/2)-15, height: self.view.frame.width/2)
+            self.timeElapsedLabel2.frame = CGRect(x: self.sview2.frame.origin.x, y: 650, width: self.labelWidth, height: 30)
+            self.seekSlider2.frame = CGRect(x: self.timeElapsedLabel2.frame.origin.x + self.labelWidth,
+                                            y: 650, width: self.sview2.bounds.size.width - self.labelWidth - self.labelWidth, height: 30)
+            self.timeRemainingLabel2.frame = CGRect(x: self.seekSlider2.frame.origin.x + self.seekSlider2.bounds.size.width, y: 650, width: self.labelWidth, height: 30)
+            self.displayPlayBothButton()
         }
-    }
+        
+        // if a video view controller already exists, remove it first
+        player1vc?.removeFromParentViewController()
+        player1vc?.view.removeFromSuperview()
+        
+        self.player1 = AVPlayer(URL: NSURL(fileURLWithPath: path))
+        
+        // player's time
+        let timeInterval: CMTime = CMTimeMakeWithSeconds(1.0, 10)
+        timeObserver1 = self.player1!.addPeriodicTimeObserverForInterval(timeInterval,
+                                                                   queue: dispatch_get_main_queue()) { (elapsedTime: CMTime) -> Void in
+                                                                    
+                                                                    //print("elapsedTime now:", CMTimeGetSeconds(elapsedTime))
+                                                                    self.observeTime(elapsedTime, player: self.player1!, timeElapsedLabel: self.timeElapsedLabel1, timeRemainingLabel: self.timeRemainingLabel1)
+        }
+        
+        // notification when the video has ended
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.player1DidFinishPlaying(_:)),
+                                                         name: AVPlayerItemDidPlayToEndTimeNotification, object: player1!.currentItem)
+        
+        self.player1vc = AVPlayerViewController()
+        
+        self.player1vc!.player = self.player1!
+        self.player1vc!.view.frame = CGRect(x: 0, y: 0, width: self.sview1.frame.width, height: self.sview1.frame.height)
+        
+        // disable user interaction for enabling the zoom in/out feature
+        self.player1vc!.view.userInteractionEnabled = false
+        self.player1vc!.showsPlaybackControls = false
+        
+        self.addChildViewController(self.player1vc!)
+        self.sview1.addSubview(self.player1vc!.view)
+        
+        self.displayVideo1Buttons()
 
-    @IBAction func goToSelectImage(sender: UIButton) {
-        let vc = SelectImageSVC()
-        //vc.delegate = self
-        self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    // "Select A Local Video" button leading to local video library
-    @IBAction func selectLocalVideo() {
+//    func showImage(controller: SelectImageVC, path: String) {
+//        self.path = path
+//        
+//        let image = UIImage(contentsOfFile: path)
+//        let imageView = UIImageView(image: image!)
+//        imageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.width)
+//        
+//        self.view.addSubview(scrollView)
+//        scrollView.addSubview(imageView)
+//        
+//        controller.navigationController?.popViewControllerAnimated(true)
+//    }
+    
+    // when video 1 has finished playing to end
+    func player1DidFinishPlaying(note: NSNotification) {
+        video1State = 2
+        playButton1.setTitle("Replay", forState: .Normal)
+        playButton1.titleLabel!.text = "Replay"
+    }
+    
+    // when video 2 has finished playing to end
+    func player2DidFinishPlaying(note: NSNotification) {
+        video2State = 2
+        playButton2.setTitle("Replay", forState: .Normal)
+        playButton2.titleLabel!.text = "Replay"
+    }
+    
+    // zooming video
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return scrollView.subviews[0]
+    }
+    
+    // "Select from Cloud" button leading to Selection Page
+    func goToSelectionPage(sender: UIButton) {
+        let svc = SelectImageSVC();
+        svc.sDelegate = self
+        self.navigationController?.presentViewController(svc, animated: true, completion: nil)
+    }
+    
+    // "Select from Local" button leading to local video library
+    func selectLocalVideo(sender: UIButton) {
         startMediaBrowserFromViewController(self, usingDelegate: self)
     }
     
+    // browsing local videos
     func startMediaBrowserFromViewController(viewController: UIViewController, usingDelegate delegate: protocol<UINavigationControllerDelegate, UIImagePickerControllerDelegate>) -> Bool {
         // 1
         if UIImagePickerController.isSourceTypeAvailable(.SavedPhotosAlbum) == false {
@@ -190,13 +197,391 @@ class ViewController: UIViewController, SelectVideoViewControllerDelegate, Selec
         dismissViewControllerAnimated(true) {
             // 3
             if mediaType == kUTTypeMovie {
-                let player2 = AVPlayer(URL: info[UIImagePickerControllerMediaURL] as! NSURL)
-                let playerController2 = AVPlayerViewController()
-                playerController2.view.frame = CGRect(x: 20+self.view.frame.size.width/2, y: 150, width: self.view.frame.size.width/2, height: self.view.frame.size.height/2)
-                playerController2.player = player2
-                self.addChildViewController(playerController2)
-                self.view.addSubview(playerController2.view)
+                // if a uiscrollview already exists, remove it first
+                // then add a new one
+                self.sview2.removeFromSuperview()
+                
+                self.sview2 = UIScrollView()
+                
+                self.sview2.delegate = self
+                self.sview2.minimumZoomScale = 1.0
+                self.sview2.maximumZoomScale = 10.0
+                
+                self.view.addSubview(self.sview2)
+
+                // if there is no video on the left side, show it wide
+                // otherwise, divide the view
+                if self.player1vc == nil {
+                    self.sview2.frame = CGRect(x: 10, y: 125, width: self.view.frame.width-20, height: self.view.frame.width/2)
+                } else {
+                    // update the frame of the ui scroll view, labels, and ui slider
+                    self.sview1.frame = CGRect(x: 10, y: 125, width: (self.view.frame.width/2)-15, height: self.view.frame.width/2)
+                    self.timeElapsedLabel1.frame = CGRect(x: self.sview1.frame.origin.x, y: 650, width: self.labelWidth, height: 30)
+                    self.seekSlider1.frame = CGRect(x: self.timeElapsedLabel1.frame.origin.x + self.labelWidth,
+                                               y: 650, width: self.sview1.bounds.size.width - self.labelWidth - self.labelWidth, height: 30)
+                    self.timeRemainingLabel1.frame = CGRect(x: self.seekSlider1.frame.origin.x + self.seekSlider1.bounds.size.width, y: 650, width: self.labelWidth, height: 30)
+                    self.sview2.frame = CGRect(x: (self.view.frame.width/2)+5, y: 125, width: (self.view.frame.width/2)-15, height: self.view.frame.width/2)
+                    self.displayPlayBothButton()
+                }
+                
+                // if a video view controller already exists, remove it first
+                self.player2vc?.removeFromParentViewController()
+                self.player2vc?.view.removeFromSuperview()
+                
+                self.player2 = AVPlayer(URL: info[UIImagePickerControllerMediaURL] as! NSURL)
+                
+                // player's time
+                let timeInterval: CMTime = CMTimeMakeWithSeconds(1.0, 10)
+                self.timeObserver2 = self.player2!.addPeriodicTimeObserverForInterval(timeInterval,
+                                                                                queue: dispatch_get_main_queue()) { (elapsedTime: CMTime) -> Void in
+                                                                                    
+                                                                                    //print("elapsedTime now:", CMTimeGetSeconds(elapsedTime))
+                                                                                    self.observeTime(elapsedTime, player: self.player2!, timeElapsedLabel: self.timeElapsedLabel2, timeRemainingLabel: self.timeRemainingLabel2)
+                }
+                
+                // notification when the video has ended
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.player2DidFinishPlaying(_:)),
+                                                                 name: AVPlayerItemDidPlayToEndTimeNotification, object: self.player2!.currentItem)
+                
+                self.player2vc = AVPlayerViewController()
+                
+                self.player2vc!.player = self.player2!
+                self.player2vc!.view.frame = CGRect(x: 0, y: 0, width: self.sview2.frame.width, height: self.sview2.frame.height)
+                
+                // disable user interaction for enabling the zoom in/out feature
+                self.player2vc!.view.userInteractionEnabled = false
+                self.player2vc!.showsPlaybackControls = false
+                
+                self.addChildViewController(self.player2vc!)
+                self.sview2.addSubview(self.player2vc!.view)
+                
+                self.displayVideo2Buttons()
+
             }
+        }
+    }
+    
+    // Functions for updating the time for the videos
+    func updateTimeLabel(elapsedTime elapsedTime: Float64, duration: Float64, player: AVPlayer, timeElapsedLabel: UILabel, timeRemainingLabel: UILabel) {
+        let timeRemaining: Float64 = CMTimeGetSeconds(player.currentItem!.duration) - elapsedTime
+        timeElapsedLabel.text = String(format: "%02d:%02d", ((lround(elapsedTime) / 60) % 60), lround(elapsedTime) % 60)
+        timeRemainingLabel.text = String(format: "%02d:%02d", ((lround(timeRemaining) / 60) % 60), lround(timeRemaining) % 60)
+        
+        // also updating the slider value to follow the elapsed time
+        let sliderValue = elapsedTime/CMTimeGetSeconds(player.currentItem!.duration)
+        let floatValue = Float(sliderValue)
+        if player == player1 {
+            seekSlider1.setValue(floatValue, animated: true)
+        } else if player == player2 {
+            seekSlider2.setValue(floatValue, animated: true)
+        }
+    }
+    
+    // Function to observe the video time
+    func observeTime(elapsedTime: CMTime, player: AVPlayer, timeElapsedLabel: UILabel, timeRemainingLabel: UILabel) {
+        let duration = CMTimeGetSeconds(player.currentItem!.duration)
+        if isfinite(duration) {
+            let elapsedTime = CMTimeGetSeconds(elapsedTime)
+            updateTimeLabel(elapsedTime: elapsedTime, duration: duration, player: player, timeElapsedLabel: timeElapsedLabel, timeRemainingLabel: timeRemainingLabel)
+        }
+    }
+    
+    // Functions for the slider 1 tracking
+    // when the user starts to touch slider 1 to seek the preferred time
+    func slider1BeganTracking(slider: UISlider) {
+        player1RateBeforeSeek = player1!.rate
+        player1?.pause()
+    }
+    
+    // when the user has decided on the preferred time and release the finger
+    func slider1EndedTracking(slider: UISlider) {
+        let videoDuration = CMTimeGetSeconds(player1!.currentItem!.duration)
+        let elapsedTime: Float64 = videoDuration * Float64(seekSlider1.value)
+        updateTimeLabel(elapsedTime: elapsedTime, duration: videoDuration, player: self.player1!, timeElapsedLabel: self.timeElapsedLabel1, timeRemainingLabel: self.timeRemainingLabel1)
+        
+        player1!.seekToTime(CMTimeMakeWithSeconds(elapsedTime, 100)) { (completed: Bool) -> Void in
+            if self.player1RateBeforeSeek > 0 {
+                self.player1?.play()
+            }
+        }
+    }
+    
+    // when the value of the slider gets changed, video 1 will follow accordingly
+    func slider1ValueChanged(slider: UISlider) {
+        let videoDuration = CMTimeGetSeconds(player1!.currentItem!.duration)
+        let elapsedTime: Float64 = videoDuration * Float64(seekSlider1.value)
+        updateTimeLabel(elapsedTime: elapsedTime, duration: videoDuration, player: self.player1!, timeElapsedLabel: self.timeElapsedLabel1, timeRemainingLabel: self.timeRemainingLabel1)
+    }
+    
+    // Functions for the slider 2 tracking
+    // when the user starts to touch slider 2 to seek the preferred time
+    func slider2BeganTracking(slider: UISlider) {
+        player2RateBeforeSeek = player2!.rate
+        player2?.pause()
+    }
+    
+    // when the user has decided on the preferred time and release the finger
+    func slider2EndedTracking(slider: UISlider) {
+        let videoDuration = CMTimeGetSeconds(player2!.currentItem!.duration)
+        let elapsedTime: Float64 = videoDuration * Float64(seekSlider2.value)
+        updateTimeLabel(elapsedTime: elapsedTime, duration: videoDuration, player: self.player2!, timeElapsedLabel: self.timeElapsedLabel2, timeRemainingLabel: self.timeRemainingLabel2)
+        
+        player2!.seekToTime(CMTimeMakeWithSeconds(elapsedTime, 100)) { (completed: Bool) -> Void in
+            if self.player2RateBeforeSeek > 0 {
+                self.player2?.play()
+            }
+        }
+    }
+    
+    // when the value of slider 2 gets changed, video 2 will follow accordingly
+    func slider2ValueChanged(slider: UISlider) {
+        let videoDuration = CMTimeGetSeconds(player2!.currentItem!.duration)
+        let elapsedTime: Float64 = videoDuration * Float64(seekSlider2.value)
+        updateTimeLabel(elapsedTime: elapsedTime, duration: videoDuration, player: self.player2!, timeElapsedLabel: self.timeElapsedLabel2, timeRemainingLabel: self.timeRemainingLabel2)
+    }
+    
+    // Video States
+    // 0 : the video is paused
+    // 1 : the video is played
+    // 2 : the video has ended
+    var video1State = 0
+    var video2State = 0
+    
+    // Function for playing, pausing, and replaying a video
+    func play(sender: UIButton) {
+        // updating the state and the button text according to which video calls this function
+        if sender.tag == 1 {
+            if video1State == 0 {
+                player1vc?.player?.play()
+                video1State = 1
+                sender.setTitle("Pause", forState: UIControlState.Normal)
+                sender.titleLabel!.text = "Pause"
+            } else if video1State == 1 {
+                player1vc?.player?.pause()
+                video1State = 0
+                sender.setTitle("Play", forState: UIControlState.Normal)
+                sender.titleLabel!.text = "Play"
+            } else if video1State == 2 {
+                player1vc?.player?.seekToTime(kCMTimeZero)
+                player1vc?.player?.play()
+                video1State = 1
+                sender.setTitle("Pause", forState: UIControlState.Normal)
+                sender.titleLabel!.text = "Pause"
+            }
+        } else if sender.tag == 2 {
+            if video2State == 0 {
+                player2vc?.player?.play()
+                video2State = 1
+                sender.setTitle("Pause", forState: UIControlState.Normal)
+                sender.titleLabel!.text = "Pause"
+            } else if video2State == 1 {
+                player2vc?.player?.pause()
+                video2State = 0
+                sender.setTitle("Play", forState: UIControlState.Normal)
+                sender.titleLabel!.text = "Play"
+            } else if video2State == 2 {
+                player2vc?.player?.seekToTime(kCMTimeZero)
+                player2vc?.player?.play()
+                video2State = 1
+                sender.setTitle("Pause", forState: UIControlState.Normal)
+                sender.titleLabel!.text = "Pause"
+            }
+        }
+        
+        
+    }
+    
+    // Function for making the video slow motion (half rate)
+    func slowmo(sender: UIButton) {
+        if sender.tag == 1 {
+            player1vc?.player!.rate = 0.5
+        } else if sender.tag == 2 {
+            player2vc?.player!.rate = 0.5
+        }
+    }
+    
+    func playBothVideo(sender: UIButton) {
+        if (video1State == 0 || video2State == 0) {
+            player1vc?.player?.play()
+            player2vc?.player?.play()
+            video1State = 1
+            video2State = 1
+            playButton1.setTitle("Pause", forState: UIControlState.Normal)
+            playButton1.titleLabel!.text = "Pause"
+            playButton2.setTitle("Pause", forState: UIControlState.Normal)
+            playButton2.titleLabel!.text = "Pause"
+            sender.setTitle("Pause Both", forState: UIControlState.Normal)
+            sender.titleLabel!.text = "Pause Both"
+        } else if (video1State == 1 || video2State == 1) {
+            player1vc?.player?.pause()
+            player2vc?.player?.pause()
+            video1State = 0
+            video2State = 0
+            playButton1.setTitle("Play", forState: UIControlState.Normal)
+            playButton1.titleLabel!.text = "Play"
+            playButton2.setTitle("Play", forState: UIControlState.Normal)
+            playButton2.titleLabel!.text = "Play"
+            sender.setTitle("Play Both", forState: UIControlState.Normal)
+            sender.titleLabel!.text = "Play Both"
+        }
+    }
+    
+    
+    // -------------------- UI --------------------
+    let labelWidth: CGFloat = 60
+    let buttonWidth: CGFloat = 100
+    
+    var timeObserver1 : AnyObject!
+    var player1RateBeforeSeek: Float = 0
+    var timeElapsedLabel1 = UILabel()
+    var timeRemainingLabel1 = UILabel()
+    let seekSlider1 = UISlider()
+    let playButton1 = UIButton()
+    let slowmoButton1 = UIButton()
+    
+    var timeObserver2 : AnyObject!
+    var player2RateBeforeSeek: Float = 0
+    var timeElapsedLabel2 = UILabel()
+    var timeRemainingLabel2 = UILabel()
+    let seekSlider2 = UISlider()
+    let playButton2 = UIButton()
+    let slowmoButton2 = UIButton()
+    
+    let playBothButton = UIButton()
+    
+    func displaySelectionButtons() {
+        // Button for Select Cloud Video or Image
+        let selectCloudButton = UIButton(frame: CGRect(x: 10, y: 75, width: 150, height: 25))
+        selectCloudButton.setTitle("Select from Cloud", forState: UIControlState.Normal)
+        selectCloudButton.titleLabel!.text = "Select from Cloud"
+        selectCloudButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        selectCloudButton.addTarget(self, action: #selector(ViewController.goToSelectionPage(_:)), forControlEvents: .TouchUpInside)
+        
+        self.view.addSubview(selectCloudButton)
+        
+        // Button for Select Local Video
+        let selectLocalButton = UIButton(frame: CGRect(x: 10+self.view.frame.size.width/2, y: 75, width: 150, height: 25))
+        selectLocalButton.setTitle("Select from Local", forState: UIControlState.Normal)
+        selectLocalButton.titleLabel!.text = "Select from Local"
+        selectLocalButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        selectLocalButton.addTarget(self, action: #selector(ViewController.selectLocalVideo(_:)), forControlEvents: .TouchUpInside)
+        
+        self.view.addSubview(selectLocalButton)
+    }
+    
+    // Displaying buttons and controller for video 1
+    func displayVideo1Buttons() {
+        // time elapsed label
+        timeElapsedLabel1.frame = CGRect(x: self.sview1.frame.origin.x, y: 650, width: labelWidth, height: 30)
+        timeElapsedLabel1.textColor = UIColor.blackColor()
+        if !timeElapsedLabel1.isDescendantOfView(self.view) {
+            self.view.addSubview(timeElapsedLabel1)
+        }
+        
+        // UI slider for tracking video time
+        if !seekSlider1.isDescendantOfView(self.view) {
+            self.view.addSubview(seekSlider1)
+        }
+        seekSlider1.addTarget(self, action: #selector(slider1BeganTracking),
+                             forControlEvents: .TouchDown)
+        seekSlider1.addTarget(self, action: #selector(slider1EndedTracking),
+                             forControlEvents: [.TouchUpInside, .TouchUpOutside])
+        seekSlider1.addTarget(self, action: #selector(slider1ValueChanged),
+                             forControlEvents: .ValueChanged)
+        seekSlider1.frame = CGRect(x: timeElapsedLabel1.frame.origin.x + labelWidth,
+                                  y: 650, width: sview1.bounds.size.width - labelWidth - labelWidth, height: 30)
+        
+        // time remaining label
+        timeRemainingLabel1.frame = CGRect(x: seekSlider1.frame.origin.x + seekSlider1.bounds.size.width, y: 650, width: labelWidth, height: 30)
+        timeRemainingLabel1.textColor = UIColor.blackColor()
+        if !timeRemainingLabel1.isDescendantOfView(self.view) {
+            self.view.addSubview(timeRemainingLabel1)
+        }
+        
+        // play/pause/replay button
+        playButton1.frame = CGRect(x: 10, y: 700, width: buttonWidth, height: 50)
+        playButton1.setTitle("Play", forState: UIControlState.Normal)
+        playButton1.titleLabel?.text = "Play"
+        playButton1.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        playButton1.tag = 1
+        playButton1.addTarget(self, action: #selector(self.play(_:)), forControlEvents: .TouchUpInside)
+        if !playButton1.isDescendantOfView(self.view) {
+            self.view.addSubview(playButton1)
+        }
+        
+        // slow-mo button
+        slowmoButton1.frame = CGRect(x: 120, y: 700, width: buttonWidth, height: 50)
+        slowmoButton1.setTitle("Slow-Mo", forState: UIControlState.Normal)
+        slowmoButton1.titleLabel?.text = "Slow-Mo"
+        slowmoButton1.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        slowmoButton1.tag = 1
+        slowmoButton1.addTarget(self, action: #selector(self.slowmo(_:)), forControlEvents: .TouchUpInside)
+        if !slowmoButton1.isDescendantOfView(self.view) {
+            self.view.addSubview(slowmoButton1)
+        }
+    }
+    
+    // Displaying buttons and controller for video 2
+    func displayVideo2Buttons() {
+        // time elapsed label
+        timeElapsedLabel2.frame = CGRect(x: self.sview2.frame.origin.x, y: 650, width: labelWidth, height: 30)
+        timeElapsedLabel2.textColor = UIColor.blackColor()
+        if !timeElapsedLabel2.isDescendantOfView(self.view) {
+            self.view.addSubview(timeElapsedLabel2)
+        }
+        
+        // UI slider
+        if !seekSlider2.isDescendantOfView(self.view) {
+            self.view.addSubview(seekSlider2)
+        }
+        seekSlider2.addTarget(self, action: #selector(slider2BeganTracking),
+                              forControlEvents: .TouchDown)
+        seekSlider2.addTarget(self, action: #selector(slider2EndedTracking),
+                              forControlEvents: [.TouchUpInside, .TouchUpOutside])
+        seekSlider2.addTarget(self, action: #selector(slider2ValueChanged),
+                              forControlEvents: .ValueChanged)
+        seekSlider2.frame = CGRect(x: timeElapsedLabel2.frame.origin.x + labelWidth,
+                                   y: 650, width: sview2.bounds.size.width - labelWidth - labelWidth, height: 30)
+        
+        //  time remaining label
+        timeRemainingLabel2.frame = CGRect(x: seekSlider2.frame.origin.x + seekSlider2.bounds.size.width, y: 650, width: labelWidth, height: 30)
+        timeRemainingLabel2.textColor = UIColor.blackColor()
+        if !timeRemainingLabel2.isDescendantOfView(self.view){
+            self.view.addSubview(timeRemainingLabel2)
+        }
+        
+        // play/pause/replay button
+        playButton2.frame = CGRect(x: 800, y: 700, width: buttonWidth, height: 50)
+        playButton2.setTitle("Play", forState: UIControlState.Normal)
+        playButton2.titleLabel?.text = "Play"
+        playButton2.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        playButton2.tag = 2
+        playButton2.addTarget(self, action: #selector(self.play(_:)), forControlEvents: .TouchUpInside)
+        if !playButton2.isDescendantOfView(self.view) {
+            self.view.addSubview(playButton2)
+        }
+        
+        // slow-mo button
+        slowmoButton2.frame = CGRect(x: 910, y: 700, width: buttonWidth, height: 50)
+        slowmoButton2.setTitle("Slow-Mo", forState: UIControlState.Normal)
+        slowmoButton2.titleLabel?.text = "Slow-Mo"
+        slowmoButton2.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        slowmoButton2.tag = 2
+        slowmoButton2.addTarget(self, action: #selector(self.slowmo(_:)), forControlEvents: .TouchUpInside)
+        if !slowmoButton2.isDescendantOfView(self.view) {
+            self.view.addSubview(slowmoButton2)
+        }
+    }
+    
+    // Displaying button for playing/pausing both videos at the same time
+    func displayPlayBothButton() {
+        playBothButton.frame = CGRect(x: 450, y: 700, width: buttonWidth, height: 50)
+        playBothButton.setTitle("Play Both", forState: UIControlState.Normal)
+        playBothButton.titleLabel?.text = "Play Both"
+        playBothButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        playBothButton.addTarget(self, action: #selector(self.playBothVideo(_:)), forControlEvents: .TouchUpInside)
+        if !playBothButton.isDescendantOfView(self.view) {
+            self.view.addSubview(playBothButton)
         }
     }
     

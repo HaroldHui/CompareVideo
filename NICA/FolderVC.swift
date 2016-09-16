@@ -9,7 +9,7 @@
 import UIKit
 
 class FolderVC: UITableViewController {
-    
+    var sDelegate: SelectionDelegate?
     var dashboard: Dashboard = Dashboard()
     var category: Category = Category()
     var act: Act = Act()
@@ -19,14 +19,13 @@ class FolderVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Draw the back button
-        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
-        backButton.setTitle("Back to Levels", forState: UIControlState.Normal)
-        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        backButton.addTarget(self, action: #selector(backToLevels), forControlEvents: UIControlEvents.TouchUpInside)
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.customView = backButton
-        self.navigationItem.leftBarButtonItem = leftBarButton
+//        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
+//        backButton.setTitle("Back to Levels", forState: UIControlState.Normal)
+//        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+//        backButton.addTarget(self, action: #selector(backToLevels), forControlEvents: UIControlEvents.TouchUpInside)
+//        let leftBarButton = UIBarButtonItem()
+//        leftBarButton.customView = backButton
+//        self.navigationItem.leftBarButtonItem = leftBarButton
         
         self.title = "Folders"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -136,6 +135,7 @@ class FolderVC: UITableViewController {
         
         // Navigate to the picture and video view
         let vc = PictureVideoVC()
+        vc.sDelegate = self.sDelegate
         vc.dashboard = dashboard
         vc.category = category
         vc.act = act
@@ -146,7 +146,8 @@ class FolderVC: UITableViewController {
         let nc = UINavigationController()
         nc.viewControllers = [vc]
         
-        self.showDetailViewController(nc, sender: self)
+        self.navigationController?.pushViewController(vc, animated: true)
+//        self.showDetailViewController(nc, sender: self)
     }
     
     /*
