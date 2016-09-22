@@ -92,7 +92,7 @@ class LevelVC: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         // Load acts from API
-        let todoEndpoint: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/category" + category.cid + "/act/" + act.aid
+        let todoEndpoint: String = URLOFAPI + "category" + category.cid + "/act/" + act.aid
         guard let url = NSURL(string: todoEndpoint) else {
             print("Error: cannot create URL")
             return

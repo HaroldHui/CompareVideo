@@ -71,7 +71,7 @@ class CategoryVC: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
         
         // Get acts from API based on category id
-        let todoEndpoint: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/category/" + category.cid
+        let todoEndpoint: String = URLOFAPI + "category/" + category.cid
         guard let url = NSURL(string: todoEndpoint) else {
             print("Error: cannot create URL")
             return

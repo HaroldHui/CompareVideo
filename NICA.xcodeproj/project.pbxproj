@@ -45,6 +45,7 @@
 		A4F0CFDF1D5589B8005ED3FE /* Image 2.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFDD1D5589B8005ED3FE /* Image 2.png */; };
 		A4F0CFE31D5589DC005ED3FE /* 1 Arm Press.MOV in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFE11D5589DC005ED3FE /* 1 Arm Press.MOV */; };
 		A4F0CFE41D5589DC005ED3FE /* Elbow low and push up.MOV in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFE21D5589DC005ED3FE /* Elbow low and push up.MOV */; };
+		F4DA56E21D93B70E00268F6F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA56E11D93B70E00268F6F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		A4F0CFDD1D5589B8005ED3FE /* Image 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Image 2.png"; sourceTree = "<group>"; };
 		A4F0CFE11D5589DC005ED3FE /* 1 Arm Press.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "1 Arm Press.MOV"; sourceTree = "<group>"; };
 		A4F0CFE21D5589DC005ED3FE /* Elbow low and push up.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Elbow low and push up.MOV"; sourceTree = "<group>"; };
+		F4DA56E11D93B70E00268F6F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 		A49E86D21CEC39D1002AC786 /* NICA */ = {
 			isa = PBXGroup;
 			children = (
+				F4DA56E01D93B70400268F6F /* Common */,
 				A4F0CFD91D55899B005ED3FE /* Resources */,
 				A4F0CFD41D558907005ED3FE /* Controller */,
 				A4F0CFD31D558902005ED3FE /* View */,
@@ -266,6 +269,14 @@
 			name = Video;
 			sourceTree = "<group>";
 		};
+		F4DA56E01D93B70400268F6F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				F4DA56E11D93B70E00268F6F /* Constants.swift */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -335,6 +346,7 @@
 					A49E86CF1CEC39D1002AC786 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = F6FSB77ABL;
+						LastSwiftMigration = 0800;
 					};
 					A49E86E31CEC39D1002AC786 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -422,6 +434,7 @@
 				3F089E7E1D6057A400467C2F /* Video.swift in Sources */,
 				A4C51AE21D589F1800D6D733 /* SelectImageSVC.swift in Sources */,
 				A49E86D41CEC39D1002AC786 /* AppDelegate.swift in Sources */,
+				F4DA56E21D93B70E00268F6F /* Constants.swift in Sources */,
 				A4C51AF91D58A5E800D6D733 /* Level.swift in Sources */,
 				A4C51AF11D58A11A00D6D733 /* Category.swift in Sources */,
 				3F089E7B1D60572600467C2F /* PictureVideoVC.swift in Sources */,
@@ -581,6 +594,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = unimelb.NICA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -595,6 +609,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = unimelb.NICA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

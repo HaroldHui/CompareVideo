@@ -19,7 +19,7 @@ class MasterVC: UITableViewController {
         super.viewDidLoad()
         
         // Load categories from API
-        let todoEndpoint: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/basics"
+        let todoEndpoint: String = URLOFAPI + "basics"
         guard let url = NSURL(string: todoEndpoint) else {
             print("Error: cannot create URL")
             return
@@ -64,7 +64,7 @@ class MasterVC: UITableViewController {
         task.resume()
         
         // Load categories from API
-        let todoEndpoint2: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/specialties"
+        let todoEndpoint2: String = URLOFAPI + "specialties"
         guard let url2 = NSURL(string: todoEndpoint2) else {
             print("Error: cannot create URL")
             return
@@ -109,7 +109,7 @@ class MasterVC: UITableViewController {
         task2.resume()
         
         // Load categories from API
-        let todoEndpoint3: String = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/group-acts"
+        let todoEndpoint3: String = URLOFAPI + "group-acts"
         guard let url3 = NSURL(string: todoEndpoint3) else {
             print("Error: cannot create URL")
             return
