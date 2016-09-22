@@ -72,13 +72,20 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
         self.sview1.delegate = self
         self.sview1.minimumZoomScale = 1.0
         self.sview1.maximumZoomScale = 10.0
-        
+
         self.view.addSubview(self.sview1)
+        
+        // rect for draw tools
+        var rect1: CGRect
         
         // if there is no video on the right side, show it wide
         // otherwise, divie the view
         if player2vc == nil {
             self.sview1.frame = CGRect(x: 10, y: 125, width: self.view.frame.width-20, height: self.view.frame.width/2)
+            if let viewWithTag = self.view.viewWithTag(101) {
+                viewWithTag.removeFromSuperview()
+            }
+            rect1 = CGRect(x: 10, y: 125, width: self.view.frame.width-20, height: self.view.frame.width/2)
         } else {
             self.sview1.frame = CGRect(x: 10, y: 125, width: (self.view.frame.width/2)-15, height: self.view.frame.width/2)
             // update the frame of the ui scroll view, labels, and ui slider
@@ -87,8 +94,32 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
             self.seekSlider2.frame = CGRect(x: self.timeElapsedLabel2.frame.origin.x + self.labelWidth,
                                             y: 650, width: self.sview2.bounds.size.width - self.labelWidth - self.labelWidth, height: 30)
             self.timeRemainingLabel2.frame = CGRect(x: self.seekSlider2.frame.origin.x + self.seekSlider2.bounds.size.width, y: 650, width: self.labelWidth, height: 30)
+
+            rect1 = CGRect(x: 10, y: 125, width: (self.view.frame.width/2)-15, height: self.view.frame.width/2)
             self.displayPlayBothButton()
         }
+        
+        // draw start
+        
+        if let viewWithTag = self.view.viewWithTag(101) {
+            viewWithTag.removeFromSuperview()
+        }
+        createImageView1(rect1)
+        self.view.addSubview(imageView1)
+//        self.sview1.userInteractionEnabled = false
+
+        if player2vc != nil  {
+          let rect2 = CGRect(x: (self.view.frame.width/2)+5, y: 125, width: (self.view.frame.width/2)-15, height: self.view.frame.width/2)
+          if let viewWithTag = self.view.viewWithTag(102) {
+                viewWithTag.removeFromSuperview()
+            }
+            createImageView2(rect2)
+            self.view.addSubview(imageView2)
+//            self.sview2.userInteractionEnabled = false
+
+        }
+        
+        // draw end
         
         // if a video view controller already exists, remove it first
         player1vc?.removeFromParentViewController()
@@ -209,10 +240,14 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
                 
                 self.view.addSubview(self.sview2)
 
+                // rect for draw tools
+                var rect1: CGRect
+
                 // if there is no video on the left side, show it wide
                 // otherwise, divide the view
                 if self.player1vc == nil {
                     self.sview2.frame = CGRect(x: 10, y: 125, width: self.view.frame.width-20, height: self.view.frame.width/2)
+                    rect1 = CGRect(x: 10, y: 125, width: self.view.frame.width-20, height: self.view.frame.width/2)
                 } else {
                     // update the frame of the ui scroll view, labels, and ui slider
                     self.sview1.frame = CGRect(x: 10, y: 125, width: (self.view.frame.width/2)-15, height: self.view.frame.width/2)
@@ -222,7 +257,30 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
                     self.timeRemainingLabel1.frame = CGRect(x: self.seekSlider1.frame.origin.x + self.seekSlider1.bounds.size.width, y: 650, width: self.labelWidth, height: 30)
                     self.sview2.frame = CGRect(x: (self.view.frame.width/2)+5, y: 125, width: (self.view.frame.width/2)-15, height: self.view.frame.width/2)
                     self.displayPlayBothButton()
+                    rect1 = CGRect(x: 10, y: 125, width: (self.view.frame.width/2)-15, height: self.view.frame.width/2)
                 }
+                
+                // draw start
+                
+                if let viewWithTag = self.view.viewWithTag(101) {
+                    viewWithTag.removeFromSuperview()
+                }
+                self.createImageView1(rect1)
+                self.view.addSubview(self.imageView1)
+//                self.sview2.userInteractionEnabled = false
+                
+                if self.player1vc != nil  {
+                    let rect2 = CGRect(x: (self.view.frame.width/2)+5, y: 125, width: (self.view.frame.width/2)-15, height: self.view.frame.width/2)
+                    if let viewWithTag = self.view.viewWithTag(102) {
+                        viewWithTag.removeFromSuperview()
+                    }
+                    self.createImageView2(rect2)
+                    self.view.addSubview(self.imageView2)
+//                    self.sview1.userInteractionEnabled = false
+                    
+                }
+                
+                // draw end
                 
                 // if a video view controller already exists, remove it first
                 self.player2vc?.removeFromParentViewController()
@@ -438,6 +496,9 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
     let seekSlider1 = UISlider()
     let playButton1 = UIButton()
     let slowmoButton1 = UIButton()
+    let clearButton1 = UIButton()
+    let enableButton1 = UIButton()
+    
     
     var timeObserver2 : AnyObject!
     var player2RateBeforeSeek: Float = 0
@@ -446,6 +507,9 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
     let seekSlider2 = UISlider()
     let playButton2 = UIButton()
     let slowmoButton2 = UIButton()
+    let clearButton2 = UIButton()
+    let enableButton2 = UIButton()
+
     
     let playBothButton = UIButton()
     
@@ -519,6 +583,40 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
         if !slowmoButton1.isDescendantOfView(self.view) {
             self.view.addSubview(slowmoButton1)
         }
+        // clear button
+        clearButton1.frame = CGRect(x: 230, y: 700, width: buttonWidth, height: 50)
+        clearButton1.setTitle("Clear", forState: UIControlState.Normal)
+        clearButton1.titleLabel?.text = "Clear"
+        clearButton1.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        clearButton1.tag = 1
+        clearButton1.addTarget(self, action: #selector(clearImage1), forControlEvents: .TouchUpInside)
+        if !clearButton1.isDescendantOfView(self.view) {
+            self.view.addSubview(clearButton1)
+        }
+        // enable button
+        enableButton1.frame = CGRect(x: 330, y: 700, width: buttonWidth, height: 50)
+        enableButton1.setTitle("Draw", forState: UIControlState.Normal)
+        enableButton1.titleLabel?.text = "Draw"
+        enableButton1.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        enableButton1.tag = 1
+        enableButton1.addTarget(self, action: #selector(enableImage1), forControlEvents: .TouchUpInside)
+        if !enableButton1.isDescendantOfView(self.view) {
+            self.view.addSubview(enableButton1)
+        }
+
+    }
+    
+    func clearImage1(sender: UIButton!){
+        self.imageView1.image = nil
+    }
+    func enableImage1(sender: UIButton!){
+        if  sender.currentTitle == "Draw" {
+            sender.setTitle("Zoom", forState: .Normal)
+            self.sview1.userInteractionEnabled = false
+        }else{
+            sender.setTitle("Draw", forState: .Normal)
+            self.sview1.userInteractionEnabled = true
+        }
     }
     
     // Displaying buttons and controller for video 2
@@ -551,7 +649,7 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
         }
         
         // play/pause/replay button
-        playButton2.frame = CGRect(x: 800, y: 700, width: buttonWidth, height: 50)
+        playButton2.frame = CGRect(x: 580, y: 700, width: buttonWidth, height: 50)
         playButton2.setTitle("Play", forState: UIControlState.Normal)
         playButton2.titleLabel?.text = "Play"
         playButton2.setTitleColor(UIColor.blackColor(), forState: .Normal)
@@ -562,7 +660,7 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
         }
         
         // slow-mo button
-        slowmoButton2.frame = CGRect(x: 910, y: 700, width: buttonWidth, height: 50)
+        slowmoButton2.frame = CGRect(x: 690, y: 700, width: buttonWidth, height: 50)
         slowmoButton2.setTitle("Slow-Mo", forState: UIControlState.Normal)
         slowmoButton2.titleLabel?.text = "Slow-Mo"
         slowmoButton2.setTitleColor(UIColor.blackColor(), forState: .Normal)
@@ -571,6 +669,28 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
         if !slowmoButton2.isDescendantOfView(self.view) {
             self.view.addSubview(slowmoButton2)
         }
+        
+        // clear button
+        clearButton2.frame = CGRect(x: 800, y: 700, width: buttonWidth, height: 50)
+        clearButton2.setTitle("Clear", forState: UIControlState.Normal)
+        clearButton2.titleLabel?.text = "Clear"
+        clearButton2.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        clearButton2.tag = 1
+        clearButton2.addTarget(self, action: #selector(clearImage2), forControlEvents: .TouchUpInside)
+        if !clearButton2.isDescendantOfView(self.view) {
+            self.view.addSubview(clearButton2)
+        }
+        // enable button
+        enableButton2.frame = CGRect(x: 910, y: 700, width: buttonWidth, height: 50)
+        enableButton2.setTitle("Draw", forState: UIControlState.Normal)
+        enableButton2.titleLabel?.text = "Draw"
+        enableButton2.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        enableButton2.tag = 1
+        enableButton2.addTarget(self, action: #selector(enableImage2), forControlEvents: .TouchUpInside)
+        if !enableButton2.isDescendantOfView(self.view) {
+            self.view.addSubview(enableButton2)
+        }
+
     }
     
     // Displaying button for playing/pausing both videos at the same time
@@ -583,8 +703,139 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
         if !playBothButton.isDescendantOfView(self.view) {
             self.view.addSubview(playBothButton)
         }
+        
+    }
+    func clearImage2(sender: UIButton!){
+        if player1vc == nil{
+            self.imageView1.image = nil
+        }else{
+            self.imageView2.image = nil
+        }
+    }
+    func enableImage2(sender: UIButton!){
+//        if player1vc == nil{
+//            print(1)
+            if  sender.currentTitle == "Draw" {
+                sender.setTitle("Zoom", forState: .Normal)
+                self.sview2.userInteractionEnabled = false
+            }else{
+                sender.setTitle("Draw", forState: .Normal)
+                self.sview2.userInteractionEnabled = true
+            }
+//        }else{
+//            print(2)
+//            if  sender.currentTitle == "Enable" {
+//                sender.setTitle("Disable", forState: .Normal)
+//                self.sview1.userInteractionEnabled = false
+//            }else{
+//                sender.setTitle("Enable", forState: .Normal)
+//                self.sview1.userInteractionEnabled = true
+//            }
+//        }
+
     }
     
+    
+    // draw
+    var finalPoint1: CGPoint!
+    var finalPoint2: CGPoint!
+    var isDrawing: Bool!
+    var lineWidth: CGFloat = 4.0
+    
+    let red: CGFloat = 50.0/255.0
+    let green: CGFloat = 50.0/255.0
+    let blue: CGFloat = 50.0/255.0
+    
+    private var imageView1: UIImageView!
+    private var imageView2: UIImageView!
+    
+
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        isDrawing = false
+        if let touch = touches.first {
+            finalPoint1 = touch.preciseLocationInView(imageView1)
+            finalPoint2 = touch.preciseLocationInView(imageView2)
+        }
+    }
+    
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        isDrawing = true
+        if let touch = touches.first{
+            if let boardImageView = imageView1 {
+                let currentCoordinate = touch.preciseLocationInView(boardImageView)
+                UIGraphicsBeginImageContext(boardImageView.frame.size)
+                boardImageView.image?.drawInRect(CGRectMake(0, 0, boardImageView.frame.size.width, boardImageView.frame.size.height))
+                CGContextMoveToPoint(UIGraphicsGetCurrentContext()!, finalPoint1.x, finalPoint1.y)
+                CGContextAddLineToPoint(UIGraphicsGetCurrentContext()!, currentCoordinate.x,currentCoordinate.y)
+                CGContextSetLineCap(UIGraphicsGetCurrentContext()!, CGLineCap.Round)
+                CGContextSetLineWidth(UIGraphicsGetCurrentContext()!, lineWidth)
+                CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext()!, red, green, blue, 1.0)
+                CGContextStrokePath(UIGraphicsGetCurrentContext()!)
+                boardImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                finalPoint1 = currentCoordinate
+            }
+            if let boardImageView = imageView2 {
+                let currentCoordinate = touch.preciseLocationInView(boardImageView)
+                UIGraphicsBeginImageContext(boardImageView.frame.size)
+                boardImageView.image?.drawInRect(CGRectMake(0, 0, boardImageView.frame.size.width, boardImageView.frame.size.height))
+                CGContextMoveToPoint(UIGraphicsGetCurrentContext()!, finalPoint2.x, finalPoint2.y)
+                CGContextAddLineToPoint(UIGraphicsGetCurrentContext()!, currentCoordinate.x,currentCoordinate.y)
+                CGContextSetLineCap(UIGraphicsGetCurrentContext()!, CGLineCap.Round)
+                CGContextSetLineWidth(UIGraphicsGetCurrentContext()!, lineWidth)
+                CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext()!, red, green, blue, 1.0)
+                CGContextStrokePath(UIGraphicsGetCurrentContext()!)
+                boardImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                finalPoint2 = currentCoordinate
+            }
+
+        }
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if(!isDrawing){
+            if let boardImageView = imageView1 {
+                UIGraphicsBeginImageContext(boardImageView.frame.size)
+                boardImageView.image?.drawInRect(CGRectMake(0, 0, boardImageView.frame.size.width, boardImageView.frame.size.height))
+                CGContextMoveToPoint(UIGraphicsGetCurrentContext()!, finalPoint1.x, finalPoint1.y)
+                CGContextAddLineToPoint(UIGraphicsGetCurrentContext()!, finalPoint1.x,finalPoint1.y)
+                CGContextSetLineCap(UIGraphicsGetCurrentContext()!, CGLineCap.Round)
+                CGContextSetLineWidth(UIGraphicsGetCurrentContext()!, lineWidth)
+                CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext()!, red, green, blue, 1.0)
+                CGContextStrokePath(UIGraphicsGetCurrentContext()!)
+                boardImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+            }
+            if let boardImageView = imageView2 {
+                UIGraphicsBeginImageContext(boardImageView.frame.size)
+                boardImageView.image?.drawInRect(CGRectMake(0, 0, boardImageView.frame.size.width, boardImageView.frame.size.height))
+                CGContextMoveToPoint(UIGraphicsGetCurrentContext()!, finalPoint2.x, finalPoint2.y)
+                CGContextAddLineToPoint(UIGraphicsGetCurrentContext()!, finalPoint2.x,finalPoint2.y)
+                CGContextSetLineCap(UIGraphicsGetCurrentContext()!, CGLineCap.Round)
+                CGContextSetLineWidth(UIGraphicsGetCurrentContext()!, lineWidth)
+                CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext()!, red, green, blue, 1.0)
+                CGContextStrokePath(UIGraphicsGetCurrentContext()!)
+                boardImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+            }
+
+        }
+    }
+    
+    private func createImageView1(rect: CGRect){
+        imageView1 = UIImageView()
+        imageView1.frame = rect
+        imageView1.tag = 101
+    }
+    private func createImageView2(rect: CGRect){
+        imageView2 = UIImageView()
+        imageView2.frame = rect
+        imageView2.tag = 102
+    }
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     }
