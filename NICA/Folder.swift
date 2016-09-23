@@ -29,10 +29,10 @@ class Folder {
     init(name: String) {
         self.name = name
         self.videos = [
-            Video(name: "Vid 1")
+            Video(name: "Vid 1", path: "")
         ]
         self.pictures = [
-            Picture(name: "Pic 1")
+            Picture(name: "Pic 1", path: "")
         ]
     }
 }

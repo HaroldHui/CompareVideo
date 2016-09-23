@@ -11,12 +11,14 @@ import Foundation
 class Picture {
     
     var name : String = ""
+    var dir : String = ""
     
     init() {
         
     }
     
-    init(name: String) {
+    init(name: String, path: String) {
         self.name = name
+        self.dir = path
     }
 }

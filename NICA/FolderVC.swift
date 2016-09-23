@@ -77,9 +77,12 @@ class FolderVC: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let folder = folders[indexPath.row]
+        folder.videos = []
+        folder.pictures = []
         
         // Load acts from API
-        let todoEndpoint: String = URLOFAPI + "category" + category.cid + "/act/" + act.aid + "/level/" + level + "/folder/" + folder.fid
+        let todoEndpoint: String = URLOFAPI + "category/" + category.cid + "/act/" + act.aid + "/level/" + level + "/folder/" + folder.fid
+        print(todoEndpoint)
         guard let url = NSURL(string: todoEndpoint) else {
             print("Error: cannot create URL")
             return
@@ -101,52 +104,56 @@ class FolderVC: UITableViewController {
                 print(error)
                 return
             }
-            // parse the result as JSON, since that's what the API provides
-            do {
-                guard let folderdetail = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
-                    // TODO: handle
-                    print("Couldn't convert received data to JSON dictionary")
-                    return
-                }
-                
-                // Get folder details from retrieved data
-                folder.description = folderdetail["description"] as! String
-                folder.name = folderdetail["name"] as! String
-                
-                // Create videos and pictures for folder from retrieved data
-                if let videos = folderdetail["videos"] as? [[String: AnyObject]] {
-                    for v in videos {
-                        let video = Video(name: v["name"] as! String)
-                        folder.videos += [video]
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                // parse the result as JSON, since that's what the API provides
+                do {
+                    guard let folderdetail = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
+                        // TODO: handle
+                        print("Couldn't convert received data to JSON dictionary")
+                        return
                     }
-                }
-                if let pictures = folderdetail["pictures"] as? [[String: AnyObject]] {
-                    for p in pictures {
-                        let picture = Picture(name: p["name"] as! String)
-                        folder.pictures += [picture]
+                    
+                    // Get folder details from retrieved data
+                    folder.description = folderdetail["description"] as! String
+                    folder.name = folderdetail["name"] as! String
+                    
+                    // Create videos and pictures for folder from retrieved data
+                    if let videos = folderdetail["videos"] as? [[String: AnyObject]] {
+                        for v in videos {
+                            let video = Video(name: v["name"] as! String, path: v["path"] as! String)
+                            folder.videos += [video]
+                        }
                     }
+                    if let pictures = folderdetail["pictures"] as? [[String: AnyObject]] {
+                        for p in pictures {
+                            let picture = Picture(name: p["name"] as! String, path: p["path"] as! String)
+                            folder.pictures += [picture]
+                        }
+                    }
+                    
+                } catch  {
+                    print("error trying to convert data to JSON")
                 }
+                // Navigate to the picture and video view
+                let vc = PictureVideoVC()
+                vc.sDelegate = self.sDelegate
+                vc.dashboard = self.dashboard
+                vc.category = self.category
+                vc.act = self.act
+                vc.folders = self.folders
+                vc.videos = folder.videos
+                vc.pictures = folder.pictures
                 
-            } catch  {
-                print("error trying to convert data to JSON")
+                let nc = UINavigationController()
+                nc.viewControllers = [vc]
+                
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         }
+            
         task.resume()
         
-        // Navigate to the picture and video view
-        let vc = PictureVideoVC()
-        vc.sDelegate = self.sDelegate
-        vc.dashboard = dashboard
-        vc.category = category
-        vc.act = act
-        vc.folders = folders
-        vc.videos = folder.videos
-        vc.pictures = folder.pictures
-        
-        let nc = UINavigationController()
-        nc.viewControllers = [vc]
-        
-        self.navigationController?.pushViewController(vc, animated: true)
 //        self.showDetailViewController(nc, sender: self)
     }
     

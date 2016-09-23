@@ -17,7 +17,7 @@ class Video {
         
     }
     
-    init(name: String) {
+    init(name: String, path: String) {
         self.name = name
         self.dir = NSBundle.mainBundle().pathForResource("1 Arm Press", ofType:"MOV")!
     }

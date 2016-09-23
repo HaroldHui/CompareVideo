@@ -198,6 +198,8 @@ class MasterVC: UITableViewController {
         let nc = UINavigationController()
         nc.viewControllers = [vc]
         
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
         self.showDetailViewController(nc, sender: self)
     }
     
