@@ -8,4 +8,5 @@
 
 import Foundation
 
-let URLOFAPI = "http://localhost:3000/api/"
+let URLOFSERVER = "http://localhost:3000"
+let URLOFAPI = URLOFSERVER + "/api/"
