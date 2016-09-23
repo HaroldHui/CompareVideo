@@ -95,38 +95,43 @@ class CategoryVC: UITableViewController {
                 print(error)
                 return
             }
-            // parse the result as JSON, since that's what the API provides
-            do {
-                guard let categorydetail = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
-                    // TODO: handle
-                    print("Couldn't convert received data to JSON dictionary")
-                    return
-                }
-                
-                // Create acts from retrieved data
-                self.category.tag = categorydetail["tag"] as! String
-                if let actsarray = categorydetail["acts"] as? [[String: AnyObject]] {
-                    for act in actsarray {
-                        let newact = Act(name: act["name"] as! String, aid: act["aid"] as! String!)
-                        self.category.acts += [newact]
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                // parse the result as JSON, since that's what the API provides
+                do {
+                    guard let categorydetail = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
+                        // TODO: handle
+                        print("Couldn't convert received data to JSON dictionary")
+                        return
                     }
+                    
+                    // Create acts from retrieved data
+                    self.category.tag = categorydetail["tag"] as! String
+                    if let actsarray = categorydetail["acts"] as? [[String: AnyObject]] {
+                        for act in actsarray {
+                            let newact = Act(name: act["name"] as! String, aid: act["aid"] as! String!)
+                            self.category.acts += [newact]
+                        }
+                    }
+                    
+                } catch  {
+                    print("error trying to convert data to JSON")
                 }
                 
-            } catch  {
-                print("error trying to convert data to JSON")
+                // Navigate to act view
+                let vc = ActVC()
+                vc.dashboard = self.dashboard
+                vc.category = self.category
+                vc.acts = self.category.acts
+                
+                let nc = UINavigationController()
+                nc.viewControllers = [vc]
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+
             }
             
-            // Navigate to act view
-            let vc = ActVC()
-            vc.dashboard = self.dashboard
-            vc.category = self.category
-            vc.acts = self.category.acts
-            
-            let nc = UINavigationController()
-            nc.viewControllers = [vc]
-            
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+                    }
         task.resume()
 
 

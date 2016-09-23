@@ -32,7 +32,7 @@ class Folder {
             Video(name: "Vid 1", path: "")
         ]
         self.pictures = [
-            Picture(name: "Pic 1")
+            Picture(name: "Pic 1", path: "")
         ]
     }
 }
