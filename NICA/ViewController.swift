@@ -125,7 +125,7 @@ class ViewController: UIViewController, SelectionDelegate, UIScrollViewDelegate 
         player1vc?.removeFromParentViewController()
         player1vc?.view.removeFromSuperview()
         
-        self.player1 = AVPlayer(URL: NSURL(string: "http://localhost:3000/multimedia/57e38d1976caa0ba39567e5b/Swing.mp4")!)
+        self.player1 = AVPlayer(URL: NSURL(string: path)!)
         
         // player's time
         let timeInterval: CMTime = CMTimeMakeWithSeconds(1.0, 10)

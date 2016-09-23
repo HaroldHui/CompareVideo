@@ -120,6 +120,7 @@ class CategoryVC: UITableViewController {
                 
                 // Navigate to act view
                 let vc = ActVC()
+                vc.sDelegate = self.sDelegate
                 vc.dashboard = self.dashboard
                 vc.category = self.category
                 vc.acts = self.category.acts
