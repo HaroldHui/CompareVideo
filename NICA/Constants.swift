@@ -8,4 +8,4 @@
 
 import Foundation
 
-let URLOFAPI = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000/api/"
+let URLOFAPI = "http://localhost:3000/api/"

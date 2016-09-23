@@ -91,8 +91,14 @@ class LevelVC: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        self.act.prerequisites = []
+        self.act.foundation = []
+        self.act.intermediate = []
+        self.act.advanced = []
+        self.act.professional = []
+        
         // Load acts from API
-        let todoEndpoint: String = URLOFAPI + "category" + category.cid + "/act/" + act.aid
+        let todoEndpoint: String = URLOFAPI + "category/" + category.cid + "/act/" + act.aid
         guard let url = NSURL(string: todoEndpoint) else {
             print("Error: cannot create URL")
             return
@@ -123,7 +129,7 @@ class LevelVC: UITableViewController {
                 }
                 
                 // Get act details from retrieved data
-                self.act.description = actdetail["decription"] as! String
+//                self.act.description = actdetail["description"] as! String
                 self.act.trainer = actdetail["trainer"] as! String
                 self.act.equipments = actdetail["equipments"] as! String
                 
@@ -158,54 +164,53 @@ class LevelVC: UITableViewController {
                         self.act.professional += [folder]
                     }
                 }
-
+                // Navigate to folder view
+                let vc = FolderVC()
+                
+                vc.sDelegate = self.sDelegate
+                vc.dashboard = self.dashboard
+                vc.category = self.category
+                vc.act = self.act
+                
+                // Temporary
+                //        act.prerequisites = [Folder(name: "Folder1"), Folder(name: "Folder2")]
+                //        act.foundation = [Folder(name: "Folder1"), Folder(name: "Folder2")]
+                //        act.intermediate = [Folder(name: "Folder1"), Folder(name: "Folder2")]
+                //        act.advanced = [Folder(name: "Folder1"), Folder(name: "Folder2")]
+                //        act.professional = [Folder(name: "Folder1"), Folder(name: "Folder2")]
+                
+                if (indexPath.row == 0) {
+                    vc.folders = self.act.prerequisites
+                    vc.level = "pre_requisites"
+                }
+                if (indexPath.row == 1) {
+                    vc.folders = self.act.foundation
+                    vc.level = "foundation"
+                }
+                if (indexPath.row == 2) {
+                    vc.folders = self.act.intermediate
+                    vc.level = "intermediate"
+                }
+                if (indexPath.row == 3) {
+                    vc.folders = self.act.advanced
+                    vc.level = "advanced"
+                }
+                if (indexPath.row == 4) {
+                    vc.folders = self.act.professional
+                    vc.level = "professional_inspirational"
+                }
+                
+                let nc = UINavigationController()
+                nc.viewControllers = [vc]
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+                
             } catch  {
                 print("error trying to convert data to JSON")
             }
         }
         task.resume()
         
-        // Navigate to folder view
-        let vc = FolderVC()
-
-        vc.sDelegate = self.sDelegate
-        vc.dashboard = dashboard
-        vc.category = category
-        vc.act = act
-        
-        // Temporary
-        act.prerequisites = [Folder(name: "Folder1"), Folder(name: "Folder2")]
-        act.foundation = [Folder(name: "Folder1"), Folder(name: "Folder2")]
-        act.intermediate = [Folder(name: "Folder1"), Folder(name: "Folder2")]
-        act.advanced = [Folder(name: "Folder1"), Folder(name: "Folder2")]
-        act.professional = [Folder(name: "Folder1"), Folder(name: "Folder2")]
-        
-        if (indexPath.row == 0) {
-            vc.folders = act.prerequisites
-            vc.level = "pre_requisites"
-        }
-        if (indexPath.row == 1) {
-            vc.folders = act.foundation
-            vc.level = "foundation"
-        }
-        if (indexPath.row == 2) {
-            vc.folders = act.intermediate
-            vc.level = "intermediate"
-        }
-        if (indexPath.row == 3) {
-            vc.folders = act.advanced
-            vc.level = "advanced"
-        }
-        if (indexPath.row == 4) {
-            vc.folders = act.professional
-            vc.level = "professional_inspirational"
-        }
-        
-        let nc = UINavigationController()
-        nc.viewControllers = [vc]
-        
-        self.navigationController?.pushViewController(vc, animated: true)
-//        self.showDetailViewController(nc, sender: self)
     }
     
     /*
