@@ -8,5 +8,5 @@
 
 import Foundation
 
-let URLOFSERVER = "ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000"
+let URLOFSERVER = "http://ec2-52-25-32-82.us-west-2.compute.amazonaws.com:3000"
 let URLOFAPI = URLOFSERVER + "/api/"
