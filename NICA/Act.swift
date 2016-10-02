@@ -30,23 +30,23 @@ class Act {
         self.name = name
         self.prerequisites = [
             Folder(name: "Folder 1"),
-            Folder(name: "FOlder 2")
+            Folder(name: "Folder 2")
         ]
         self.foundation = [
             Folder(name: "Folder 1"),
-            Folder(name: "FOlder 2")
+            Folder(name: "Folder 2")
         ]
         self.intermediate = [
             Folder(name: "Folder 1"),
-            Folder(name: "FOlder 2")
+            Folder(name: "Folder 2")
         ]
         self.advanced = [
             Folder(name: "Folder 1"),
-            Folder(name: "FOlder 2")
+            Folder(name: "Folder 2")
         ]
         self.professional = [
             Folder(name: "Folder 1"),
-            Folder(name: "FOlder 2")
+            Folder(name: "Folder 2")
         ]
     }
     
