@@ -35,12 +35,10 @@ class CategoryVC: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return categories.count
     }
 
@@ -54,79 +52,32 @@ class CategoryVC: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        // Temporary
         self.category = categories[indexPath.row]
         self.category.acts = []
+        let path : String = "category/" + category.cid
         
-        // Get acts from API based on category id
-        let todoEndpoint: String = URLOFAPI + "category/" + category.cid
-        guard let url = NSURL(string: todoEndpoint) else {
-            print("Error: cannot create URL")
-            return
-        }
-        
-        let urlRequest = NSURLRequest(URL: url)
-        
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: config)
-        
-        let task = session.dataTaskWithRequest(urlRequest) {
-            (data, response, error) in
-            guard let responseData = data else {
-                print("Error: did not receive data")
-                return
-            }
-            guard error == nil else {
-                print("error calling GET")
-                print(error)
-                return
-            }
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                // parse the result as JSON, since that's what the API provides
-                do {
-                    guard let categorydetail = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
-                        // TODO: handle
-                        print("Couldn't convert received data to JSON dictionary")
-                        return
-                    }
-                    
-                    // Create acts from retrieved data
-                    self.category.tag = categorydetail["tag"] as! String
-                    if let actsarray = categorydetail["acts"] as? [[String: AnyObject]] {
-                        for act in actsarray {
-                            let newact = Act(name: act["name"] as! String, aid: act["aid"] as! String!)
-                            self.category.acts += [newact]
-                        }
-                    }
-                    
-                } catch  {
-                    print("error trying to convert data to JSON")
+        API.callAPI(path, completionHandler: {(categorydetail) -> Void in
+            // Create acts from retrieved data
+            self.category.tag = categorydetail["tag"] as! String
+            if let actsarray = categorydetail["acts"] as? [[String: AnyObject]] {
+                for act in actsarray {
+                    let newact = Act(name: act["name"] as! String, aid: act["aid"] as! String!)
+                    self.category.acts += [newact]
                 }
-                
-                // Navigate to act view
-                let vc = ActVC()
-                vc.sDelegate = self.sDelegate
-                vc.dashboard = self.dashboard
-                vc.category = self.category
-                vc.acts = self.category.acts
-                
-                let nc = UINavigationController()
-                nc.viewControllers = [vc]
-                
-                self.navigationController?.pushViewController(vc, animated: true)
-
             }
             
-                    }
-        task.resume()
-
-
-
-        
-//        self.navigationController?.pushViewController(vc, animated: true)
-//        self.showDetailViewController(nc, sender: self)
-
+            // Navigate to act view
+            let vc = ActVC()
+            vc.sDelegate = self.sDelegate
+            vc.dashboard = self.dashboard
+            vc.category = self.category
+            vc.acts = self.category.acts
+            
+            let nc = UINavigationController()
+            nc.viewControllers = [vc]
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        })
     }
 
     /*

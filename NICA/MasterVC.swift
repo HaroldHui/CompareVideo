@@ -18,9 +18,15 @@ class MasterVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Root.rootInstance.dashboard[0].categories API.callAPI("basics")        
-        Root.rootInstance.dashboard[1].categories API.callAPI("specialties")
-        Root.rootInstance.dashboard[2].categories API.callAPI("group-acts")
+        API.callAPICategories("basics", completionHandler: {(categories) -> Void in
+            Root.rootInstance.dashboard[0].categories = categories
+        })
+        API.callAPICategories("specialties", completionHandler: {(categories) -> Void in
+            Root.rootInstance.dashboard[1].categories = categories
+        })
+        API.callAPICategories("group-acts", completionHandler: {(categories) -> Void in
+            Root.rootInstance.dashboard[2].categories = categories
+        })
         
         self.title = "Root"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -35,12 +41,10 @@ class MasterVC: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // return the number of rows
         return Root.rootInstance.dashboard.count;
     }
 
@@ -66,9 +70,7 @@ class MasterVC: UITableViewController {
         
         let nc = UINavigationController()
         nc.viewControllers = [vc]
-        
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
+                
         self.showDetailViewController(nc, sender: self)
     }
     

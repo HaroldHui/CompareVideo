@@ -21,14 +21,6 @@ class PictureVideoVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
-//        backButton.setTitle("Back to Skills", forState: UIControlState.Normal)
-//        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-//        backButton.addTarget(self, action: #selector(backToSkills), forControlEvents: UIControlEvents.TouchUpInside)
-//        let leftBarButton = UIBarButtonItem()
-//        leftBarButton.customView = backButton
-//        self.navigationItem.leftBarButtonItem = leftBarButton
-        
         self.title = "Pictures and Videos"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         // Uncomment the following line to preserve selection between presentations
@@ -36,20 +28,6 @@ class PictureVideoVC: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-    
-    // Go back to folder view
-    func backToFolders(sender: UIButton!) {
-        let vc = FolderVC()
-        vc.dashboard = dashboard
-        vc.category = category
-        vc.act = act
-        vc.folders = folders
-        
-        let nc = UINavigationController()
-        nc.viewControllers = [vc]
-        
-        self.showDetailViewController(nc, sender: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,12 +38,10 @@ class PictureVideoVC: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return videos.count + pictures.count
     }
     

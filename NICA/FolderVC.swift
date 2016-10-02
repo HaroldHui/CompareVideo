@@ -19,14 +19,6 @@ class FolderVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
-//        backButton.setTitle("Back to Levels", forState: UIControlState.Normal)
-//        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-//        backButton.addTarget(self, action: #selector(backToLevels), forControlEvents: UIControlEvents.TouchUpInside)
-//        let leftBarButton = UIBarButtonItem()
-//        leftBarButton.customView = backButton
-//        self.navigationItem.leftBarButtonItem = leftBarButton
-        
         self.title = "Folders"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         // Uncomment the following line to preserve selection between presentations
@@ -34,19 +26,6 @@ class FolderVC: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-    
-    // Go back to level view
-    func backToLevels(sender: UIButton!) {
-        let vc = LevelVC()
-        vc.dashboard = dashboard
-        vc.category = category
-        vc.act = act
-        
-        let nc = UINavigationController()
-        nc.viewControllers = [vc]
-        
-        self.showDetailViewController(nc, sender: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,12 +36,10 @@ class FolderVC: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return folders.count
     }
     
@@ -80,81 +57,42 @@ class FolderVC: UITableViewController {
         folder.videos = []
         folder.pictures = []
         
-        // Load acts from API
-        let todoEndpoint: String = URLOFAPI + "category/" + category.cid + "/act/" + act.aid + "/level/" + level + "/folder/" + folder.fid
-        print(todoEndpoint)
-        guard let url = NSURL(string: todoEndpoint) else {
-            print("Error: cannot create URL")
-            return
-        }
+        let path : String = "category/" + category.cid + "/act/" + act.aid + "/level/" + level + "/folder/" + folder.fid
         
-        let urlRequest = NSURLRequest(URL: url)
-        
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: config)
-        
-        let task = session.dataTaskWithRequest(urlRequest) {
-            (data, response, error) in
-            guard let responseData = data else {
-                print("Error: did not receive data")
-                return
-            }
-            guard error == nil else {
-                print("error calling GET")
-                print(error)
-                return
-            }
+        API.callAPI(path, completionHandler: {(folderdetail) -> Void in
+            // Get folder details from retrieved data
+            folder.description = folderdetail["description"] as! String
+            folder.name = folderdetail["name"] as! String
             
-            dispatch_async(dispatch_get_main_queue()) {
-                // parse the result as JSON, since that's what the API provides
-                do {
-                    guard let folderdetail = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
-                        // TODO: handle
-                        print("Couldn't convert received data to JSON dictionary")
-                        return
-                    }
-                    
-                    // Get folder details from retrieved data
-                    folder.description = folderdetail["description"] as! String
-                    folder.name = folderdetail["name"] as! String
-                    
-                    // Create videos and pictures for folder from retrieved data
-                    if let videos = folderdetail["videos"] as? [[String: AnyObject]] {
-                        for v in videos {
-                            let video = Video(name: v["name"] as! String, path: v["path"] as! String)
-                            folder.videos += [video]
-                        }
-                    }
-                    if let pictures = folderdetail["pictures"] as? [[String: AnyObject]] {
-                        for p in pictures {
-                            let picture = Picture(name: p["name"] as! String, path: p["path"] as! String)
-                            folder.pictures += [picture]
-                        }
-                    }
-                    
-                } catch  {
-                    print("error trying to convert data to JSON")
+            // Create videos and pictures for folder from retrieved data
+            if let videos = folderdetail["videos"] as? [[String: AnyObject]] {
+                for v in videos {
+                    let video = Video(name: v["name"] as! String, path: v["path"] as! String)
+                    folder.videos += [video]
                 }
-                // Navigate to the picture and video view
-                let vc = PictureVideoVC()
-                vc.sDelegate = self.sDelegate
-                vc.dashboard = self.dashboard
-                vc.category = self.category
-                vc.act = self.act
-                vc.folders = self.folders
-                vc.videos = folder.videos
-                vc.pictures = folder.pictures
-                
-                let nc = UINavigationController()
-                nc.viewControllers = [vc]
-                
-                self.navigationController?.pushViewController(vc, animated: true)
             }
-        }
+            if let pictures = folderdetail["pictures"] as? [[String: AnyObject]] {
+                for p in pictures {
+                    let picture = Picture(name: p["name"] as! String, path: p["path"] as! String)
+                    folder.pictures += [picture]
+                }
+            }
+
+            // Navigate to the picture and video view
+            let vc = PictureVideoVC()
+            vc.sDelegate = self.sDelegate
+            vc.dashboard = self.dashboard
+            vc.category = self.category
+            vc.act = self.act
+            vc.folders = self.folders
+            vc.videos = folder.videos
+            vc.pictures = folder.pictures
             
-        task.resume()
-        
-//        self.showDetailViewController(nc, sender: self)
+            let nc = UINavigationController()
+            nc.viewControllers = [vc]
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        })
     }
     
     /*

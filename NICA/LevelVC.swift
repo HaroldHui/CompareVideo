@@ -18,14 +18,6 @@ class LevelVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 50))
-//        backButton.setTitle("Back to Acts", forState: UIControlState.Normal)
-//        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-//        backButton.addTarget(self, action: #selector(backToActs), forControlEvents: UIControlEvents.TouchUpInside)
-//        let leftBarButton = UIBarButtonItem()
-//        leftBarButton.customView = backButton
-//        self.navigationItem.leftBarButtonItem = leftBarButton
-        
         self.title = "Levels"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         // Uncomment the following line to preserve selection between presentations
@@ -35,20 +27,6 @@ class LevelVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    // Go back to act view
-    func backToActs(sender: UIButton!) {
-        let vc = ActVC()
-        vc.dashboard = dashboard
-        vc.category = category
-        vc.acts = category.acts
-        
-        let nc = UINavigationController()
-        nc.viewControllers = [vc]
-        
-        self.showDetailViewController(nc, sender: self)
-    }
-
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -57,12 +35,10 @@ class LevelVC: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 5
     }
     
@@ -97,124 +73,78 @@ class LevelVC: UITableViewController {
         self.act.advanced = []
         self.act.professional = []
         
-        // Load acts from API
-        let todoEndpoint: String = URLOFAPI + "category/" + category.cid + "/act/" + act.aid
-        guard let url = NSURL(string: todoEndpoint) else {
-            print("Error: cannot create URL")
-            return
-        }
+        let path : String = "category/" + category.cid + "/act/" + act.aid
         
-        let urlRequest = NSURLRequest(URL: url)
-        
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: config)
-        
-        let task = session.dataTaskWithRequest(urlRequest) {
-            (data, response, error) in
-            guard let responseData = data else {
-                print("Error: did not receive data")
-                return
-            }
-            guard error == nil else {
-                print("error calling GET")
-                print(error)
-                return
-            }
+        API.callAPI(path, completionHandler: {(actdetail) -> Void in
+            // Get act details from retrieved data
+            self.act.trainer = actdetail["trainer"] as! String
+            self.act.equipments = actdetail["equipments"] as! String
             
-            dispatch_async(dispatch_get_main_queue()) {
-                // parse the result as JSON, since that's what the API provides
-                do {
-                    guard let actdetail = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
-                        // TODO: handle
-                        print("Couldn't convert received data to JSON dictionary")
-                        return
-                    }
-                    
-                    // Get act details from retrieved data
-                    //                self.act.description = actdetail["description"] as! String
-                    self.act.trainer = actdetail["trainer"] as! String
-                    self.act.equipments = actdetail["equipments"] as! String
-                    
-                    // Create folders for all levels from retrieved data
-                    if let prerequisites = actdetail["pre_requisites"] as? [[String: AnyObject]] {
-                        for f in prerequisites {
-                            let folder = Folder(name: f["name"] as! String, fid: f["fid"] as! String)
-                            self.act.prerequisites += [folder]
-                        }
-                    }
-                    if let foundation = actdetail["foundation"] as? [[String: AnyObject]] {
-                        for f in foundation {
-                            let folder = Folder(name: f["name"] as! String, fid: f["fid"] as! String)
-                            self.act.foundation += [folder]
-                        }
-                    }
-                    if let intermediate = actdetail["intermediate"] as? [[String: AnyObject]] {
-                        for f in intermediate {
-                            let folder = Folder(name: f["name"] as! String, fid: f["fid"] as! String)
-                            self.act.intermediate += [folder]
-                        }
-                    }
-                    if let advanced = actdetail["advanced"] as? [[String: AnyObject]] {
-                        for f in advanced {
-                            let folder = Folder(name: f["name"] as! String, fid: f["fid"] as! String)
-                            self.act.advanced += [folder]
-                        }
-                    }
-                    if let professional = actdetail["professional_inspiraton"] as? [[String: AnyObject]] {
-                        for f in professional {
-                            let folder = Folder(name: f["name"] as! String, fid: f["fid"] as! String)
-                            self.act.professional += [folder]
-                        }
-                    }
-                    // Navigate to folder view
-                    let vc = FolderVC()
-                    
-                    vc.sDelegate = self.sDelegate
-                    vc.dashboard = self.dashboard
-                    vc.category = self.category
-                    vc.act = self.act
-                    
-                    // Temporary
-                    //        act.prerequisites = [Folder(name: "Folder1"), Folder(name: "Folder2")]
-                    //        act.foundation = [Folder(name: "Folder1"), Folder(name: "Folder2")]
-                    //        act.intermediate = [Folder(name: "Folder1"), Folder(name: "Folder2")]
-                    //        act.advanced = [Folder(name: "Folder1"), Folder(name: "Folder2")]
-                    //        act.professional = [Folder(name: "Folder1"), Folder(name: "Folder2")]
-                    
-                    if (indexPath.row == 0) {
-                        vc.folders = self.act.prerequisites
-                        vc.level = "pre_requisites"
-                    }
-                    if (indexPath.row == 1) {
-                        vc.folders = self.act.foundation
-                        vc.level = "foundation"
-                    }
-                    if (indexPath.row == 2) {
-                        vc.folders = self.act.intermediate
-                        vc.level = "intermediate"
-                    }
-                    if (indexPath.row == 3) {
-                        vc.folders = self.act.advanced
-                        vc.level = "advanced"
-                    }
-                    if (indexPath.row == 4) {
-                        vc.folders = self.act.professional
-                        vc.level = "professional_inspirational"
-                    }
-                    
-                    let nc = UINavigationController()
-                    nc.viewControllers = [vc]
-                    
-                    self.navigationController?.pushViewController(vc, animated: true)
-                    
-                } catch  {
-                    print("error trying to convert data to JSON")
+            // Create folders for all levels from retrieved data
+            if let prerequisites = actdetail["pre_requisites"] as? [[String: AnyObject]] {
+                for f in prerequisites {
+                    let folder = Folder(name: f["name"] as! String, fid: f["fid"] as! String)
+                    self.act.prerequisites += [folder]
                 }
             }
+            if let foundation = actdetail["foundation"] as? [[String: AnyObject]] {
+                for f in foundation {
+                    let folder = Folder(name: f["name"] as! String, fid: f["fid"] as! String)
+                    self.act.foundation += [folder]
+                }
+            }
+            if let intermediate = actdetail["intermediate"] as? [[String: AnyObject]] {
+                for f in intermediate {
+                    let folder = Folder(name: f["name"] as! String, fid: f["fid"] as! String)
+                    self.act.intermediate += [folder]
+                }
+            }
+            if let advanced = actdetail["advanced"] as? [[String: AnyObject]] {
+                for f in advanced {
+                    let folder = Folder(name: f["name"] as! String, fid: f["fid"] as! String)
+                    self.act.advanced += [folder]
+                }
+            }
+            if let professional = actdetail["professional_inspiraton"] as? [[String: AnyObject]] {
+                for f in professional {
+                    let folder = Folder(name: f["name"] as! String, fid: f["fid"] as! String)
+                    self.act.professional += [folder]
+                }
+            }
+            // Navigate to folder view
+            let vc = FolderVC()
             
-        }
-        task.resume()
-        
+            vc.sDelegate = self.sDelegate
+            vc.dashboard = self.dashboard
+            vc.category = self.category
+            vc.act = self.act
+            
+            if (indexPath.row == 0) {
+                vc.folders = self.act.prerequisites
+                vc.level = "pre_requisites"
+            }
+            if (indexPath.row == 1) {
+                vc.folders = self.act.foundation
+                vc.level = "foundation"
+            }
+            if (indexPath.row == 2) {
+                vc.folders = self.act.intermediate
+                vc.level = "intermediate"
+            }
+            if (indexPath.row == 3) {
+                vc.folders = self.act.advanced
+                vc.level = "advanced"
+            }
+            if (indexPath.row == 4) {
+                vc.folders = self.act.professional
+                vc.level = "professional_inspirational"
+            }
+            
+            let nc = UINavigationController()
+            nc.viewControllers = [vc]
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        })
     }
     
     /*
