@@ -15,6 +15,13 @@
 		3F089E7C1D60572600467C2F /* PictureVideoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F089E7A1D60572600467C2F /* PictureVideoVC.xib */; };
 		3F089E7E1D6057A400467C2F /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F089E7D1D6057A400467C2F /* Video.swift */; };
 		3F84468A1D83C5BE0053844D /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8446891D83C5BE0053844D /* Folder.swift */; };
+		A41C2C901D9B483100BECCE5 /* CustomVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41C2C8E1D9B483100BECCE5 /* CustomVideoController.swift */; };
+		A41C2C911D9B483100BECCE5 /* CustomVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41C2C8F1D9B483100BECCE5 /* CustomVideoController.xib */; };
+		A48601231D9B98AC000B65FB /* pause_button.png in Resources */ = {isa = PBXBuildFile; fileRef = A486011F1D9B98AC000B65FB /* pause_button.png */; };
+		A48601241D9B98AC000B65FB /* play_button.png in Resources */ = {isa = PBXBuildFile; fileRef = A48601201D9B98AC000B65FB /* play_button.png */; };
+		A48601251D9B98AC000B65FB /* replay_button.png in Resources */ = {isa = PBXBuildFile; fileRef = A48601211D9B98AC000B65FB /* replay_button.png */; };
+		A48601261D9B98AC000B65FB /* pencil_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A48601221D9B98AC000B65FB /* pencil_icon.png */; };
+		A48601281D9B98B7000B65FB /* pencil_icon_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = A48601271D9B98B7000B65FB /* pencil_icon_gray.png */; };
 		A49E86D41CEC39D1002AC786 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E86D31CEC39D1002AC786 /* AppDelegate.swift */; };
 		A49E86D61CEC39D1002AC786 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E86D51CEC39D1002AC786 /* ViewController.swift */; };
 		A49E86D91CEC39D1002AC786 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49E86D71CEC39D1002AC786 /* Main.storyboard */; };
@@ -74,6 +81,13 @@
 		3F089E7A1D60572600467C2F /* PictureVideoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PictureVideoVC.xib; sourceTree = "<group>"; };
 		3F089E7D1D6057A400467C2F /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		3F8446891D83C5BE0053844D /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		A41C2C8E1D9B483100BECCE5 /* CustomVideoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomVideoController.swift; sourceTree = "<group>"; };
+		A41C2C8F1D9B483100BECCE5 /* CustomVideoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomVideoController.xib; sourceTree = "<group>"; };
+		A486011F1D9B98AC000B65FB /* pause_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_button.png; sourceTree = "<group>"; };
+		A48601201D9B98AC000B65FB /* play_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_button.png; sourceTree = "<group>"; };
+		A48601211D9B98AC000B65FB /* replay_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = replay_button.png; sourceTree = "<group>"; };
+		A48601221D9B98AC000B65FB /* pencil_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil_icon.png; sourceTree = "<group>"; };
+		A48601271D9B98B7000B65FB /* pencil_icon_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil_icon_gray.png; sourceTree = "<group>"; };
 		A49E86D01CEC39D1002AC786 /* NICA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NICA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A49E86D31CEC39D1002AC786 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A49E86D51CEC39D1002AC786 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +152,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A486011E1D9B986C000B65FB /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A486011F1D9B98AC000B65FB /* pause_button.png */,
+				A48601201D9B98AC000B65FB /* play_button.png */,
+				A48601211D9B98AC000B65FB /* replay_button.png */,
+				A48601221D9B98AC000B65FB /* pencil_icon.png */,
+				A48601271D9B98B7000B65FB /* pencil_icon_gray.png */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		A49E86C71CEC39D1002AC786 = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +187,7 @@
 		A49E86D21CEC39D1002AC786 /* NICA */ = {
 			isa = PBXGroup;
 			children = (
+				A486011E1D9B986C000B65FB /* Assets */,
 				F4DA56E01D93B70400268F6F /* Common */,
 				A4F0CFD91D55899B005ED3FE /* Resources */,
 				A4F0CFD41D558907005ED3FE /* Controller */,
@@ -220,6 +247,7 @@
 				A4BBF84E1D5DAE840019A245 /* ActVC.xib */,
 				A4C51AE11D589F1800D6D733 /* SelectImageSVC.xib */,
 				A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */,
+				A41C2C8F1D9B483100BECCE5 /* CustomVideoController.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -238,6 +266,7 @@
 				3F089E711D6053AC00467C2F /* LevelVC.swift */,
 				3F089E751D6054DC00467C2F /* FolderVC.swift */,
 				3F089E791D60572600467C2F /* PictureVideoVC.swift */,
+				A41C2C8E1D9B483100BECCE5 /* CustomVideoController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -340,7 +369,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Johan Albert";
 				TargetAttributes = {
 					A49E86CF1CEC39D1002AC786 = {
@@ -350,10 +379,12 @@
 					};
 					A49E86E31CEC39D1002AC786 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = A49E86CF1CEC39D1002AC786;
 					};
 					A49E86EE1CEC39D1002AC786 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = A49E86CF1CEC39D1002AC786;
 					};
 				};
@@ -393,10 +424,16 @@
 				A4F0CFDF1D5589B8005ED3FE /* Image 2.png in Resources */,
 				A4BE27621D5DCE23001C1EBF /* CategoryVC.xib in Resources */,
 				A49E86DE1CEC39D1002AC786 /* LaunchScreen.storyboard in Resources */,
+				A48601261D9B98AC000B65FB /* pencil_icon.png in Resources */,
 				A49E86DB1CEC39D1002AC786 /* Assets.xcassets in Resources */,
 				A4F0CFD81D558926005ED3FE /* SelectImageVC.xib in Resources */,
+				A41C2C911D9B483100BECCE5 /* CustomVideoController.xib in Resources */,
+				A48601281D9B98B7000B65FB /* pencil_icon_gray.png in Resources */,
 				A49E86D91CEC39D1002AC786 /* Main.storyboard in Resources */,
+				A48601231D9B98AC000B65FB /* pause_button.png in Resources */,
 				A4C51AED1D589FE100D6D733 /* DetailVC.xib in Resources */,
+				A48601251D9B98AC000B65FB /* replay_button.png in Resources */,
+				A48601241D9B98AC000B65FB /* play_button.png in Resources */,
 				A4C51AE31D589F1800D6D733 /* SelectImageSVC.xib in Resources */,
 				3F089E7C1D60572600467C2F /* PictureVideoVC.xib in Resources */,
 			);
@@ -439,6 +476,7 @@
 				A4C51AF11D58A11A00D6D733 /* Category.swift in Sources */,
 				3F089E7B1D60572600467C2F /* PictureVideoVC.swift in Sources */,
 				A4F0CFD71D558926005ED3FE /* SelectImageVC.swift in Sources */,
+				A41C2C901D9B483100BECCE5 /* CustomVideoController.swift in Sources */,
 				3F089E731D6053AC00467C2F /* LevelVC.swift in Sources */,
 				A49E87081CEC5574002AC786 /* SelectVideoViewController.swift in Sources */,
 				A4C51AF31D58A17300D6D733 /* Act.swift in Sources */,
@@ -512,8 +550,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -558,8 +598,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -578,6 +620,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -621,6 +664,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = unimelb.NICATests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NICA.app/NICA";
 			};
 			name = Debug;
@@ -633,6 +677,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = unimelb.NICATests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NICA.app/NICA";
 			};
 			name = Release;
@@ -644,6 +689,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = unimelb.NICAUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = NICA;
 			};
 			name = Debug;
@@ -655,6 +701,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = unimelb.NICAUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = NICA;
 			};
 			name = Release;

@@ -96,7 +96,7 @@ class PictureVideoVC: UITableViewController {
 //
 //            self.showDetailViewController(nc, sender: self)
             
-            sDelegate!.myVCDidFinish(self, path: vc.video.dir)
+            sDelegate!.showVideo(self, path: vc.video.dir)
             
             self.dismissViewControllerAnimated(true, completion: nil)
         } else {
@@ -111,7 +111,7 @@ class PictureVideoVC: UITableViewController {
 //
 //            self.showDetailViewController(nc, sender: self)
             
-//            sDelegate!.myVCDidFinish(self, path: vc.picture.dir)
+            sDelegate!.showImage(self, path: vc.picture.dir)
             
             self.dismissViewControllerAnimated(true, completion: nil)
         }
