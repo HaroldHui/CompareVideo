@@ -85,7 +85,7 @@ class PictureVideoVC: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if (indexPath.row < videos.count) {
-            let vc = ViewController()
+            let vc = WatchVideoVC()
             vc.dashboard = dashboard
             vc.category = category
             vc.act = act
@@ -100,7 +100,7 @@ class PictureVideoVC: UITableViewController {
             
             self.dismissViewControllerAnimated(true, completion: nil)
         } else {
-            let vc = ViewController()
+            let vc = WatchVideoVC()
             vc.dashboard = dashboard
             vc.category = category
             vc.act = act
