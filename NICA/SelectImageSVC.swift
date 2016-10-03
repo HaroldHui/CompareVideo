@@ -9,7 +9,8 @@
 import UIKit
 
 protocol SelectionDelegate {
-    func myVCDidFinish(controller:UIViewController, path:String)
+    func showVideo(controller:UIViewController, path:String)
+    func showImage(controller:UIViewController, path:String)
 }
 
 class SelectImageSVC: UISplitViewController, UISplitViewControllerDelegate {
