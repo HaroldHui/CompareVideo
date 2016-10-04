@@ -65,36 +65,33 @@ class LoginVC: UIViewController {
             }
         }
         task.resume()
+        showSpinner()
         
     }
     private func loginSuccess(){
         NSOperationQueue.mainQueue().addOperationWithBlock {
-//            self.invalidMessage.text = "success"
-//            let viewcontroller = WatchVideoVC()
-//            self.navigationController!.pushViewController(viewcontroller, animated: true)
+            self.hideSpinner()
             self.userDefaults.setBool(true, forKey: "login")
             let viewcontroller = WatchVideoVC()
-//            self.presentViewController(viewcontroller, animated: true, completion: nil)
             self.navigationController!.pushViewController(viewcontroller, animated: true)
         }
         
     }
     private func loginFailed(){
         NSOperationQueue.mainQueue().addOperationWithBlock {
-            self.invalidMessage.text = "error"
+            self.hideSpinner()
             self.id.text = nil
             self.firstName.text = nil
             self.lastName.text = nil
+            let alert = UIAlertController(title: "Error", message:"An error occurred during the login. Try again!", preferredStyle: .Alert)
+            let action = UIAlertAction(title: "OK", style: .Cancel) { _ in }
+            alert.addAction(action)
+            self.navigationController!.presentViewController(alert, animated: true){}
+            
         }
     }
     
-    
-    
     @IBOutlet weak var invalidMessage: UILabel!
-    
-    
-    
-    
     
     @IBOutlet weak var id: UITextField!
     
@@ -103,6 +100,39 @@ class LoginVC: UIViewController {
     
     
     @IBOutlet weak var lastName: UITextField!
+    
+    // snipper
+    
+    
+    var activityIndicator:UIActivityIndicatorView?
+    var activityIndicatorView: UIView?
+    
+    @IBOutlet weak var loginButton: UIButton!
+    
+    func showSpinner () {
+        self.loginButton.userInteractionEnabled = false
+        
+        self.activityIndicatorView = UIView(frame: CGRectMake( (self.view.bounds.size.width/2 - self.view.bounds.size.width/8), (self.view.bounds.size.height/2 - self.view.bounds.size.width/8), self.view.bounds.size.width/4, self.view.bounds.size.width/4))
+        self.activityIndicatorView?.backgroundColor = UIColor.blackColor()
+        self.activityIndicatorView?.alpha = 0.7
+        self.activityIndicatorView?.layer.cornerRadius = 10
+        self.activityIndicatorView?.clipsToBounds = true
+        self.view.addSubview(self.activityIndicatorView!)
+        
+        self.activityIndicator = UIActivityIndicatorView (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        self.activityIndicator?.color = UIColor.whiteColor()
+        self.activityIndicator?.center = self.view.center
+        self.view.addSubview(self.activityIndicator!)
+        self.activityIndicator?.startAnimating()
+    }
+    
+    func hideSpinner () {
+        self.activityIndicator?.stopAnimating()
+        self.activityIndicator?.removeFromSuperview()
+        self.activityIndicatorView?.removeFromSuperview()
+        
+        self.loginButton.userInteractionEnabled = true
+    }
     
     /*
      // MARK: - Navigation

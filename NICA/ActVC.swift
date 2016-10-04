@@ -67,6 +67,22 @@ class ActVC: UITableViewController {
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    // back
+    override func viewDidAppear(animated: Bool) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: #selector(backToWatchVideo))
+    }
+    
+    func backToWatchVideo(){
+        let vc = WatchVideoVC()
+        vc.dashboard = dashboard
+        vc.category = category
+        
+        let nc = UINavigationController()
+        nc.viewControllers = [vc]
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
     /*
     // Override to support conditional editing of the table view.
