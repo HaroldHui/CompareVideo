@@ -87,9 +87,15 @@ class PictureVideoVC: UITableViewController {
 //
 //            self.showDetailViewController(nc, sender: self)
             
-            sDelegate!.showImage(self, path: vc.picture.dir)
+            //sDelegate!.showImage(self, path: vc.picture.dir)
             
-            self.dismissViewControllerAnimated(true, completion: nil)
+            let urlPath = NSURL(string: vc.picture.dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+            let modalVC = ModalImageVC(urlPath: urlPath, svc: self.splitViewController!)
+            modalVC.modalPresentationStyle = .OverCurrentContext
+            self.splitViewController!.presentViewController(modalVC, animated: true, completion: nil)
+            self.splitViewController!.view.alpha = 0.2
+            
+            //self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
