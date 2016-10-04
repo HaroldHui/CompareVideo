@@ -27,6 +27,7 @@ class CategoryVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -51,11 +52,10 @@ class CategoryVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
         self.category = categories[indexPath.row]
         self.category.acts = []
         let path : String = "category/" + category.cid
-        
+        showSpinner (tableView)
         API.callAPI(path, completionHandler: {(categorydetail) -> Void in
             // Create acts from retrieved data
             self.category.tag = categorydetail["tag"] as! String
@@ -72,12 +72,56 @@ class CategoryVC: UITableViewController {
             vc.dashboard = self.dashboard
             vc.category = self.category
             vc.acts = self.category.acts
-            
+            self.hideSpinner(tableView)
             let nc = UINavigationController()
             nc.viewControllers = [vc]
             
             self.navigationController?.pushViewController(vc, animated: true)
         })
+    }
+    
+    var activityIndicator:UIActivityIndicatorView?
+    var activityIndicatorView: UIView?
+    
+    func showSpinner (tableView: UITableView) {
+        tableView.userInteractionEnabled = false
+        
+        self.activityIndicatorView = UIView(frame: CGRectMake( (self.view.bounds.size.width/2 - self.view.bounds.size.width/8), (self.view.bounds.size.height/2 - self.view.bounds.size.width/8), self.view.bounds.size.width/4, self.view.bounds.size.width/4))
+        self.activityIndicatorView?.backgroundColor = UIColor.blackColor()
+        self.activityIndicatorView?.alpha = 0.7
+        self.activityIndicatorView?.layer.cornerRadius = 10
+        self.activityIndicatorView?.clipsToBounds = true
+        self.view.addSubview(self.activityIndicatorView!)
+        
+        self.activityIndicator = UIActivityIndicatorView (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        self.activityIndicator?.color = UIColor.whiteColor()
+        self.activityIndicator?.center = self.view.center
+        self.view.addSubview(self.activityIndicator!)
+        self.activityIndicator?.startAnimating()
+    }
+    
+    func hideSpinner (tableView: UITableView) {
+        self.activityIndicator?.stopAnimating()
+        self.activityIndicator?.removeFromSuperview()
+        self.activityIndicatorView?.removeFromSuperview()
+        tableView.userInteractionEnabled = true
+    }
+    
+    
+    // back
+    override func viewDidAppear(animated: Bool) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: #selector(backToWatchVideo))
+    }
+    
+    func backToWatchVideo(){
+        let vc = WatchVideoVC()
+        vc.dashboard = dashboard
+        vc.category = category
+        
+        let nc = UINavigationController()
+        nc.viewControllers = [vc]
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     /*

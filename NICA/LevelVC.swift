@@ -74,7 +74,7 @@ class LevelVC: UITableViewController {
         self.act.professional = []
         
         let path : String = "category/" + category.cid + "/act/" + act.aid
-        
+        showSpinner(tableView)
         API.callAPI(path, completionHandler: {(actdetail) -> Void in
             // Get act details from retrieved data
             self.act.trainer = actdetail["trainer"] as! String
@@ -105,7 +105,7 @@ class LevelVC: UITableViewController {
                     self.act.advanced += [folder]
                 }
             }
-            if let professional = actdetail["professional_inspiraton"] as? [[String: AnyObject]] {
+            if let professional = actdetail["professional_inspirational"] as? [[String: AnyObject]] {
                 for f in professional {
                     let folder = Folder(name: f["name"] as! String, fid: f["fid"] as! String)
                     self.act.professional += [folder]
@@ -139,7 +139,7 @@ class LevelVC: UITableViewController {
                 vc.folders = self.act.professional
                 vc.level = "professional_inspirational"
             }
-            
+            self.hideSpinner(tableView)
             let nc = UINavigationController()
             nc.viewControllers = [vc]
             
@@ -147,6 +147,49 @@ class LevelVC: UITableViewController {
         })
     }
     
+    
+    var activityIndicator:UIActivityIndicatorView?
+    var activityIndicatorView: UIView?
+    
+    func showSpinner (tableView: UITableView) {
+        tableView.userInteractionEnabled = false
+        
+        self.activityIndicatorView = UIView(frame: CGRectMake( (self.view.bounds.size.width/2 - self.view.bounds.size.width/8), (self.view.bounds.size.height/2 - self.view.bounds.size.width/8), self.view.bounds.size.width/4, self.view.bounds.size.width/4))
+        self.activityIndicatorView?.backgroundColor = UIColor.blackColor()
+        self.activityIndicatorView?.alpha = 0.7
+        self.activityIndicatorView?.layer.cornerRadius = 10
+        self.activityIndicatorView?.clipsToBounds = true
+        self.view.addSubview(self.activityIndicatorView!)
+        
+        self.activityIndicator = UIActivityIndicatorView (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        self.activityIndicator?.color = UIColor.whiteColor()
+        self.activityIndicator?.center = self.view.center
+        self.view.addSubview(self.activityIndicator!)
+        self.activityIndicator?.startAnimating()
+    }
+    
+    func hideSpinner (tableView: UITableView) {
+        self.activityIndicator?.stopAnimating()
+        self.activityIndicator?.removeFromSuperview()
+        self.activityIndicatorView?.removeFromSuperview()
+        tableView.userInteractionEnabled = true
+    }
+    
+    // back
+    override func viewDidAppear(animated: Bool) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: #selector(backToWatchVideo))
+    }
+    
+    func backToWatchVideo(){
+        let vc = WatchVideoVC()
+        vc.dashboard = dashboard
+        vc.category = category
+        
+        let nc = UINavigationController()
+        nc.viewControllers = [vc]
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     /*
      // Override to support conditional editing of the table view.
      override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

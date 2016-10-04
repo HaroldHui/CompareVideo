@@ -42,20 +42,15 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationItem.title = "Watch Video Pape"
+        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: navigationController, action: nil)
+        navigationItem.leftBarButtonItem = backButton
         displaySelectionButtons()
         
         view.addSubview(container1)
         view.addSubview(container2)
         
-//        let sPath = NSBundle.mainBundle().pathForResource("Elbow low and push up", ofType: "MOV")!
-//        let urlPath = NSURL(fileURLWithPath: sPath)
-//        
-//        video1 = CustomVideoController(urlPath: urlPath, container: container1)
-//        
-//        container1.frame = CGRect(x: gap, y: 100, width: view.frame.width-2*gap, height: view.frame.width/2+80)
-//        video1!.view.frame = CGRect(x: 0, y: 0, width: view.frame.width-2*gap, height: view.frame.width/2+80)
-//        container1.addSubview(video1!.view)
     }
     
     /**
@@ -67,7 +62,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
      */
     func showVideo(controller: UIViewController, path: String) {
         self.path = path
-        let urlPath = NSURL(string: path)
+        let urlPath = NSURL(string: path.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
         
         // if video1 already exists, remove it first from the superview
         video1?.removeFromParentViewController()
@@ -119,9 +114,17 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
      */
     func showImage(controller: UIViewController, path: String) {
         self.path = path
+        container1.frame = CGRect(x: gap,
+                                  y: 100,
+                                  width: UIScreen.mainScreen().bounds.size.width-2*gap,
+                                  height: UIScreen.mainScreen().bounds.size.height*3/4)
+        container1.backgroundColor = .blackColor()
+        let scrollView = UIScrollView()
+        scrollView.frame = CGRect(x:0,y:0,width: container1.frame.size.width, height: container1.frame.size.height)
+        scrollView.delegate = self
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 10.0
         
-        //let scrollView = UIScrollView()
-        //scrollView.frame = container1.frame
         
         let imageView = UIImageView()
         if let url = NSURL(string: path) {
@@ -130,14 +133,11 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
             }        
         }
         
-//        let url:NSURL = NSURL(string: path)!
-//        let data:NSData = NSData(contentsOfURL: url)!
-//        let image = UIImage(data: data)
-        
         imageView.frame = CGRect(x: 0, y: 0, width: container1.frame.size.width, height: container1.frame.size.width)
+
+        scrollView.addSubview(imageView)
+        container1.addSubview(scrollView)
         
-        container1.addSubview(imageView)
-        //scrollView.addSubview(imageView)
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
@@ -286,13 +286,6 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
         selectLocalButton.addTarget(self, action: #selector(WatchVideoVC.selectLocalVideo(_:)), forControlEvents: .TouchUpInside)
         self.view.addSubview(selectLocalButton)
         
-        // Button logout
-        logoutButton.frame = CGRect(x: self.view.frame.size.width, y: 75, width: 60, height: 25)
-        logoutButton.setTitle("logout", forState: UIControlState.Normal)
-        logoutButton.titleLabel!.text = "logout"
-        logoutButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        logoutButton.addTarget(self, action: #selector(WatchVideoVC.logout(_:)), forControlEvents: .TouchUpInside)
-        //self.view.addSubview(logoutButton)
     }
     
     /**
@@ -346,6 +339,8 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
+        // Button logout
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(logout(_:)))
         super.viewDidAppear(animated)
     }
     
