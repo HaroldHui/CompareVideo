@@ -53,6 +53,10 @@
 		A4F0CFDF1D5589B8005ED3FE /* Image 2.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFDD1D5589B8005ED3FE /* Image 2.png */; };
 		A4F0CFE31D5589DC005ED3FE /* 1 Arm Press.MOV in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFE11D5589DC005ED3FE /* 1 Arm Press.MOV */; };
 		A4F0CFE41D5589DC005ED3FE /* Elbow low and push up.MOV in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFE21D5589DC005ED3FE /* Elbow low and push up.MOV */; };
+		F439A0891DA2305A000481B6 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F439A0881DA2305A000481B6 /* LoginVC.swift */; };
+		F439A08B1DA23063000481B6 /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F439A08A1DA23063000481B6 /* LoginVC.xib */; };
+		F439A08E1DA230AF000481B6 /* WatchVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F439A08C1DA230AF000481B6 /* WatchVideoVC.swift */; };
+		F439A08F1DA230AF000481B6 /* WatchVideoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F439A08D1DA230AF000481B6 /* WatchVideoVC.xib */; };
 		F4DA56E21D93B70E00268F6F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA56E11D93B70E00268F6F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +130,10 @@
 		A4F0CFDD1D5589B8005ED3FE /* Image 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Image 2.png"; sourceTree = "<group>"; };
 		A4F0CFE11D5589DC005ED3FE /* 1 Arm Press.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "1 Arm Press.MOV"; sourceTree = "<group>"; };
 		A4F0CFE21D5589DC005ED3FE /* Elbow low and push up.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Elbow low and push up.MOV"; sourceTree = "<group>"; };
+		F439A0881DA2305A000481B6 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		F439A08A1DA23063000481B6 /* LoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
+		F439A08C1DA230AF000481B6 /* WatchVideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchVideoVC.swift; sourceTree = "<group>"; };
+		F439A08D1DA230AF000481B6 /* WatchVideoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WatchVideoVC.xib; sourceTree = "<group>"; };
 		F4DA56E11D93B70E00268F6F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -241,8 +249,10 @@
 			isa = PBXGroup;
 			children = (
 				3F089E7A1D60572600467C2F /* PictureVideoVC.xib */,
+				F439A08D1DA230AF000481B6 /* WatchVideoVC.xib */,
 				3F089E761D6054DC00467C2F /* FolderVC.xib */,
 				3F089E721D6053AC00467C2F /* LevelVC.xib */,
+				F439A08A1DA23063000481B6 /* LoginVC.xib */,
 				A4C51AE51D589FAB00D6D733 /* MasterVC.xib */,
 				A4C51AEB1D589FE100D6D733 /* DetailVC.xib */,
 				A4BE27601D5DCE23001C1EBF /* CategoryVC.xib */,
@@ -260,6 +270,7 @@
 				A49E86D51CEC39D1002AC786 /* ViewController.swift */,
 				A49E87071CEC5574002AC786 /* SelectVideoViewController.swift */,
 				A4F0CFD51D558926005ED3FE /* SelectImageVC.swift */,
+				F439A0881DA2305A000481B6 /* LoginVC.swift */,
 				A4C51AE01D589F1800D6D733 /* SelectImageSVC.swift */,
 				A4C51AE41D589FAB00D6D733 /* MasterVC.swift */,
 				A4C51AEA1D589FE100D6D733 /* DetailVC.swift */,
@@ -269,6 +280,7 @@
 				3F089E751D6054DC00467C2F /* FolderVC.swift */,
 				3F089E791D60572600467C2F /* PictureVideoVC.swift */,
 				A41C2C8E1D9B483100BECCE5 /* CustomVideoController.swift */,
+				F439A08C1DA230AF000481B6 /* WatchVideoVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -417,6 +429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4F0CFDE1D5589B8005ED3FE /* Image 1.png in Resources */,
+				F439A08B1DA23063000481B6 /* LoginVC.xib in Resources */,
 				3F089E741D6053AC00467C2F /* LevelVC.xib in Resources */,
 				A4C51AE71D589FAB00D6D733 /* MasterVC.xib in Resources */,
 				A4F0CFE31D5589DC005ED3FE /* 1 Arm Press.MOV in Resources */,
@@ -431,6 +444,7 @@
 				A4F0CFD81D558926005ED3FE /* SelectImageVC.xib in Resources */,
 				A41C2C911D9B483100BECCE5 /* CustomVideoController.xib in Resources */,
 				A48601281D9B98B7000B65FB /* pencil_icon_gray.png in Resources */,
+				F439A08F1DA230AF000481B6 /* WatchVideoVC.xib in Resources */,
 				A49E86D91CEC39D1002AC786 /* Main.storyboard in Resources */,
 				A48601231D9B98AC000B65FB /* pause_button.png in Resources */,
 				A4C51AED1D589FE100D6D733 /* DetailVC.xib in Resources */,
@@ -467,6 +481,7 @@
 				A4BE27611D5DCE23001C1EBF /* CategoryVC.swift in Sources */,
 				A4BBF84F1D5DAE840019A245 /* ActVC.swift in Sources */,
 				3F089E771D6054DC00467C2F /* FolderVC.swift in Sources */,
+				F439A08E1DA230AF000481B6 /* WatchVideoVC.swift in Sources */,
 				A4C51AEF1D58A0CA00D6D733 /* Root.swift in Sources */,
 				A4C51AF51D58A40500D6D733 /* Dashboard.swift in Sources */,
 				A4C51AFD1D58A71900D6D733 /* Picture.swift in Sources */,
@@ -485,6 +500,7 @@
 				A4C51AF31D58A17300D6D733 /* Act.swift in Sources */,
 				A4C51AEC1D589FE100D6D733 /* DetailVC.swift in Sources */,
 				3F84468A1D83C5BE0053844D /* Folder.swift in Sources */,
+				F439A0891DA2305A000481B6 /* LoginVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
