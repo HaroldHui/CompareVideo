@@ -167,10 +167,21 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
     }
     
     func logout(sender: UIButton) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setBool(false, forKey: "login")
-        let viewcontroller = LoginVC()
-        self.navigationController!.pushViewController(viewcontroller, animated: true)
+        let refreshAlert = UIAlertController(title: "Logout", message: "Are you sure?", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            userDefaults.setBool(false, forKey: "login")
+            let viewcontroller = LoginVC()
+            self.navigationController!.pushViewController(viewcontroller, animated: true)
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action: UIAlertAction!) in
+            
+        }))
+        
+        presentViewController(refreshAlert, animated: true, completion: nil)
+        
     }
     
     /**

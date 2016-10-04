@@ -13,15 +13,15 @@ class ModalImageVC: UIViewController, UIScrollViewDelegate {
     let screenWidth = UIScreen.mainScreen().bounds.size.width
     let screenHeight = UIScreen.mainScreen().bounds.size.height
     
-    var urlPath: NSURL?
+    var data: NSData?
     var svc: UISplitViewController?
     
     let sView = UIScrollView()
     let closeButton = UIButton()
     
     // Initialization function
-    init(urlPath: NSURL?, svc: UISplitViewController?) {
-        self.urlPath = urlPath
+    init(data: NSData?, svc: UISplitViewController?) {
+        self.data = data
         self.svc = svc
         super.init(nibName: nil, bundle: nil)
     }
@@ -51,9 +51,7 @@ class ModalImageVC: UIViewController, UIScrollViewDelegate {
         
         // creating the image view
         let imageView = UIImageView()
-        if let data = NSData(contentsOfURL: urlPath!) {
-            imageView.image = UIImage(data: data)
-        }
+        imageView.image = UIImage(data: data!)
         imageView.frame = CGRect(x: 0, y: 0, width: sView.frame.size.width, height: sView.frame.size.width)
         
         sView.addSubview(imageView)
