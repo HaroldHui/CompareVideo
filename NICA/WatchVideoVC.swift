@@ -42,20 +42,20 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         displaySelectionButtons()
         
         view.addSubview(container1)
         view.addSubview(container2)
         
-        let sPath = NSBundle.mainBundle().pathForResource("Elbow low and push up", ofType: "MOV")!
-        let urlPath = NSURL(fileURLWithPath: sPath)
-        
-        video1 = CustomVideoController(urlPath: urlPath, container: container1)
-        
-        container1.frame = CGRect(x: gap, y: 100, width: view.frame.width-2*gap, height: view.frame.width/2+80)
-        video1!.view.frame = CGRect(x: 0, y: 0, width: view.frame.width-2*gap, height: view.frame.width/2+80)
-        container1.addSubview(video1!.view)
+//        let sPath = NSBundle.mainBundle().pathForResource("Elbow low and push up", ofType: "MOV")!
+//        let urlPath = NSURL(fileURLWithPath: sPath)
+//        
+//        video1 = CustomVideoController(urlPath: urlPath, container: container1)
+//        
+//        container1.frame = CGRect(x: gap, y: 100, width: view.frame.width-2*gap, height: view.frame.width/2+80)
+//        video1!.view.frame = CGRect(x: 0, y: 0, width: view.frame.width-2*gap, height: view.frame.width/2+80)
+//        container1.addSubview(video1!.view)
     }
     
     /**
@@ -120,15 +120,24 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
     func showImage(controller: UIViewController, path: String) {
         self.path = path
         
-        let scrollView = UIScrollView()
-        scrollView.frame = container1.frame
+        //let scrollView = UIScrollView()
+        //scrollView.frame = container1.frame
         
-        let image = UIImage(contentsOfFile: path)
-        let imageView = UIImageView(image: image!)
-        imageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.width)
+        let imageView = UIImageView()
+        if let url = NSURL(string: path) {
+            if let data = NSData(contentsOfURL: url) {
+                imageView.image = UIImage(data: data)
+            }        
+        }
         
-        container1.addSubview(scrollView)
-        scrollView.addSubview(imageView)
+//        let url:NSURL = NSURL(string: path)!
+//        let data:NSData = NSData(contentsOfURL: url)!
+//        let image = UIImage(data: data)
+        
+        imageView.frame = CGRect(x: 0, y: 0, width: container1.frame.size.width, height: container1.frame.size.width)
+        
+        container1.addSubview(imageView)
+        //scrollView.addSubview(imageView)
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
@@ -155,6 +164,13 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
      */
     func selectLocalVideo(sender: UIButton) {
         startMediaBrowserFromViewController(self, usingDelegate: self)
+    }
+    
+    func logout(sender: UIButton) {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setBool(false, forKey: "login")
+        let viewcontroller = LoginVC()
+        self.navigationController!.pushViewController(viewcontroller, animated: true)
     }
     
     /**
@@ -247,6 +263,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
     // Buttons
     let selectCloudButton = UIButton()
     let selectLocalButton = UIButton()
+    let logoutButton = UIButton()
     let playBothButton: UIButton? = nil
     
     /**
@@ -262,12 +279,20 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
         self.view.addSubview(selectCloudButton)
         
         // Button for Select Local Video
-        selectLocalButton.frame = CGRect(x: self.view.frame.size.width-160, y: 75, width: 150, height: 25)
+        selectLocalButton.frame = CGRect(x: UIScreen.mainScreen().bounds.size.width-160, y: 75, width: 150, height: 25)
         selectLocalButton.setTitle("Select from Local", forState: UIControlState.Normal)
         selectLocalButton.titleLabel!.text = "Select from Local"
         selectLocalButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
         selectLocalButton.addTarget(self, action: #selector(WatchVideoVC.selectLocalVideo(_:)), forControlEvents: .TouchUpInside)
         self.view.addSubview(selectLocalButton)
+        
+        // Button logout
+        logoutButton.frame = CGRect(x: self.view.frame.size.width, y: 75, width: 60, height: 25)
+        logoutButton.setTitle("logout", forState: UIControlState.Normal)
+        logoutButton.titleLabel!.text = "logout"
+        logoutButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        logoutButton.addTarget(self, action: #selector(WatchVideoVC.logout(_:)), forControlEvents: .TouchUpInside)
+        //self.view.addSubview(logoutButton)
     }
     
     /**

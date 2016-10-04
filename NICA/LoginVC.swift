@@ -11,9 +11,11 @@ import UIKit
 
 class LoginVC: UIViewController {
     
+    var userDefaults = NSUserDefaults.standardUserDefaults()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         // Do any additional setup after loading the view.
     }
     
@@ -24,7 +26,7 @@ class LoginVC: UIViewController {
     
     @IBAction func login(sender: UIButton) {
         
-        let loginURL = NSURL(string: "http://localhost:3000/api/login")
+        let loginURL = NSURL(string: URLOFAPI + "login")
         let request = NSMutableURLRequest(URL: loginURL!)
         request.HTTPMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
@@ -67,12 +69,13 @@ class LoginVC: UIViewController {
     }
     private func loginSuccess(){
         NSOperationQueue.mainQueue().addOperationWithBlock {
-            self.invalidMessage.text = "success"
+//            self.invalidMessage.text = "success"
 //            let viewcontroller = WatchVideoVC()
 //            self.navigationController!.pushViewController(viewcontroller, animated: true)
-            
+            self.userDefaults.setBool(true, forKey: "login")
             let viewcontroller = WatchVideoVC()
-            self.presentViewController(viewcontroller, animated: true, completion: nil)
+//            self.presentViewController(viewcontroller, animated: true, completion: nil)
+            self.navigationController!.pushViewController(viewcontroller, animated: true)
         }
         
     }

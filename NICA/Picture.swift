@@ -19,6 +19,6 @@ class Picture {
     
     init(name: String, path: String) {
         self.name = name
-        self.dir = path
+        self.dir = URLOFSERVER + path
     }
 }

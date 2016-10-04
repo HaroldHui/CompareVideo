@@ -10,14 +10,23 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
+    var userDefaults = NSUserDefaults.standardUserDefaults()
     override func viewDidLoad() {
         super.viewDidLoad()
-        let viewcontroller = LoginVC()
-        self.presentViewController(viewcontroller, animated: true, completion: nil)
         
         // Do any additional setup after loading the view.
     }
+    override func viewDidAppear(animated: Bool) {
+        if userDefaults.boolForKey("login") {
+            let viewcontroller = WatchVideoVC()
+            self.navigationController!.pushViewController(viewcontroller, animated: true)
+        } else {
+            let viewcontroller = LoginVC()
+            self.navigationController!.pushViewController(viewcontroller, animated: true)
+
+        }
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
