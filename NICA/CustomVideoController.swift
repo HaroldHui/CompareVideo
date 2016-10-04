@@ -81,6 +81,8 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         sView.delegate = self
         sView.minimumZoomScale = 1.0
         sView.maximumZoomScale = 10.0
+        sView.showsVerticalScrollIndicator = false
+        sView.showsHorizontalScrollIndicator = false
         
         sView.addSubview(playerContainer)
         playerContainer.frame = CGRect(x: 0,

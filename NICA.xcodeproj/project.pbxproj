@@ -47,6 +47,8 @@
 		A4C51AF51D58A40500D6D733 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AF41D58A40500D6D733 /* Dashboard.swift */; };
 		A4C51AF91D58A5E800D6D733 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AF81D58A5E800D6D733 /* Level.swift */; };
 		A4C51AFD1D58A71900D6D733 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C51AFC1D58A71900D6D733 /* Picture.swift */; };
+		A4CDC5F01DA3A342007B3D77 /* ModalImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CDC5EE1DA3A342007B3D77 /* ModalImageVC.swift */; };
+		A4CDC5F11DA3A342007B3D77 /* ModalImageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4CDC5EF1DA3A342007B3D77 /* ModalImageVC.xib */; };
 		A4F0CFD71D558926005ED3FE /* SelectImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0CFD51D558926005ED3FE /* SelectImageVC.swift */; };
 		A4F0CFD81D558926005ED3FE /* SelectImageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */; };
 		A4F0CFDE1D5589B8005ED3FE /* Image 1.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFDC1D5589B8005ED3FE /* Image 1.png */; };
@@ -124,6 +126,8 @@
 		A4C51AF41D58A40500D6D733 /* Dashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		A4C51AF81D58A5E800D6D733 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		A4C51AFC1D58A71900D6D733 /* Picture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		A4CDC5EE1DA3A342007B3D77 /* ModalImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalImageVC.swift; sourceTree = "<group>"; };
+		A4CDC5EF1DA3A342007B3D77 /* ModalImageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalImageVC.xib; sourceTree = "<group>"; };
 		A4F0CFD51D558926005ED3FE /* SelectImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectImageVC.swift; sourceTree = "<group>"; };
 		A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectImageVC.xib; sourceTree = "<group>"; };
 		A4F0CFDC1D5589B8005ED3FE /* Image 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Image 1.png"; sourceTree = "<group>"; };
@@ -260,6 +264,7 @@
 				A4C51AE11D589F1800D6D733 /* SelectImageSVC.xib */,
 				A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */,
 				A41C2C8F1D9B483100BECCE5 /* CustomVideoController.xib */,
+				A4CDC5EF1DA3A342007B3D77 /* ModalImageVC.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -281,6 +286,7 @@
 				3F089E791D60572600467C2F /* PictureVideoVC.swift */,
 				A41C2C8E1D9B483100BECCE5 /* CustomVideoController.swift */,
 				F439A08C1DA230AF000481B6 /* WatchVideoVC.swift */,
+				A4CDC5EE1DA3A342007B3D77 /* ModalImageVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -445,6 +451,7 @@
 				A4F0CFD81D558926005ED3FE /* SelectImageVC.xib in Resources */,
 				A41C2C911D9B483100BECCE5 /* CustomVideoController.xib in Resources */,
 				A48601281D9B98B7000B65FB /* pencil_icon_gray.png in Resources */,
+				A4CDC5F11DA3A342007B3D77 /* ModalImageVC.xib in Resources */,
 				F439A08F1DA230AF000481B6 /* WatchVideoVC.xib in Resources */,
 				A49E86D91CEC39D1002AC786 /* Main.storyboard in Resources */,
 				A48601231D9B98AC000B65FB /* pause_button.png in Resources */,
@@ -499,6 +506,7 @@
 				3F089E731D6053AC00467C2F /* LevelVC.swift in Sources */,
 				A49E87081CEC5574002AC786 /* SelectVideoViewController.swift in Sources */,
 				A4C51AF31D58A17300D6D733 /* Act.swift in Sources */,
+				A4CDC5F01DA3A342007B3D77 /* ModalImageVC.swift in Sources */,
 				A4C51AEC1D589FE100D6D733 /* DetailVC.swift in Sources */,
 				3F84468A1D83C5BE0053844D /* Folder.swift in Sources */,
 				F439A0891DA2305A000481B6 /* LoginVC.swift in Sources */,
