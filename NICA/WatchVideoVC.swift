@@ -42,7 +42,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.title = "Watch Video Pape"
         let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: navigationController, action: nil)
         navigationItem.leftBarButtonItem = backButton
