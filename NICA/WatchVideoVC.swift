@@ -199,8 +199,9 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
         }
         
         // 2
-        let mediaUI = UIImagePickerController()
+        let mediaUI = LandscapePickerController()
         mediaUI.sourceType = .SavedPhotosAlbum
+        
         mediaUI.mediaTypes = [kUTTypeMovie as NSString as String]
         mediaUI.allowsEditing = true
         mediaUI.delegate = delegate
