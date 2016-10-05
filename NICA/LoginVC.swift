@@ -9,7 +9,7 @@
 import UIKit
 
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController,UITextFieldDelegate {
     
     var userDefaults = NSUserDefaults.standardUserDefaults()
     
@@ -18,6 +18,20 @@ class LoginVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         // Do any additional setup after loading the view.
     }
+    override func viewDidAppear(animated: Bool) {
+        
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == id{
+            firstName.becomeFirstResponder()
+        }else if(textField == firstName){
+            lastName.becomeFirstResponder()
+        }else{
+            loginFunc()
+        }
+        return true
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -25,7 +39,11 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func login(sender: UIButton) {
+        loginFunc()
         
+    }
+    
+    private func loginFunc(){
         let loginURL = NSURL(string: URLOFAPI + "login")
         let request = NSMutableURLRequest(URL: loginURL!)
         request.HTTPMethod = "POST"
@@ -66,7 +84,6 @@ class LoginVC: UIViewController {
         }
         task.resume()
         showSpinner()
-        
     }
     private func loginSuccess(){
         NSOperationQueue.mainQueue().addOperationWithBlock {

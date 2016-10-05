@@ -59,6 +59,7 @@
 		F439A08B1DA23063000481B6 /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F439A08A1DA23063000481B6 /* LoginVC.xib */; };
 		F439A08E1DA230AF000481B6 /* WatchVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F439A08C1DA230AF000481B6 /* WatchVideoVC.swift */; };
 		F439A08F1DA230AF000481B6 /* WatchVideoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F439A08D1DA230AF000481B6 /* WatchVideoVC.xib */; };
+		F46A0AFA1DA3F277001DCB31 /* nica_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F46A0AF91DA3F277001DCB31 /* nica_logo.png */; };
 		F4DA56E21D93B70E00268F6F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA56E11D93B70E00268F6F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -138,6 +139,7 @@
 		F439A08A1DA23063000481B6 /* LoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
 		F439A08C1DA230AF000481B6 /* WatchVideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchVideoVC.swift; sourceTree = "<group>"; };
 		F439A08D1DA230AF000481B6 /* WatchVideoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WatchVideoVC.xib; sourceTree = "<group>"; };
+		F46A0AF91DA3F277001DCB31 /* nica_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nica_logo.png; sourceTree = "<group>"; };
 		F4DA56E11D93B70E00268F6F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -304,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				A4F0CFDC1D5589B8005ED3FE /* Image 1.png */,
+				F46A0AF91DA3F277001DCB31 /* nica_logo.png */,
 				A4F0CFDD1D5589B8005ED3FE /* Image 2.png */,
 			);
 			name = Images;
@@ -460,6 +463,7 @@
 				A48601241D9B98AC000B65FB /* play_button.png in Resources */,
 				A4C51AE31D589F1800D6D733 /* SelectImageSVC.xib in Resources */,
 				3F089E7C1D60572600467C2F /* PictureVideoVC.xib in Resources */,
+				F46A0AFA1DA3F277001DCB31 /* nica_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

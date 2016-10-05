@@ -69,36 +69,62 @@ class PictureVideoVC: UITableViewController {
             
             let nc = UINavigationController()
             nc.viewControllers = [vc]
-//
-//            self.showDetailViewController(nc, sender: self)
+            //
+            //            self.showDetailViewController(nc, sender: self)
             
             sDelegate!.showVideo(self, path: vc.video.dir)
             
             self.dismissViewControllerAnimated(true, completion: nil)
         } else {
+            showSpinner(tableView)
+            NSOperationQueue.mainQueue().addOperationWithBlock {
+            let urlPath = NSURL(string: self.pictures[indexPath.row - self.videos.count].dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+            let data = NSData(contentsOfURL: urlPath!)
+            self.hideSpinner(tableView)
             let vc = WatchVideoVC()
-            vc.dashboard = dashboard
-            vc.category = category
-            vc.act = act
-            vc.picture = pictures[indexPath.row - videos.count]
-
+            vc.dashboard = self.dashboard
+            vc.category = self.category
+            vc.act = self.act
+            vc.picture = self.pictures[indexPath.row - self.videos.count]
+            
             let nc = UINavigationController()
             nc.viewControllers = [vc]
-//
-//            self.showDetailViewController(nc, sender: self)
             
-            //sDelegate!.showImage(self, path: vc.picture.dir)
-            
-            let urlPath = NSURL(string: vc.picture.dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
-            let modalVC = ModalImageVC(urlPath: urlPath, svc: self.splitViewController!)
+            let modalVC = ModalImageVC(data: data, svc: self.splitViewController!)
             modalVC.modalPresentationStyle = .OverCurrentContext
             self.splitViewController!.presentViewController(modalVC, animated: true, completion: nil)
             self.splitViewController!.view.alpha = 0.2
+            }
             
-            //self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
+    var activityIndicator:UIActivityIndicatorView?
+    var activityIndicatorView: UIView?
+    
+    func showSpinner (tableView: UITableView) {
+        tableView.userInteractionEnabled = false
+        
+        self.activityIndicatorView = UIView(frame: CGRectMake( (self.view.bounds.size.width/2 - self.view.bounds.size.width/8), (self.view.bounds.size.height/2 - self.view.bounds.size.width/8), self.view.bounds.size.width/4, self.view.bounds.size.width/4))
+        self.activityIndicatorView?.backgroundColor = UIColor.blackColor()
+        self.activityIndicatorView?.alpha = 0.7
+        self.activityIndicatorView?.layer.cornerRadius = 10
+        self.activityIndicatorView?.clipsToBounds = true
+        self.view.addSubview(self.activityIndicatorView!)
+        
+        self.activityIndicator = UIActivityIndicatorView (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        self.activityIndicator?.color = UIColor.whiteColor()
+        self.activityIndicator?.center = self.view.center
+        self.view.addSubview(self.activityIndicator!)
+        self.activityIndicator?.startAnimating()
+    }
+    
+    func hideSpinner (tableView: UITableView) {
+        self.activityIndicator?.stopAnimating()
+        self.activityIndicator?.removeFromSuperview()
+        self.activityIndicatorView?.removeFromSuperview()
+        tableView.userInteractionEnabled = true
+    }
     
     // back
     override func viewDidAppear(animated: Bool) {
