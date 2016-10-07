@@ -29,6 +29,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
     let player = AVPlayer()
     var playerLayer: AVPlayerLayer!
     let playerContainer = UIView()
+    let controllerContainer = UIView()
     
     // the video controller
     // views
@@ -117,19 +118,28 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                               width: container!.frame.width,
                               height: container!.frame.height-2*BUTTON_HEIGHT)
         
+        // controller view
+        // it can be hidden and displayed
+        view.addSubview(controllerContainer)
+        controllerContainer.hidden = false
+        controllerContainer.frame = CGRect(x: 0,
+                                           y: sView.frame.height-2*BUTTON_HEIGHT,
+                                           width: sView.frame.width,
+                                           height: 2*BUTTON_HEIGHT)
+        
         // Play/pause/replay button
-        view.addSubview(playButton)
+        controllerContainer.addSubview(playButton)
         playButton.setImage(playButtonImage, forState: .Normal)
         playButton.frame = CGRect(x: 0,
-                                  y: sView.frame.height+BUTTON_HEIGHT,
+                                  y: BUTTON_HEIGHT,
                                   width: BUTTON_WIDTH,
                                   height: BUTTON_HEIGHT)
         playButton.addTarget(self, action: #selector(self.play(_:)), forControlEvents: .TouchUpInside)
         
         // Time elapsed label
-        view.addSubview(timeElapLabel)
+        controllerContainer.addSubview(timeElapLabel)
         timeElapLabel.frame = CGRect(x: 0,
-                                     y: sView.frame.height,
+                                     y: 0,
                                      width: BUTTON_WIDTH,
                                      height: BUTTON_HEIGHT)
         timeElapLabel.adjustsFontSizeToFitWidth = true
@@ -137,9 +147,9 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         timeElapLabel.text = String(format: "%02d:%02d", 0, 0)
         
         // Time seeker
-        view.addSubview(seekSlider)
+        controllerContainer.addSubview(seekSlider)
         seekSlider.frame = CGRect(x: timeElapLabel.frame.width,
-                                  y: sView.frame.height,
+                                  y: 0,
                                   width: container!.frame.width - 2*BUTTON_WIDTH,
                                   height: BUTTON_HEIGHT)
         seekSlider.addTarget(self, action: #selector(sliderBeganTracking),
@@ -150,9 +160,9 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                              forControlEvents: .ValueChanged)
         
         // Time remaining label
-        view.addSubview(timeRemLabel)
+        controllerContainer.addSubview(timeRemLabel)
         timeRemLabel.frame = CGRect(x: timeElapLabel.frame.width + seekSlider.frame.width,
-                                    y: sView.frame.height,
+                                    y: 0,
                                     width: BUTTON_WIDTH,
                                     height: BUTTON_HEIGHT)
         timeRemLabel.adjustsFontSizeToFitWidth = true
@@ -160,39 +170,39 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         timeRemLabel.text = String(format: "%02d:%02d", 0, 0)
         
         // Slow motion button
-        view.addSubview(slowmoButton)
+        controllerContainer.addSubview(slowmoButton)
         slowmoButton.setTitle("Slow-mo", forState: .Normal)
         slowmoButton.titleLabel!.text = "Slow-mo"
         slowmoButton.backgroundColor = .blackColor()
         slowmoButton.layer.cornerRadius = 5
         slowmoButton.layer.borderWidth = 1
         slowmoButton.layer.borderColor = UIColor.blackColor().CGColor
-        slowmoButton.frame = CGRect(x: playButton.frame.width + BUTTON_WIDTH,
-                                    y: sView.frame.height+BUTTON_HEIGHT,
+        slowmoButton.frame = CGRect(x: playButton.frame.width + BUTTON_WIDTH/2,
+                                    y: BUTTON_HEIGHT,
                                     width: 2*BUTTON_WIDTH,
                                     height: BUTTON_HEIGHT)
         slowmoButton.addTarget(self, action: #selector(slowmo(_:)), forControlEvents: .TouchUpInside)
         
         // Drawing Tool button
-        view.addSubview(drawButton)
+        controllerContainer.addSubview(drawButton)
         drawButton.setImage(drawButtonImage, forState: .Normal)
         drawButton.layer.borderWidth = 1
         drawButton.layer.borderColor = UIColor.blackColor().CGColor
-        drawButton.frame = CGRect(x: container!.frame.width-2*BUTTON_WIDTH-40,
-                                  y: sView.frame.height+BUTTON_HEIGHT,
+        drawButton.frame = CGRect(x: playButton.frame.width + (3 * BUTTON_WIDTH) + 10,
+                                  y: BUTTON_HEIGHT,
                                   width: BUTTON_WIDTH,
                                   height: BUTTON_HEIGHT)
         drawButton.addTarget(self, action: #selector(enableDraw(_:)), forControlEvents: .TouchUpInside)
         
-        view.addSubview(clearButton)
+        controllerContainer.addSubview(clearButton)
         clearButton.setTitle("Clear", forState: .Normal)
         clearButton.titleLabel!.text = "Clear"
         clearButton.backgroundColor = .blackColor()
         clearButton.layer.cornerRadius = 5
         clearButton.layer.borderWidth = 1
         clearButton.layer.borderColor = UIColor.blackColor().CGColor
-        clearButton.frame = CGRect(x: container!.frame.width-BUTTON_WIDTH-20,
-                                   y: sView.frame.height+BUTTON_HEIGHT,
+        clearButton.frame = CGRect(x: playButton.frame.width + (5 * BUTTON_WIDTH),
+                                   y: BUTTON_HEIGHT,
                                    width: BUTTON_WIDTH+20,
                                    height: BUTTON_HEIGHT)
         clearButton.addTarget(self, action: #selector(clearDrawing(_:)), forControlEvents: .TouchUpInside)
@@ -430,17 +440,17 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                                     width: BUTTON_WIDTH,
                                     height: BUTTON_HEIGHT)
         
-        slowmoButton.frame = CGRect(x: playButton.frame.width + BUTTON_WIDTH,
+        slowmoButton.frame = CGRect(x: playButton.frame.width + BUTTON_WIDTH/2,
                                     y: sView.frame.height+BUTTON_HEIGHT,
                                     width: 2*BUTTON_WIDTH,
                                     height: BUTTON_HEIGHT)
         
-        drawButton.frame = CGRect(x: container!.frame.width-2*BUTTON_WIDTH-40,
+        drawButton.frame = CGRect(x: playButton.frame.width + 3*BUTTON_WIDTH+10,
                                   y: sView.frame.height+BUTTON_HEIGHT,
                                   width: BUTTON_WIDTH,
                                   height: BUTTON_HEIGHT)
         
-        clearButton.frame = CGRect(x: container!.frame.width-BUTTON_WIDTH-20,
+        clearButton.frame = CGRect(x: playButton.frame.width + 5*BUTTON_WIDTH,
                                    y: sView.frame.height+BUTTON_HEIGHT,
                                    width: BUTTON_WIDTH+20,
                                    height: BUTTON_HEIGHT)
