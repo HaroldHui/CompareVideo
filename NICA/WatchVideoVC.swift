@@ -46,7 +46,8 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
         navigationItem.title = "Watch Video Pape"
         let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: navigationController, action: nil)
         navigationItem.leftBarButtonItem = backButton
-        displaySelectionButtons()
+        displayToolbar()
+//        displaySelectionButtons()
         
         view.addSubview(container1)
         view.addSubview(container2)
@@ -99,6 +100,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
                                         y: 0,
                                         width: self.view.frame.width/2-3*self.gap,
                                         height: self.view.frame.width/2+80)
+            self.video2!.updateFrames(self.container2)
             displayPlayBothButton()
         }
         container1.addSubview(video1!.view)
@@ -324,6 +326,13 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
      - sender: The UIButton that calls this function
      */
     func playBoth(sender: UIButton) {
+        if video1!.videoState == 2 {
+            video1!.player.seekToTime(kCMTimeZero)
+        }
+        if video2!.videoState == 2 {
+            video2!.player.seekToTime(kCMTimeZero)
+        }
+        
         // If at least one of the videos is paused
         if video1!.videoState == 0 || video2!.videoState == 0 {
             video1!.player.play()
@@ -354,6 +363,22 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
         // Button logout
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(logout(_:)))
         super.viewDidAppear(animated)
+    }
+    
+    
+    private func displayToolbar(){
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: self, action: nil)
+
+        let cloudButton = UIBarButtonItem(title: "Cloud", style: .Plain, target: self, action: #selector(WatchVideoVC.goToSelectionPage(_:)))
+        let localButton = UIBarButtonItem(title: "Local", style: .Plain, target: self, action: #selector(WatchVideoVC.selectLocalVideo(_:)))
+ 
+        let toolbarButtons = [flexibleSpace,cloudButton,flexibleSpace,localButton,flexibleSpace]
+        let toolbar = UIToolbar()
+        toolbar.frame = CGRectMake(0, UIScreen.mainScreen().bounds.size.height-46, self.view.frame.size.width, 47)
+        toolbar.sizeToFit()
+        toolbar.setItems(toolbarButtons, animated: true)
+        toolbar.backgroundColor = UIColor.grayColor()
+        self.view.addSubview(toolbar)
     }
     
     override func didReceiveMemoryWarning() {
