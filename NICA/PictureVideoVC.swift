@@ -81,14 +81,6 @@ class PictureVideoVC: UITableViewController {
             let urlPath = NSURL(string: self.pictures[indexPath.row - self.videos.count].dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
             let data = NSData(contentsOfURL: urlPath!)
             self.hideSpinner(tableView)
-            let vc = WatchVideoVC()
-            vc.dashboard = self.dashboard
-            vc.category = self.category
-            vc.act = self.act
-            vc.picture = self.pictures[indexPath.row - self.videos.count]
-            
-            let nc = UINavigationController()
-            nc.viewControllers = [vc]
             
             let modalVC = ModalImageVC(data: data, svc: self.splitViewController!)
             modalVC.modalPresentationStyle = .OverCurrentContext

@@ -30,6 +30,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
     var playerLayer: AVPlayerLayer!
     let playerContainer = UIView()
     let controllerContainer = UIView()
+    let drawContainer = UIView()
     
     // the video controller
     // views
@@ -78,24 +79,30 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         sView.frame = CGRect(x: 0,
                              y: 0,
                              width: container!.frame.width,
-                             height: container!.frame.height-2*BUTTON_HEIGHT)
+                             height: container!.frame.height)
         sView.delegate = self
         sView.minimumZoomScale = 1.0
         sView.maximumZoomScale = 10.0
         sView.showsVerticalScrollIndicator = false
         sView.showsHorizontalScrollIndicator = false
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleControllers))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.cancelsTouchesInView = false
+        
+        sView.addGestureRecognizer(tapGesture)
+        
         sView.addSubview(playerContainer)
         playerContainer.frame = CGRect(x: 0,
                                        y: 0,
-                                       width: container!.frame.width,
-                                       height: container!.frame.height-2*BUTTON_HEIGHT)
+                                       width: sView.frame.width,
+                                       height: sView.frame.height)
         
         playerLayer = AVPlayerLayer(player: player)
         playerLayer.frame = CGRect(x: 0,
                                    y: 0,
-                                   width: container!.frame.width,
-                                   height: container!.frame.height-2*BUTTON_HEIGHT)
+                                   width: sView.frame.width,
+                                   height: sView.frame.height)
         playerContainer.layer.insertSublayer(playerLayer, atIndex: 0)
         
         let playerItem = AVPlayerItem(URL: urlPath!)
@@ -115,42 +122,59 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         view.addSubview(dView!)
         dView!.frame = CGRect(x: 0,
                               y: 0,
-                              width: container!.frame.width,
-                              height: container!.frame.height-2*BUTTON_HEIGHT)
+                              width: sView.frame.width,
+                              height: sView.frame.height)
         
         // controller view
         // it can be hidden and displayed
         view.addSubview(controllerContainer)
-        controllerContainer.hidden = false
+        controllerContainer.hidden = true
         controllerContainer.frame = CGRect(x: 0,
-                                           y: sView.frame.height-2*BUTTON_HEIGHT,
+                                           y: sView.frame.height-BUTTON_HEIGHT,
                                            width: sView.frame.width,
-                                           height: 2*BUTTON_HEIGHT)
+                                           height: BUTTON_HEIGHT)
+        controllerContainer.backgroundColor = UIColor(white: 1, alpha: 0.7)
         
         // Play/pause/replay button
         controllerContainer.addSubview(playButton)
         playButton.setImage(playButtonImage, forState: .Normal)
         playButton.frame = CGRect(x: 0,
-                                  y: BUTTON_HEIGHT,
+                                  y: 0,
                                   width: BUTTON_WIDTH,
                                   height: BUTTON_HEIGHT)
         playButton.addTarget(self, action: #selector(self.play(_:)), forControlEvents: .TouchUpInside)
         
+        // Slow motion button
+        controllerContainer.addSubview(slowmoButton)
+        slowmoButton.setTitle("0.5x", forState: .Normal)
+        slowmoButton.titleLabel!.text = "0.5x"
+        slowmoButton.backgroundColor = .whiteColor()
+        slowmoButton.setTitleColor(.blackColor(), forState: .Normal)
+        slowmoButton.layer.cornerRadius = 5
+        slowmoButton.layer.borderWidth = 1
+        slowmoButton.layer.borderColor = UIColor.blackColor().CGColor
+        slowmoButton.frame = CGRect(x: playButton.frame.width + 5,
+                                    y: 0,
+                                    width: BUTTON_WIDTH,
+                                    height: BUTTON_HEIGHT)
+        slowmoButton.addTarget(self, action: #selector(slowmo(_:)), forControlEvents: .TouchUpInside)
+        
         // Time elapsed label
         controllerContainer.addSubview(timeElapLabel)
-        timeElapLabel.frame = CGRect(x: 0,
+        timeElapLabel.frame = CGRect(x: playButton.frame.width + slowmoButton.frame.width + 5,
                                      y: 0,
                                      width: BUTTON_WIDTH,
                                      height: BUTTON_HEIGHT)
         timeElapLabel.adjustsFontSizeToFitWidth = true
         timeElapLabel.numberOfLines = 1
         timeElapLabel.text = String(format: "%02d:%02d", 0, 0)
+        timeElapLabel.textColor = .blackColor()
         
         // Time seeker
         controllerContainer.addSubview(seekSlider)
-        seekSlider.frame = CGRect(x: timeElapLabel.frame.width,
+        seekSlider.frame = CGRect(x: playButton.frame.width + slowmoButton.frame.width + timeElapLabel.frame.width + 5,
                                   y: 0,
-                                  width: container!.frame.width - 2*BUTTON_WIDTH,
+                                  width: controllerContainer.frame.width - 4*BUTTON_WIDTH - 5,
                                   height: BUTTON_HEIGHT)
         seekSlider.addTarget(self, action: #selector(sliderBeganTracking),
                              forControlEvents: .TouchDown)
@@ -161,49 +185,47 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         
         // Time remaining label
         controllerContainer.addSubview(timeRemLabel)
-        timeRemLabel.frame = CGRect(x: timeElapLabel.frame.width + seekSlider.frame.width,
+        timeRemLabel.frame = CGRect(x: playButton.frame.width + slowmoButton.frame.width + timeElapLabel.frame.width + seekSlider.frame.width + 5,
                                     y: 0,
                                     width: BUTTON_WIDTH,
                                     height: BUTTON_HEIGHT)
         timeRemLabel.adjustsFontSizeToFitWidth = true
         timeRemLabel.numberOfLines = 1
         timeRemLabel.text = String(format: "%02d:%02d", 0, 0)
+        timeRemLabel.textColor = .blackColor()
         
-        // Slow motion button
-        controllerContainer.addSubview(slowmoButton)
-        slowmoButton.setTitle("Slow-mo", forState: .Normal)
-        slowmoButton.titleLabel!.text = "Slow-mo"
-        slowmoButton.backgroundColor = .blackColor()
-        slowmoButton.layer.cornerRadius = 5
-        slowmoButton.layer.borderWidth = 1
-        slowmoButton.layer.borderColor = UIColor.blackColor().CGColor
-        slowmoButton.frame = CGRect(x: playButton.frame.width + BUTTON_WIDTH/2,
-                                    y: BUTTON_HEIGHT,
-                                    width: 2*BUTTON_WIDTH,
-                                    height: BUTTON_HEIGHT)
-        slowmoButton.addTarget(self, action: #selector(slowmo(_:)), forControlEvents: .TouchUpInside)
+        // drawing tools view
+        // it can be hidden and displayed
+        view.addSubview(drawContainer)
+        drawContainer.hidden = true
+        drawContainer.frame = CGRect(x: sView.frame.width-BUTTON_WIDTH,
+                                     y: 0,
+                                     width: BUTTON_WIDTH,
+                                     height: sView.frame.height-BUTTON_HEIGHT)
+        drawContainer.backgroundColor = UIColor(white: 1, alpha: 0.7)
         
         // Drawing Tool button
-        controllerContainer.addSubview(drawButton)
+        drawContainer.addSubview(drawButton)
         drawButton.setImage(drawButtonImage, forState: .Normal)
         drawButton.layer.borderWidth = 1
         drawButton.layer.borderColor = UIColor.blackColor().CGColor
-        drawButton.frame = CGRect(x: playButton.frame.width + (3 * BUTTON_WIDTH) + 10,
-                                  y: BUTTON_HEIGHT,
+        drawButton.frame = CGRect(x: 0,
+                                  y: 0,
                                   width: BUTTON_WIDTH,
                                   height: BUTTON_HEIGHT)
         drawButton.addTarget(self, action: #selector(enableDraw(_:)), forControlEvents: .TouchUpInside)
         
-        controllerContainer.addSubview(clearButton)
-        clearButton.setTitle("Clear", forState: .Normal)
-        clearButton.titleLabel!.text = "Clear"
-        clearButton.backgroundColor = .blackColor()
+        drawContainer.addSubview(clearButton)
+        clearButton.setTitle("CE", forState: .Normal)
+        clearButton.titleLabel!.text = "CE"
+        clearButton.backgroundColor = .whiteColor()
+        clearButton.setTitleColor(.blackColor(), forState: .Normal)
         clearButton.layer.cornerRadius = 5
         clearButton.layer.borderWidth = 1
         clearButton.layer.borderColor = UIColor.blackColor().CGColor
-        clearButton.frame = CGRect(x: playButton.frame.width + (5 * BUTTON_WIDTH),
+        clearButton.frame = CGRect(x: 0,
                                    y: BUTTON_HEIGHT,
-                                   width: BUTTON_WIDTH+20,
+                                   width: BUTTON_WIDTH,
                                    height: BUTTON_HEIGHT)
         clearButton.addTarget(self, action: #selector(clearDrawing(_:)), forControlEvents: .TouchUpInside)
     }
@@ -273,7 +295,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         if videoState == 0 || videoState == 2 {
             if slowmotion == true {
                 slowmotion = false
-                slowmoButton.backgroundColor = .blackColor()
+                slowmoButton.backgroundColor = .whiteColor()
             } else {
                 slowmotion = true;
                 slowmoButton.backgroundColor = .grayColor()
@@ -282,7 +304,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
             if slowmotion == true {
                 slowmotion = false
                 player.rate = 1.0
-                slowmoButton.backgroundColor = .blackColor()
+                slowmoButton.backgroundColor = .whiteColor()
             } else {
                 slowmotion = true;
                 player.rate = 0.5
@@ -338,6 +360,18 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                 videoState = 0
                 playButton.setImage(playButtonImage, forState: .Normal)
             }
+        }
+    }
+    
+    // This function displays and hides the controllers view
+    func toggleControllers() {
+        // if the controller's view is hidden, tapping the screen will display it
+        if (controllerContainer.hidden == true && drawContainer.hidden == true) {
+            controllerContainer.hidden = false
+            drawContainer.hidden = false
+        } else {
+            controllerContainer.hidden = true
+            drawContainer.hidden = true
         }
     }
     
@@ -403,56 +437,66 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         sView.frame = CGRect(x: 0,
                              y: 0,
                              width: container!.frame.width,
-                             height: container!.frame.height-2*BUTTON_HEIGHT)
+                             height: container!.frame.height)
         
         playerContainer.frame = CGRect(x: 0,
                                        y: 0,
-                                       width: container!.frame.width,
-                                       height: container!.frame.height-2*BUTTON_HEIGHT)
+                                       width: sView.frame.width,
+                                       height: sView.frame.height)
         
         playerLayer.frame = CGRect(x: 0,
                                    y: 0,
-                                   width: container!.frame.width,
-                                   height: container!.frame.height-2*BUTTON_HEIGHT)
+                                   width: sView.frame.width,
+                                   height: sView.frame.height)
         
         dView!.frame = CGRect(x: 0,
                               y: 0,
-                              width: container!.frame.width,
-                              height: container!.frame.height-2*BUTTON_HEIGHT)
+                              width: sView.frame.width,
+                              height: sView.frame.height)
+        
+        controllerContainer.frame = CGRect(x: 0,
+                                           y: sView.frame.height-BUTTON_HEIGHT,
+                                           width: sView.frame.width,
+                                           height: BUTTON_HEIGHT)
         
         playButton.frame = CGRect(x: 0,
-                                  y: sView.frame.height+BUTTON_HEIGHT,
+                                  y: 0,
                                   width: BUTTON_WIDTH,
                                   height: BUTTON_HEIGHT)
         
-        timeElapLabel.frame = CGRect(x: 0,
-                                     y: sView.frame.height,
-                                     width: BUTTON_WIDTH,
-                                     height: BUTTON_HEIGHT)
-        
-        seekSlider.frame = CGRect(x: timeElapLabel.frame.width,
-                                  y: sView.frame.height,
-                                  width: container!.frame.width - 2*BUTTON_WIDTH,
-                                  height: BUTTON_HEIGHT)
-        
-        timeRemLabel.frame = CGRect(x: timeElapLabel.frame.width + seekSlider.frame.width,
-                                    y: sView.frame.height,
+        slowmoButton.frame = CGRect(x: playButton.frame.width + 5,
+                                    y: 0,
                                     width: BUTTON_WIDTH,
                                     height: BUTTON_HEIGHT)
         
-        slowmoButton.frame = CGRect(x: playButton.frame.width + BUTTON_WIDTH/2,
-                                    y: sView.frame.height+BUTTON_HEIGHT,
-                                    width: 2*BUTTON_WIDTH,
+        timeElapLabel.frame = CGRect(x: playButton.frame.width + slowmoButton.frame.width + 5,
+                                     y: 0,
+                                     width: BUTTON_WIDTH,
+                                     height: BUTTON_HEIGHT)
+        
+        seekSlider.frame = CGRect(x: playButton.frame.width + slowmoButton.frame.width + timeElapLabel.frame.width + 5,
+                                  y: 0,
+                                  width: controllerContainer.frame.width - 4*BUTTON_WIDTH - 5,
+                                  height: BUTTON_HEIGHT)
+        
+        timeRemLabel.frame = CGRect(x: playButton.frame.width + slowmoButton.frame.width + timeElapLabel.frame.width + seekSlider.frame.width + 5,
+                                    y: 0,
+                                    width: BUTTON_WIDTH,
                                     height: BUTTON_HEIGHT)
         
-        drawButton.frame = CGRect(x: playButton.frame.width + 3*BUTTON_WIDTH+10,
-                                  y: sView.frame.height+BUTTON_HEIGHT,
+        drawContainer.frame = CGRect(x: sView.frame.width-BUTTON_WIDTH,
+                                     y: 0,
+                                     width: BUTTON_WIDTH,
+                                     height: sView.frame.height)
+        
+        drawButton.frame = CGRect(x: 0,
+                                  y: 0,
                                   width: BUTTON_WIDTH,
                                   height: BUTTON_HEIGHT)
         
-        clearButton.frame = CGRect(x: playButton.frame.width + 5*BUTTON_WIDTH,
-                                   y: sView.frame.height+BUTTON_HEIGHT,
-                                   width: BUTTON_WIDTH+20,
+        clearButton.frame = CGRect(x: 0,
+                                   y: BUTTON_HEIGHT,
+                                   width: BUTTON_WIDTH,
                                    height: BUTTON_HEIGHT)
     }
 }

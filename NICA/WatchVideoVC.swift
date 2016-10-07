@@ -74,7 +74,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
         // if video from local does not exist, show the cloud video with wide screen
         if video2 == nil {
             container1.frame = CGRect(x: gap,
-                                      y: 120,
+                                      y: 75,
                                       width: view.frame.width-2*gap,
                                       height: view.frame.width/2+80)
             video1!.view.frame = CGRect(x: 0,
@@ -85,7 +85,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
             // if video from local exists, split the view for both videos
         else {
             container1.frame = CGRect(x: gap,
-                                      y: 120,
+                                      y: 75,
                                       width: view.frame.width/2-3*gap,
                                       height: view.frame.width/2+80)
             video1!.view.frame = CGRect(x: 0,
@@ -93,7 +93,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
                                         width: view.frame.width/2-3*gap,
                                         height: view.frame.width/2+80)
             container2.frame = CGRect(x: self.view.frame.width/2+2*self.gap,
-                                      y: 120,
+                                      y: 75,
                                       width: self.view.frame.width/2-3*self.gap,
                                       height: self.view.frame.width/2+80)
             video2!.view.frame = CGRect(x: 0,
@@ -237,7 +237,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
                 // if video from cloud does not exist, show the local video with wide screen
                 if self.video1 == nil {
                     self.container2.frame = CGRect(x: self.gap,
-                                                   y: 120,
+                                                   y: 75,
                                                    width: self.view.frame.width-2*self.gap,
                                                    height: self.view.frame.width/2+80)
                     self.video2!.view.frame = CGRect(x: 0,
@@ -248,7 +248,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
                     // if video from cloud exists, split the view for both videos
                 else {
                     self.container2.frame = CGRect(x: self.view.frame.width/2+2*self.gap,
-                                                   y: 120,
+                                                   y: 75,
                                                    width: self.view.frame.width/2-3*self.gap,
                                                    height: self.view.frame.width/2+80)
                     self.video2!.view.frame = CGRect(x: 0,
@@ -256,7 +256,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
                                                      width: self.view.frame.width/2-3*self.gap,
                                                      height: self.view.frame.width/2+80)
                     self.container1.frame = CGRect(x: self.gap,
-                                                   y: 120,
+                                                   y: 75,
                                                    width: self.view.frame.width/2-3*self.gap,
                                                    height: self.view.frame.width/2+80)
                     self.video1!.view.frame = CGRect(x: 0,
@@ -307,7 +307,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
      */
     func displayPlayBothButton() {
         if playBothButton == nil {
-            let playBothButton = UIButton(frame: CGRect(x: 450, y: 720, width: 150, height: 40))
+            let playBothButton = UIButton(frame: CGRect(x: 450, y: 670, width: 150, height: 40))
             playBothButton.setTitle("Play/Pause Both", forState: .Normal)
             playBothButton.titleLabel!.text = "Play/Pause Both"
             playBothButton.backgroundColor = .blackColor()
