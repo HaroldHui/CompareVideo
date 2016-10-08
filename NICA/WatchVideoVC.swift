@@ -12,7 +12,7 @@ import AVFoundation
 import MobileCoreServices
 
 
-class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
+class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     
@@ -371,8 +371,9 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
 
         let cloudButton = UIBarButtonItem(title: "Cloud", style: .Plain, target: self, action: #selector(WatchVideoVC.goToSelectionPage(_:)))
         let localButton = UIBarButtonItem(title: "Local", style: .Plain, target: self, action: #selector(WatchVideoVC.selectLocalVideo(_:)))
+        let takeVideoButton = UIBarButtonItem(title: "Video", style: .Plain, target: self, action: #selector(WatchVideoVC.takeVideo(_:)))
  
-        let toolbarButtons = [flexibleSpace,cloudButton,flexibleSpace,localButton,flexibleSpace]
+        let toolbarButtons = [flexibleSpace,cloudButton,flexibleSpace,takeVideoButton,flexibleSpace,localButton,flexibleSpace]
         let toolbar = UIToolbar()
         toolbar.frame = CGRectMake(0, UIScreen.mainScreen().bounds.size.height-46, self.view.frame.size.width, 47)
         toolbar.sizeToFit()
@@ -381,20 +382,36 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate {
         self.view.addSubview(toolbar)
     }
     
+    
+    
+    func takeVideo(sender: UIButton){
+        let imagePicker = UIImagePickerController()
+        if (UIImagePickerController.isSourceTypeAvailable(.Camera)) {
+            if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
+                imagePicker.sourceType = .Camera
+                imagePicker.mediaTypes = [kUTTypeMovie as String]
+                imagePicker.allowsEditing = false
+                imagePicker.delegate = self
+                
+                presentViewController(imagePicker, animated: true, completion: {})
+            } else {
+                postAlert("Rear camera doesn't exist", message: "Application cannot access the camera.")
+            }
+        } else {
+            postAlert("Camera inaccessable", message: "Application cannot access the camera.")
+        }
+    }
+    
+    func postAlert(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "OK", style: .Cancel) { _ in }
+        alert.addAction(action)
+        self.navigationController!.presentViewController(alert, animated: true){}
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-}
-
-// MARK: - UIImagePickerControllerDelegate
-extension WatchVideoVC: UIImagePickerControllerDelegate {
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .Landscape
-    }
-}
-
-// MARK: - UINavigationControllerDelegate
-extension WatchVideoVC: UINavigationControllerDelegate {
 }
