@@ -128,7 +128,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         // controller view
         // it can be hidden and displayed
         view.addSubview(controllerContainer)
-        controllerContainer.hidden = true
+        controllerContainer.hidden = false
         controllerContainer.frame = CGRect(x: 0,
                                            y: sView.frame.height-BUTTON_HEIGHT,
                                            width: sView.frame.width,
@@ -197,7 +197,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         // drawing tools view
         // it can be hidden and displayed
         view.addSubview(drawContainer)
-        drawContainer.hidden = true
+        drawContainer.hidden = false
         drawContainer.frame = CGRect(x: sView.frame.width-BUTTON_WIDTH,
                                      y: 0,
                                      width: BUTTON_WIDTH,

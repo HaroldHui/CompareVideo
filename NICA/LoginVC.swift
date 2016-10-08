@@ -60,14 +60,11 @@ class LoginVC: UIViewController,UITextFieldDelegate {
                             self.loginFailed()
                             return
                     }
-                    print(loginJson)
                     if loginJson["error"] != nil {
-                        print(loginJson["error"])
                         self.loginFailed()
                         return
                     }
                     guard let success = loginJson["success"] as? Bool else{
-                        print("not bool")
                         self.loginFailed()
                         return
                     }

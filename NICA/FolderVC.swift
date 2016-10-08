@@ -58,7 +58,6 @@ class FolderVC: UITableViewController {
         folder.pictures = []
         
         let path : String = "category/" + category.cid + "/act/" + act.aid + "/level/" + level + "/folder/" + folder.fid
-        print(path)
         
         showSpinner(tableView)
         API.callAPI(path, completionHandler: {(folderdetail) -> Void in

@@ -37,7 +37,6 @@ class SelectImageVC: UIViewController {
         for item in items {
             // only selects the "png" type of file
             if item.hasSuffix(".png") {
-                print(item)
                 
                 // the image itself will show as the button
                 let imageButton = UIImage(named: item)
@@ -71,7 +70,6 @@ class SelectImageVC: UIViewController {
     
     func imageSelected(sender: UIButton!) {
         path = NSBundle.mainBundle().pathForResource(sender.titleLabel!.text!, ofType:"png")!
-        print(path)
     }
     
     override func didReceiveMemoryWarning() {
