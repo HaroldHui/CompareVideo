@@ -21,6 +21,7 @@ class FolderVC: UITableViewController {
         
         self.title = "Folders"
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -81,7 +82,8 @@ class FolderVC: UITableViewController {
             }
 
             // Navigate to the picture and video view
-            let vc = PictureVideoVC()
+            let layout = UICollectionViewFlowLayout()
+            let vc = PictureVideoCVC(collectionViewLayout: layout)
             vc.sDelegate = self.sDelegate
             vc.dashboard = self.dashboard
             vc.category = self.category
