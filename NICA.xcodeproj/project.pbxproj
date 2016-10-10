@@ -52,6 +52,8 @@
 		A4CDC5F11DA3A342007B3D77 /* ModalImageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4CDC5EF1DA3A342007B3D77 /* ModalImageVC.xib */; };
 		A4F0CFD71D558926005ED3FE /* SelectImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0CFD51D558926005ED3FE /* SelectImageVC.swift */; };
 		A4F0CFD81D558926005ED3FE /* SelectImageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */; };
+		EA2084B01DAB4DD400FE8148 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2084AE1DAB4DD300FE8148 /* WelcomeVC.swift */; };
+		EA2084B11DAB4DD400FE8148 /* WelcomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2084AF1DAB4DD300FE8148 /* WelcomeVC.xib */; };
 		F439A0891DA2305A000481B6 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F439A0881DA2305A000481B6 /* LoginVC.swift */; };
 		F439A08B1DA23063000481B6 /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = F439A08A1DA23063000481B6 /* LoginVC.xib */; };
 		F439A08E1DA230AF000481B6 /* WatchVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F439A08C1DA230AF000481B6 /* WatchVideoVC.swift */; };
@@ -147,6 +149,8 @@
 		A4CDC5EF1DA3A342007B3D77 /* ModalImageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalImageVC.xib; sourceTree = "<group>"; };
 		A4F0CFD51D558926005ED3FE /* SelectImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectImageVC.swift; sourceTree = "<group>"; };
 		A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectImageVC.xib; sourceTree = "<group>"; };
+		EA2084AE1DAB4DD300FE8148 /* WelcomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
+		EA2084AF1DAB4DD300FE8148 /* WelcomeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeVC.xib; sourceTree = "<group>"; };
 		F439A0881DA2305A000481B6 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		F439A08A1DA23063000481B6 /* LoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
 		F439A08C1DA230AF000481B6 /* WatchVideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchVideoVC.swift; sourceTree = "<group>"; };
@@ -299,6 +303,7 @@
 				A4F0CFD61D558926005ED3FE /* SelectImageVC.xib */,
 				A41C2C8F1D9B483100BECCE5 /* CustomVideoController.xib */,
 				A4CDC5EF1DA3A342007B3D77 /* ModalImageVC.xib */,
+				EA2084AF1DAB4DD300FE8148 /* WelcomeVC.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -322,6 +327,7 @@
 				F439A08C1DA230AF000481B6 /* WatchVideoVC.swift */,
 				A4CDC5EE1DA3A342007B3D77 /* ModalImageVC.swift */,
 				3F69CF391DA761430080CCA8 /* PictureVideoCVC.swift */,
+				EA2084AE1DAB4DD300FE8148 /* WelcomeVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -510,6 +516,7 @@
 				A49E86DB1CEC39D1002AC786 /* Assets.xcassets in Resources */,
 				A4F0CFD81D558926005ED3FE /* SelectImageVC.xib in Resources */,
 				A41C2C911D9B483100BECCE5 /* CustomVideoController.xib in Resources */,
+				EA2084B11DAB4DD400FE8148 /* WelcomeVC.xib in Resources */,
 				A48601281D9B98B7000B65FB /* pencil_icon_gray.png in Resources */,
 				A4CDC5F11DA3A342007B3D77 /* ModalImageVC.xib in Resources */,
 				F46712B81DA4A40300D00656 /* Icon-App-60x60@1x.png in Resources */,
@@ -575,6 +582,7 @@
 				A4F0CFD71D558926005ED3FE /* SelectImageVC.swift in Sources */,
 				A41C2C901D9B483100BECCE5 /* CustomVideoController.swift in Sources */,
 				3F089E731D6053AC00467C2F /* LevelVC.swift in Sources */,
+				EA2084B01DAB4DD400FE8148 /* WelcomeVC.swift in Sources */,
 				A49E87081CEC5574002AC786 /* SelectVideoViewController.swift in Sources */,
 				A4C51AF31D58A17300D6D733 /* Act.swift in Sources */,
 				3F69CF3A1DA761430080CCA8 /* PictureVideoCVC.swift in Sources */,

@@ -86,7 +86,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         NSOperationQueue.mainQueue().addOperationWithBlock {
             self.hideSpinner()
             self.userDefaults.setBool(true, forKey: "login")
-            let viewcontroller = WatchVideoVC()
+            let viewcontroller = WelcomeVC()
             self.navigationController!.pushViewController(viewcontroller, animated: true)
         }
         
