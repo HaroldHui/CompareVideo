@@ -25,10 +25,11 @@ class WelcomeVC: UIViewController,UINavigationControllerDelegate {
      - Parameters:
      - sender: The UIButton that calls this function
      */
-    func goToSelectionPage(sender: UIButton) {
-        let svc = SelectImageSVC();
-        svc.sDelegate = self
-        self.navigationController?.presentViewController(svc, animated: true, completion: nil)
+    @IBAction func goToSelectionPage(sender: AnyObject) {
+        let viewcontroller = WatchVideoVC()
+        viewcontroller.enterFlg = 1
+        self.navigationController!.pushViewController(viewcontroller, animated: true)
+
     }
     
     /**
@@ -38,7 +39,7 @@ class WelcomeVC: UIViewController,UINavigationControllerDelegate {
      - sender: The UIButton that calls this function
      */
     func selectLocalVideo(sender: UIButton) {
-        startMediaBrowserFromViewController(self, usingDelegate: self)
+//        startMediaBrowserFromViewController(self, usingDelegate: self)
     }
     
 

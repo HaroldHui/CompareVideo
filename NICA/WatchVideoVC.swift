@@ -14,7 +14,8 @@ import MobileCoreServices
 
 class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    
+    // enter flag
+    var enterFlg = 0
     
     // CONSTANTS
     let gap: CGFloat = 5
@@ -41,6 +42,16 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
     // -------------------- FUNCTIONS --------------------
     
     override func viewDidLoad() {
+        if enterFlg == 1 {
+            enterFlg = 0
+            let svc = SelectImageSVC();
+            svc.sDelegate = self
+            self.navigationController?.presentViewController(svc, animated: true, completion: nil)
+        }else if enterFlg == 2{
+            
+        }else if enterFlg == 3{
+            
+        }
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.title = "Watch Video Pape"
@@ -363,6 +374,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
         // Button logout
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(logout(_:)))
         super.viewDidAppear(animated)
+        
     }
     
     
