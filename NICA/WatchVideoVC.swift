@@ -382,13 +382,23 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: self, action: nil)
 
         let cloudButton = UIBarButtonItem(title: "Cloud", style: .Plain, target: self, action: #selector(WatchVideoVC.goToSelectionPage(_:)))
+        
+        let image = UIImage(named: "cloud.png")
+        //let scale = 50 / image!.size.width
+        //let newHeight = image!.size.height * scale
+        UIGraphicsBeginImageContext(CGSizeMake(50, 100))
+        image?.drawInRect(CGRectMake(0, 0, 50, 100))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        cloudButton.setBackgroundImage(newImage, forState: UIControlState.Normal, barMetrics: .Default)
         let localButton = UIBarButtonItem(title: "Local", style: .Plain, target: self, action: #selector(WatchVideoVC.selectLocalVideo(_:)))
         let takeVideoButton = UIBarButtonItem(title: "Video", style: .Plain, target: self, action: #selector(WatchVideoVC.takeVideo(_:)))
- 
+
+        
         let toolbarButtons = [flexibleSpace,cloudButton,flexibleSpace,takeVideoButton,flexibleSpace,localButton,flexibleSpace]
         let toolbar = UIToolbar()
-        toolbar.frame = CGRectMake(0, UIScreen.mainScreen().bounds.size.height-46, self.view.frame.size.width, 47)
-        toolbar.sizeToFit()
+        toolbar.frame = CGRectMake(0, UIScreen.mainScreen().bounds.size.height-100, UIScreen.mainScreen().bounds.width, 100)
+//        toolbar.sizeToFit()
         toolbar.setItems(toolbarButtons, animated: true)
         toolbar.backgroundColor = UIColor.grayColor()
         self.view.addSubview(toolbar)
