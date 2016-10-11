@@ -48,9 +48,10 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
             svc.sDelegate = self
             self.navigationController?.presentViewController(svc, animated: true, completion: nil)
         }else if enterFlg == 2{
-            
+            enterFlg = 0
+            takeVideo()
         }else if enterFlg == 3{
-            
+            startMediaBrowserFromViewController(self, usingDelegate: self)
         }
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -75,6 +76,9 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
     func showVideo(controller: UIViewController, path: String) {
         self.path = path
         let urlPath = NSURL(string: path.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+        
+        
+        
         
         // if video1 already exists, remove it first from the superview
         video1?.removeFromParentViewController()
@@ -381,32 +385,29 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
     private func displayToolbar(){
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: self, action: nil)
 
-        let cloudButton = UIBarButtonItem(title: "Cloud", style: .Plain, target: self, action: #selector(WatchVideoVC.goToSelectionPage(_:)))
+        let cloudButton = UIBarButtonItem(title: "C", style: .Plain, target: self, action: #selector(WatchVideoVC.goToSelectionPage(_:)))
         
-        let image = UIImage(named: "cloud.png")
+        let image = UIImage(named: "cloud2.png")
         //let scale = 50 / image!.size.width
         //let newHeight = image!.size.height * scale
-        UIGraphicsBeginImageContext(CGSizeMake(50, 100))
-        image?.drawInRect(CGRectMake(0, 0, 50, 100))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        cloudButton.setBackgroundImage(newImage, forState: UIControlState.Normal, barMetrics: .Default)
+//        UIGraphicsBeginImageContext(CGSizeMake(50, 100))
+//        image?.drawInRect(CGRectMake(0, 0, 50, 100))
+//        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+        cloudButton.setBackgroundImage(image, forState: UIControlState.Normal, barMetrics: .Default)
         let localButton = UIBarButtonItem(title: "Local", style: .Plain, target: self, action: #selector(WatchVideoVC.selectLocalVideo(_:)))
-        let takeVideoButton = UIBarButtonItem(title: "Video", style: .Plain, target: self, action: #selector(WatchVideoVC.takeVideo(_:)))
-
-        
+        let takeVideoButton = UIBarButtonItem(title: "Camera", style: .Plain, target: self, action: #selector(WatchVideoVC.takeVideo(_:)))
         let toolbarButtons = [flexibleSpace,cloudButton,flexibleSpace,takeVideoButton,flexibleSpace,localButton,flexibleSpace]
         let toolbar = UIToolbar()
         toolbar.frame = CGRectMake(0, UIScreen.mainScreen().bounds.size.height-100, UIScreen.mainScreen().bounds.width, 100)
 //        toolbar.sizeToFit()
         toolbar.setItems(toolbarButtons, animated: true)
-        toolbar.backgroundColor = UIColor.grayColor()
+        toolbar.backgroundColor = UIColor.cyanColor()
         self.view.addSubview(toolbar)
     }
     
     
-    
-    func takeVideo(sender: UIButton){
+    func takeVideo(){
         let imagePicker = UIImagePickerController()
         if (UIImagePickerController.isSourceTypeAvailable(.Camera)) {
             if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
@@ -422,6 +423,9 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
         } else {
             postAlert("Camera inaccessable", message: "Application cannot access the camera.")
         }
+    }
+    func takeVideo(sender: UIButton){
+        takeVideo()
     }
     
     func postAlert(title: String, message: String){
