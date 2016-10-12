@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         if userDefaults.boolForKey("login") {
             let viewcontroller = WelcomeVC()
             self.navigationController!.pushViewController(viewcontroller, animated: true)

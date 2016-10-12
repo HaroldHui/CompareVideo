@@ -135,7 +135,12 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                                            y: sView.frame.height-BUTTON_HEIGHT,
                                            width: sView.frame.width,
                                            height: BUTTON_HEIGHT)
-        controllerContainer.backgroundColor = UIColor(white: 1, alpha: 0.7)
+        let ccGradientLayer = CAGradientLayer()
+        ccGradientLayer.frame = CGRectMake(0, 0, controllerContainer.frame.width, controllerContainer.frame.height)
+        ccGradientLayer.colors = [UIColor.clearColor().CGColor, UIColor.grayColor().CGColor]
+        ccGradientLayer.locations = [0.0,1.0]
+        controllerContainer.layer.insertSublayer(ccGradientLayer, atIndex: 0)
+       // controllerContainer.backgroundColor = UIColor(white: 1, alpha: 0.7)
         
         // Play/pause/replay button
         controllerContainer.addSubview(playButton)
@@ -210,7 +215,9 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                                      y: 0,
                                      width: BUTTON_WIDTH,
                                      height: sView.frame.height-BUTTON_HEIGHT)
-        drawContainer.backgroundColor = UIColor(white: 1, alpha: 0.7)
+        //drawContainer.backgroundColor = UIColor(white: 1, alpha: 0.7)
+        timeElapLabel.textColor = .whiteColor()
+        timeRemLabel.textColor = .whiteColor()
         
         // Drawing Tool button
         drawContainer.addSubview(drawButton)
@@ -442,6 +449,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
     
     // Update frames
     func updateFrames(container: UIView!) {
+        
         sView.frame = CGRect(x: 0,
                              y: 0,
                              width: container!.frame.width,
@@ -466,6 +474,9 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                                            y: sView.frame.height-BUTTON_HEIGHT,
                                            width: sView.frame.width,
                                            height: BUTTON_HEIGHT)
+       
+        let ccGradientLayer = CAGradientLayer()
+        ccGradientLayer.frame = CGRectMake(0, 0,100, controllerContainer.frame.height)
         
         playButton.frame = CGRect(x: 0,
                                   y: 0,
@@ -481,7 +492,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                                      y: 0,
                                      width: BUTTON_WIDTH,
                                      height: BUTTON_HEIGHT)
-        timeElapLabel.textColor = .blackColor()
+        timeElapLabel.textColor = .whiteColor()
         volumeSlider.frame = CGRect(x: UIScreen.mainScreen().bounds.width-playButton.frame.width - (controllerContainer.frame.width - 4*BUTTON_WIDTH - 5)/3,
                                     y: 20,
                                     width: (controllerContainer.frame.width - 4*BUTTON_WIDTH - 5)/3,
