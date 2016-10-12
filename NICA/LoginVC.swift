@@ -15,7 +15,15 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        id.attributedPlaceholder = NSAttributedString(string:"  Trainer ID",
+                                                      attributes:[NSForegroundColorAttributeName: UIColor.whiteColor()])
+        firstName.attributedPlaceholder = NSAttributedString(string:"  First Name",
+                                                             attributes:[NSForegroundColorAttributeName: UIColor.whiteColor()])
+        lastName.attributedPlaceholder = NSAttributedString(string:"  Last Name",
+                                                            attributes:[NSForegroundColorAttributeName: UIColor.whiteColor()])
+        id.textAlignment = .Center
+        firstName.textAlignment = .Center
+        lastName.textAlignment = .Center
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(animated: Bool) {

@@ -44,7 +44,6 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
     override func viewDidLoad() {
       
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.title = "Watch Video Pape"
         let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: navigationController, action: nil)
         navigationItem.leftBarButtonItem = backButton
@@ -391,6 +390,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
     }
     
     override func viewDidAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         // Button logout
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(logout(_:)))
         super.viewDidAppear(animated)
