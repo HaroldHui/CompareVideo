@@ -475,8 +475,13 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                                            width: sView.frame.width,
                                            height: BUTTON_HEIGHT)
        
+        controllerContainer.layer.sublayers?.removeAtIndex(0)
         let ccGradientLayer = CAGradientLayer()
-        ccGradientLayer.frame = CGRectMake(0, 0,100, controllerContainer.frame.height)
+        ccGradientLayer.frame = CGRectMake(0, 0, controllerContainer.frame.width, controllerContainer.frame.height)
+        ccGradientLayer.colors = [UIColor.clearColor().CGColor, UIColor.grayColor().CGColor]
+        ccGradientLayer.locations = [0.0,1.0]
+        controllerContainer.layer.insertSublayer(ccGradientLayer, atIndex: 0)
+        
         
         playButton.frame = CGRect(x: 0,
                                   y: 0,
@@ -509,7 +514,6 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                                     y: 0,
                                     width: BUTTON_WIDTH,
                                     height: BUTTON_HEIGHT)
-//        timeRemLabel.textColor = .blackColor()
         
         drawContainer.frame = CGRect(x: sView.frame.width-BUTTON_WIDTH,
                                      y: 0,
