@@ -14,6 +14,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     var userDefaults = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         super.viewDidLoad()
         id.attributedPlaceholder = NSAttributedString(string:"  Trainer ID",
                                                       attributes:[NSForegroundColorAttributeName: UIColor.whiteColor()])
