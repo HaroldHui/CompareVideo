@@ -31,6 +31,7 @@ class WelcomeVC: UIViewController,UINavigationControllerDelegate {
         self.navigationController!.pushViewController(viewcontroller, animated: true)
 
     }
+    
     @IBAction func goTakeVideo(sender: AnyObject) {
         let viewcontroller = WatchVideoVC()
         viewcontroller.enterFlg = 2
@@ -42,6 +43,7 @@ class WelcomeVC: UIViewController,UINavigationControllerDelegate {
         viewcontroller.enterFlg = 3
         self.navigationController!.pushViewController(viewcontroller, animated: true)
     }
+  
     /**
      Goes to Selection Page for the Local library.
      

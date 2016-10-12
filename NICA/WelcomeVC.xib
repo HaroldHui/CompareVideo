@@ -16,43 +16,47 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Welcome" translatesAutoresizingMaskIntoConstraints="NO" id="8ug-li-GxU">
-                    <frame key="frameInset" width="1024" height="768"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cloud" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ppP-5T-ANe">
+                    <frame key="frameInset" minX="138" minY="479" width="72" height="73"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dot-XL-V6v">
-                    <frame key="frameInset" minX="20" minY="11" width="286" height="757"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="341" placeholderIntrinsicHeight="768" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dot-XL-V6v">
+                    <frame key="frameInset" width="341" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                    <state key="normal" title="Cloud"/>
+                    <state key="normal" image="cloudBig"/>
                     <connections>
                         <action selector="goToSelectionPage:" destination="-1" eventType="touchUpInside" id="3nL-oK-JYR"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1df-02-PkR">
-                    <frame key="frameInset" minX="369" minY="11" width="286" height="755"/>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="341" placeholderIntrinsicHeight="768" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8C-7n-j9Z">
+                    <frame key="frameInset" minX="328" width="355" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                    <state key="normal" title="Camera"/>
+                    <state key="normal" image="filmBig"/>
                     <connections>
-                        <action selector="goTakeVideo:" destination="-1" eventType="touchUpInside" id="6og-Ii-6Qs"/>
+                        <action selector="goTakeVideo:" destination="-1" eventType="touchUpInside" id="7Tt-jA-B88"/>
+                        <action selector="goToSelectionPage:" destination="-1" eventType="touchUpInside" id="OUc-XB-l2j"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ifJ-2t-ZNH">
-                    <frame key="frameInset" minX="703" minY="30" width="286" height="718"/>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="341" placeholderIntrinsicHeight="768" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfX-Ng-QVS">
+                    <frame key="frameInset" minX="673" width="351" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                    <state key="normal" title="Local"/>
+                    <state key="normal" image="localBig"/>
                     <connections>
-                        <action selector="goToLocal:" destination="-1" eventType="touchUpInside" id="pqq-KW-WlP"/>
+                        <action selector="goToLocal:" destination="-1" eventType="touchUpInside" id="wKD-dQ-3zH"/>
+                        <action selector="goToSelectionPage:" destination="-1" eventType="touchUpInside" id="rq6-eX-4Ly"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <point key="canvasLocation" x="-225" y="65"/>
+            <point key="canvasLocation" x="-428" y="102"/>
         </view>
     </objects>
     <resources>
-        <image name="Welcome" width="2048" height="1536"/>
+        <image name="cloudBig" width="683" height="1536"/>
+        <image name="filmBig" width="682" height="1536"/>
+        <image name="localBig" width="683" height="1536"/>
     </resources>
 </document>

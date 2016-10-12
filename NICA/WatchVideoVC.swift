@@ -42,6 +42,16 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
     // -------------------- FUNCTIONS --------------------
     
     override func viewDidLoad() {
+      
+        super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationItem.title = "Watch Video Pape"
+        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: navigationController, action: nil)
+        navigationItem.leftBarButtonItem = backButton
+    //   displayToolbar()
+
+        view.addSubview(container1)
+        view.addSubview(container2)
         if enterFlg == 1 {
             enterFlg = 0
             let svc = SelectImageSVC();
@@ -51,19 +61,9 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
             enterFlg = 0
             takeVideo()
         }else if enterFlg == 3{
+            enterFlg = 0
             startMediaBrowserFromViewController(self, usingDelegate: self)
         }
-        super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.title = "Watch Video Pape"
-        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: navigationController, action: nil)
-        navigationItem.leftBarButtonItem = backButton
-        displayToolbar()
-//        displaySelectionButtons()
-        
-        view.addSubview(container1)
-        view.addSubview(container2)
-        
     }
     
     /**
@@ -167,11 +167,6 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
      - Parameters:
      - sender: The UIButton that calls this function
      */
-    func goToSelectionPage(sender: UIButton) {
-        let svc = SelectImageSVC();
-        svc.sDelegate = self
-        self.navigationController?.presentViewController(svc, animated: true, completion: nil)
-    }
     
     /**
      Goes to Selection Page for the Local library.
@@ -179,8 +174,22 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
      - Parameters:
      - sender: The UIButton that calls this function
      */
-    func selectLocalVideo(sender: UIButton) {
+    
+    
+    @IBAction func goToSelectionPage(sender: AnyObject) {
+        let svc = SelectImageSVC();
+        svc.sDelegate = self
+        self.navigationController?.presentViewController(svc, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func selectLocalVideo(sender: AnyObject) {
         startMediaBrowserFromViewController(self, usingDelegate: self)
+    }
+    
+    
+    @IBAction func takeVideo(sender: AnyObject) {
+        takeVideo()
     }
     
     func logout(sender: UIButton) {
@@ -424,10 +433,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
             postAlert("Camera inaccessable", message: "Application cannot access the camera.")
         }
     }
-    func takeVideo(sender: UIButton){
-        takeVideo()
-    }
-    
+
     func postAlert(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         let action = UIAlertAction(title: "OK", style: .Cancel) { _ in }
