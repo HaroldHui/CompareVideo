@@ -19,6 +19,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
     let playButtonImage = UIImage(named: "play_button.png")
     let pauseButtonImage = UIImage(named: "pause_button.png")
     let replayButtonImage = UIImage(named: "replay_button.png")
+    let eraserButtonImage = UIImage(named: "eraser_button.png")
     let drawButtonImage = UIImage(named: "pencil_icon.png")
     let drawButtonImage2 = UIImage(named: "pencil_icon_gray.png")
     
@@ -42,6 +43,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
     let drawButton = UIButton()
     let clearButton = UIButton()
     let seekSlider = UISlider()
+    let volumeSlider = UISlider()
     // variables
     let timeElapLabel = UILabel()
     let timeRemLabel = UILabel()
@@ -169,7 +171,13 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         timeElapLabel.numberOfLines = 1
         timeElapLabel.text = String(format: "%02d:%02d", 0, 0)
         timeElapLabel.textColor = .blackColor()
-        
+        // Volume adjuster
+       // controllerContainer.addSubview(volumeSlider)
+        volumeSlider.frame = CGRect(x: UIScreen.mainScreen().bounds.width-playButton.frame.width - (controllerContainer.frame.width - 4*BUTTON_WIDTH - 5)/3,
+                                  y: 20,
+                                  width: (controllerContainer.frame.width - 4*BUTTON_WIDTH - 5)/3,
+                                  height: BUTTON_HEIGHT)
+
         // Time seeker
         controllerContainer.addSubview(seekSlider)
         seekSlider.frame = CGRect(x: playButton.frame.width + slowmoButton.frame.width + timeElapLabel.frame.width + 5,
@@ -192,7 +200,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         timeRemLabel.adjustsFontSizeToFitWidth = true
         timeRemLabel.numberOfLines = 1
         timeRemLabel.text = String(format: "%02d:%02d", 0, 0)
-        timeRemLabel.textColor = .blackColor()
+//        timeRemLabel.textColor = .blackColor()
         
         // drawing tools view
         // it can be hidden and displayed
@@ -207,8 +215,8 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         // Drawing Tool button
         drawContainer.addSubview(drawButton)
         drawButton.setImage(drawButtonImage, forState: .Normal)
-        drawButton.layer.borderWidth = 1
-        drawButton.layer.borderColor = UIColor.blackColor().CGColor
+       // drawButton.layer.borderWidth = 1
+       //    drawButton.layer.borderColor = UIColor.blackColor().CGColor
         drawButton.frame = CGRect(x: 0,
                                   y: 0,
                                   width: BUTTON_WIDTH,
@@ -216,15 +224,14 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         drawButton.addTarget(self, action: #selector(enableDraw(_:)), forControlEvents: .TouchUpInside)
         
         drawContainer.addSubview(clearButton)
-        clearButton.setTitle("CE", forState: .Normal)
-        clearButton.titleLabel!.text = "CE"
-        clearButton.backgroundColor = .whiteColor()
-        clearButton.setTitleColor(.blackColor(), forState: .Normal)
-        clearButton.layer.cornerRadius = 5
-        clearButton.layer.borderWidth = 1
-        clearButton.layer.borderColor = UIColor.blackColor().CGColor
+       
+       
+    
+        clearButton.setImage(eraserButtonImage, forState: .Normal)
+        //clearButton.layer.borderWidth = 1
+        //clearButton.layer.borderColor = UIColor.blackColor().CGColor
         clearButton.frame = CGRect(x: 0,
-                                   y: BUTTON_HEIGHT,
+                                   y: BUTTON_HEIGHT+5,
                                    width: BUTTON_WIDTH,
                                    height: BUTTON_HEIGHT)
         clearButton.addTarget(self, action: #selector(clearDrawing(_:)), forControlEvents: .TouchUpInside)
@@ -379,6 +386,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
     var finalPoint: CGPoint!
     var isDrawing: Bool!
     var lineWidth: CGFloat = 4.0
+
     
     let red: CGFloat = 255.0/255.0
     let green: CGFloat = 0.0/255.0
@@ -473,6 +481,13 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                                      y: 0,
                                      width: BUTTON_WIDTH,
                                      height: BUTTON_HEIGHT)
+        timeElapLabel.textColor = .blackColor()
+        volumeSlider.frame = CGRect(x: UIScreen.mainScreen().bounds.width-playButton.frame.width - (controllerContainer.frame.width - 4*BUTTON_WIDTH - 5)/3,
+                                    y: 20,
+                                    width: (controllerContainer.frame.width - 4*BUTTON_WIDTH - 5)/3,
+                                    height: BUTTON_HEIGHT)
+        
+
         
         seekSlider.frame = CGRect(x: playButton.frame.width + slowmoButton.frame.width + timeElapLabel.frame.width + 5,
                                   y: 0,
@@ -483,6 +498,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                                     y: 0,
                                     width: BUTTON_WIDTH,
                                     height: BUTTON_HEIGHT)
+//        timeRemLabel.textColor = .blackColor()
         
         drawContainer.frame = CGRect(x: sView.frame.width-BUTTON_WIDTH,
                                      y: 0,
@@ -495,7 +511,7 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
                                   height: BUTTON_HEIGHT)
         
         clearButton.frame = CGRect(x: 0,
-                                   y: BUTTON_HEIGHT,
+                                   y: BUTTON_HEIGHT+5,
                                    width: BUTTON_WIDTH,
                                    height: BUTTON_HEIGHT)
     }

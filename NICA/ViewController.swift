@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     }
     override func viewDidAppear(animated: Bool) {
         if userDefaults.boolForKey("login") {
-            let viewcontroller = WatchVideoVC()
+            let viewcontroller = WelcomeVC()
             self.navigationController!.pushViewController(viewcontroller, animated: true)
         } else {
             let viewcontroller = LoginVC()
