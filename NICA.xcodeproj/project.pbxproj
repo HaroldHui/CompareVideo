@@ -19,11 +19,6 @@
 		3FBC62271DA0CD51000F85FD /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBC62261DA0CD51000F85FD /* API.swift */; };
 		A41C2C901D9B483100BECCE5 /* CustomVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41C2C8E1D9B483100BECCE5 /* CustomVideoController.swift */; };
 		A41C2C911D9B483100BECCE5 /* CustomVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A41C2C8F1D9B483100BECCE5 /* CustomVideoController.xib */; };
-		A48601231D9B98AC000B65FB /* pause_button.png in Resources */ = {isa = PBXBuildFile; fileRef = A486011F1D9B98AC000B65FB /* pause_button.png */; };
-		A48601241D9B98AC000B65FB /* play_button.png in Resources */ = {isa = PBXBuildFile; fileRef = A48601201D9B98AC000B65FB /* play_button.png */; };
-		A48601251D9B98AC000B65FB /* replay_button.png in Resources */ = {isa = PBXBuildFile; fileRef = A48601211D9B98AC000B65FB /* replay_button.png */; };
-		A48601261D9B98AC000B65FB /* pencil_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A48601221D9B98AC000B65FB /* pencil_icon.png */; };
-		A48601281D9B98B7000B65FB /* pencil_icon_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = A48601271D9B98B7000B65FB /* pencil_icon_gray.png */; };
 		A49E86D41CEC39D1002AC786 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E86D31CEC39D1002AC786 /* AppDelegate.swift */; };
 		A49E86D61CEC39D1002AC786 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E86D51CEC39D1002AC786 /* ViewController.swift */; };
 		A49E86D91CEC39D1002AC786 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49E86D71CEC39D1002AC786 /* Main.storyboard */; };
@@ -110,11 +105,6 @@
 		3FBC62261DA0CD51000F85FD /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A41C2C8E1D9B483100BECCE5 /* CustomVideoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomVideoController.swift; sourceTree = "<group>"; };
 		A41C2C8F1D9B483100BECCE5 /* CustomVideoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomVideoController.xib; sourceTree = "<group>"; };
-		A486011F1D9B98AC000B65FB /* pause_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_button.png; sourceTree = "<group>"; };
-		A48601201D9B98AC000B65FB /* play_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_button.png; sourceTree = "<group>"; };
-		A48601211D9B98AC000B65FB /* replay_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = replay_button.png; sourceTree = "<group>"; };
-		A48601221D9B98AC000B65FB /* pencil_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil_icon.png; sourceTree = "<group>"; };
-		A48601271D9B98B7000B65FB /* pencil_icon_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil_icon_gray.png; sourceTree = "<group>"; };
 		A49E86D01CEC39D1002AC786 /* NICA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NICA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A49E86D31CEC39D1002AC786 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A49E86D51CEC39D1002AC786 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -206,12 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				F467129C1DA4A3F000D00656 /* icon */,
-				A486011F1D9B98AC000B65FB /* pause_button.png */,
 				F46A0AF91DA3F277001DCB31 /* nica_logo.png */,
-				A48601201D9B98AC000B65FB /* play_button.png */,
-				A48601211D9B98AC000B65FB /* replay_button.png */,
-				A48601221D9B98AC000B65FB /* pencil_icon.png */,
-				A48601271D9B98B7000B65FB /* pencil_icon_gray.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -512,12 +497,10 @@
 				F46712BA1DA4A40300D00656 /* Icon-App-60x60@3x.png in Resources */,
 				F46712B31DA4A40300D00656 /* Icon-App-29x29@3x.png in Resources */,
 				F46712BC1DA4A40300D00656 /* Icon-App-76x76@2x.png in Resources */,
-				A48601261D9B98AC000B65FB /* pencil_icon.png in Resources */,
 				A49E86DB1CEC39D1002AC786 /* Assets.xcassets in Resources */,
 				A4F0CFD81D558926005ED3FE /* SelectImageVC.xib in Resources */,
 				A41C2C911D9B483100BECCE5 /* CustomVideoController.xib in Resources */,
 				EA2084B11DAB4DD400FE8148 /* WelcomeVC.xib in Resources */,
-				A48601281D9B98B7000B65FB /* pencil_icon_gray.png in Resources */,
 				A4CDC5F11DA3A342007B3D77 /* ModalImageVC.xib in Resources */,
 				F46712B81DA4A40300D00656 /* Icon-App-60x60@1x.png in Resources */,
 				F439A08F1DA230AF000481B6 /* WatchVideoVC.xib in Resources */,
@@ -525,12 +508,9 @@
 				F46712B21DA4A40300D00656 /* Icon-App-29x29@2x.png in Resources */,
 				F46712B91DA4A40300D00656 /* Icon-App-60x60@2x.png in Resources */,
 				F46712B11DA4A40300D00656 /* Icon-App-29x29@1x.png in Resources */,
-				A48601231D9B98AC000B65FB /* pause_button.png in Resources */,
 				F46712B01DA4A40300D00656 /* Icon-App-20x20@3x.png in Resources */,
 				A4C51AED1D589FE100D6D733 /* DetailVC.xib in Resources */,
-				A48601251D9B98AC000B65FB /* replay_button.png in Resources */,
 				F46712BD1DA4A40300D00656 /* Icon-App-76x76@3x.png in Resources */,
-				A48601241D9B98AC000B65FB /* play_button.png in Resources */,
 				F46712B61DA4A40300D00656 /* Icon-App-40x40@3x.png in Resources */,
 				F46712BE1DA4A40300D00656 /* Icon-App-83.5x83.5@2x.png in Resources */,
 				A4C51AE31D589F1800D6D733 /* SelectImageSVC.xib in Resources */,

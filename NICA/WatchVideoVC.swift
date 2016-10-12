@@ -48,22 +48,17 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
         navigationItem.title = "Watch Video Pape"
         let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: navigationController, action: nil)
         navigationItem.leftBarButtonItem = backButton
-    //   displayToolbar()
 
         view.addSubview(container1)
         view.addSubview(container2)
+
         if enterFlg == 1 {
             enterFlg = 0
             let svc = SelectImageSVC();
             svc.sDelegate = self
             self.navigationController?.presentViewController(svc, animated: true, completion: nil)
-        }else if enterFlg == 2{
-            enterFlg = 0
-            takeVideo()
-        }else if enterFlg == 3{
-            enterFlg = 0
-            startMediaBrowserFromViewController(self, usingDelegate: self)
         }
+
     }
     
     /**
@@ -252,48 +247,54 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
         dismissViewControllerAnimated(true) {
             // 3
             if mediaType == kUTTypeMovie {
-                // if video2 already exists, remove it first from the superview
-                self.video2?.removeFromParentViewController()
-                self.video2?.view.removeFromSuperview()
-                
-                self.video2 = CustomVideoController(urlPath: info[UIImagePickerControllerMediaURL] as? NSURL, container: self.container2)
-                
-                // if video from cloud does not exist, show the local video with wide screen
-                if self.video1 == nil {
-                    self.container2.frame = CGRect(x: self.gap,
-                                                   y: 75,
-                                                   width: self.view.frame.width-2*self.gap,
-                                                   height: self.view.frame.width/2+80)
-                    self.video2!.view.frame = CGRect(x: 0,
-                                                     y: 0,
-                                                     width: self.view.frame.width-2*self.gap,
-                                                     height: self.view.frame.width/2+80)
-                }
-                    // if video from cloud exists, split the view for both videos
-                else {
-                    self.container2.frame = CGRect(x: self.view.frame.width/2+2*self.gap,
-                                                   y: 75,
-                                                   width: self.view.frame.width/2-3*self.gap,
-                                                   height: self.view.frame.width/2+80)
-                    self.video2!.view.frame = CGRect(x: 0,
-                                                     y: 0,
-                                                     width: self.view.frame.width/2-3*self.gap,
-                                                     height: self.view.frame.width/2+80)
-                    self.container1.frame = CGRect(x: self.gap,
-                                                   y: 75,
-                                                   width: self.view.frame.width/2-3*self.gap,
-                                                   height: self.view.frame.width/2+80)
-                    self.video1!.view.frame = CGRect(x: 0,
-                                                     y: 0,
-                                                     width: self.view.frame.width/2-3*self.gap,
-                                                     height: self.view.frame.width/2+80)
-                    self.video1!.updateFrames(self.container1)
-                    self.displayPlayBothButton()
-                }
-                self.container2.addSubview(self.video2!.view)
+                let path = info[UIImagePickerControllerMediaURL]
+                self.showLocalVideo(path!)
                 
             }
         }
+    }
+    
+    func showLocalVideo(path: AnyObject){
+        // if video2 already exists, remove it first from the superview
+        self.video2?.removeFromParentViewController()
+        self.video2?.view.removeFromSuperview()
+        
+        self.video2 = CustomVideoController(urlPath:  path as? NSURL, container: self.container2)
+        
+        // if video from cloud does not exist, show the local video with wide screen
+        if self.video1 == nil {
+            self.container2.frame = CGRect(x: self.gap,
+                                           y: 75,
+                                           width: self.view.frame.width-2*self.gap,
+                                           height: self.view.frame.width/2+80)
+            self.video2!.view.frame = CGRect(x: 0,
+                                             y: 0,
+                                             width: self.view.frame.width-2*self.gap,
+                                             height: self.view.frame.width/2+80)
+        }
+            // if video from cloud exists, split the view for both videos
+        else {
+            self.container2.frame = CGRect(x: self.view.frame.width/2+2*self.gap,
+                                           y: 75,
+                                           width: self.view.frame.width/2-3*self.gap,
+                                           height: self.view.frame.width/2+80)
+            self.video2!.view.frame = CGRect(x: 0,
+                                             y: 0,
+                                             width: self.view.frame.width/2-3*self.gap,
+                                             height: self.view.frame.width/2+80)
+            self.container1.frame = CGRect(x: self.gap,
+                                           y: 75,
+                                           width: self.view.frame.width/2-3*self.gap,
+                                           height: self.view.frame.width/2+80)
+            self.video1!.view.frame = CGRect(x: 0,
+                                             y: 0,
+                                             width: self.view.frame.width/2-3*self.gap,
+                                             height: self.view.frame.width/2+80)
+            self.video1!.updateFrames(self.container1)
+            self.displayPlayBothButton()
+        }
+        self.container2.addSubview(self.video2!.view)
+
     }
     
     // ------------------- UI --------------------
@@ -329,15 +330,21 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
     /**
      Displays "Play/Pause Both" button.
      */
+    let playBothButtonImage = UIImage(named: "play.png")
+
     func displayPlayBothButton() {
         if playBothButton == nil {
-            let playBothButton = UIButton(frame: CGRect(x: 450, y: 670, width: 150, height: 40))
-            playBothButton.setTitle("Play/Pause Both", forState: .Normal)
-            playBothButton.titleLabel!.text = "Play/Pause Both"
-            playBothButton.backgroundColor = .blackColor()
-            playBothButton.layer.cornerRadius = 5
-            playBothButton.layer.borderWidth = 1
-            playBothButton.layer.borderColor = UIColor.blackColor().CGColor
+            let playBothButton = UIButton(frame: CGRect(x: UIScreen.mainScreen().bounds.width/2-40, y: 670, width: 80, height: 45))
+            playBothButton.setImage(playBothButtonImage, forState: .Normal)
+            
+            
+            
+            //playBothButton.setTitle("Play/Pause Simultaneously", forState: .Normal)
+//            playBothButton.titleLabel!.text = "Play/Pause Simultaneously"
+//            playBothButton.backgroundColor = UIColor.cyanColor()
+//            playBothButton.layer.cornerRadius = 5
+//            playBothButton.layer.borderWidth = 1
+//            playBothButton.layer.borderColor = UIColor.blackColor().CGColor
             self.view.addSubview(playBothButton)
             playBothButton.addTarget(self, action: #selector(playBoth(_:)), forControlEvents: .TouchUpInside)
         }
@@ -387,7 +394,20 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
         // Button logout
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(logout(_:)))
         super.viewDidAppear(animated)
-        
+//        
+//        if enterFlg == 1 {
+//            enterFlg = 0
+//            let svc = SelectImageSVC();
+//            svc.sDelegate = self
+//            self.navigationController?.presentViewController(svc, animated: true, completion: nil)
+//        }else if enterFlg == 2{
+//            enterFlg = 0
+//            takeVideo()
+//        }else if enterFlg == 3{
+//            enterFlg = 0
+//            startMediaBrowserFromViewController(self, usingDelegate: self)
+//        }
+//        
     }
     
     
