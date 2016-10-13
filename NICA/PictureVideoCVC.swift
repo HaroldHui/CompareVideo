@@ -78,18 +78,20 @@ class PictureVideoCVC: UICollectionViewController {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
             let title = UILabel(frame: CGRectMake(0, 125, cell.bounds.size.width - 25, 30))
             title.text = video.name
-            
-            let urlPath = NSURL(string: video.dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
-            var image = thumbnailForVideo(urlPath!)
-
-            image = resizeImage(image!, newWidth: 125)
-            
-            // Set the size of the image
-            let frame = CGRectMake(0, 0, 125, 125)
-            let backgroundImage = UIImageView(frame: frame)
-            backgroundImage.image = image
             cell.contentView.addSubview(title)
-            cell.contentView.addSubview(backgroundImage)
+            NSOperationQueue.mainQueue().addOperationWithBlock {
+                let urlPath = NSURL(string: video.dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+                var image = self.thumbnailForVideo(urlPath!)
+                
+                image = self.resizeImage(image!, newWidth: 125)
+                
+                // Set the size of the image
+                let frame = CGRectMake(0, 0, 125, 125)
+                let backgroundImage = UIImageView(frame: frame)
+                backgroundImage.image = image
+                
+                cell.contentView.addSubview(backgroundImage)
+            }
             
             return cell
         } else if (indexPath.section == 3) {
@@ -97,19 +99,21 @@ class PictureVideoCVC: UICollectionViewController {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
             let title = UILabel(frame: CGRectMake(0, 125, cell.bounds.size.width - 25, 30))
             title.text = picture.name
-            
-            let urlPath = NSURL(string: picture.dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
-            let data = NSData(contentsOfURL: urlPath!)
-            var image = UIImage(data: data!)
-            
-            image = resizeImage(image!, newWidth: 125)
-            
-            // Set the size of the image
-            let frame = CGRectMake(0, 0, 125, 125)
-            let backgroundImage = UIImageView(frame: frame)
-            backgroundImage.image = image
             cell.contentView.addSubview(title)
-            cell.contentView.addSubview(backgroundImage)
+            NSOperationQueue.mainQueue().addOperationWithBlock {
+                let urlPath = NSURL(string: picture.dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+                let data = NSData(contentsOfURL: urlPath!)
+                var image = UIImage(data: data!)
+                
+                image = self.resizeImage(image!, newWidth: 125)
+                
+                // Set the size of the image
+                let frame = CGRectMake(0, 0, 125, 125)
+                let backgroundImage = UIImageView(frame: frame)
+                backgroundImage.image = image
+                
+                cell.contentView.addSubview(backgroundImage)
+            }
             
             return cell
         } else if (indexPath.section == 0) {
