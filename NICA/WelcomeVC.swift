@@ -26,7 +26,6 @@ class WelcomeVC: UIViewController,UINavigationControllerDelegate,UIImagePickerCo
      - sender: The UIButton that calls this function
      */
     @IBAction func goToSelectionPage(sender: AnyObject) {
-        print(123123)
         let viewcontroller = WatchVideoVC()
         viewcontroller.enterFlg = 1
         self.navigationController!.pushViewController(viewcontroller, animated: true)

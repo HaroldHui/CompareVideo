@@ -18,7 +18,10 @@ class PictureVideoCVC: UICollectionViewController {
     var folders : [Folder] = []
     var videos: [Video] = []
     var pictures: [Picture] = []
+    let queue = NSOperationQueue()
+    let backgroundQueue = dispatch_queue_create("com.nica", DISPATCH_QUEUE_SERIAL)
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Pictures and Videos"
@@ -78,18 +81,35 @@ class PictureVideoCVC: UICollectionViewController {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
             let title = UILabel(frame: CGRectMake(0, 125, cell.bounds.size.width - 25, 30))
             title.text = video.name
-            
-            let urlPath = NSURL(string: video.dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
-            var image = thumbnailForVideo(urlPath!)
-
-            image = resizeImage(image!, newWidth: 125)
-            
-            // Set the size of the image
-            let frame = CGRectMake(0, 0, 125, 125)
-            let backgroundImage = UIImageView(frame: frame)
-            backgroundImage.image = image
             cell.contentView.addSubview(title)
-            cell.contentView.addSubview(backgroundImage)
+            dispatch_async(backgroundQueue, {
+                let pathStr = video.dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+                let urlPath = NSURL(string: pathStr!)
+                let asset = AVURLAsset(URL: urlPath!, options: nil)
+                let imgGenerator = AVAssetImageGenerator(asset: asset)
+                imgGenerator.appliesPreferredTrackTransform = true
+                imgGenerator.generateCGImagesAsynchronouslyForTimes([NSValue(CMTime: CMTimeMake(0, 1))]) {(time1, cgImage, time2, result, error) -> Void in
+                    
+                    if (result == .Succeeded) {
+                        var image = UIImage(CGImage: cgImage!)
+                        image = self.resizeImage(image, newWidth: 125)
+                        dispatch_async(dispatch_get_main_queue()) {
+                            // Set the size of the image
+                            let frame = CGRectMake(0, 0, 125, 125)
+                            let backgroundImage = UIImageView(frame: frame)
+                            backgroundImage.image = image
+                            
+                            cell.contentView.addSubview(backgroundImage)
+                        }
+                        NSLog("SUCCESS!")
+                    }else if(result == .Failed){
+                        NSLog("FAILED!")
+                    }else{
+                        print("CANCELLED")
+                    }
+                }
+
+            })
             
             return cell
         } else if (indexPath.section == 3) {
@@ -97,19 +117,21 @@ class PictureVideoCVC: UICollectionViewController {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
             let title = UILabel(frame: CGRectMake(0, 125, cell.bounds.size.width - 25, 30))
             title.text = picture.name
-            
-            let urlPath = NSURL(string: picture.dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
-            let data = NSData(contentsOfURL: urlPath!)
-            var image = UIImage(data: data!)
-            
-            image = resizeImage(image!, newWidth: 125)
-            
-            // Set the size of the image
-            let frame = CGRectMake(0, 0, 125, 125)
-            let backgroundImage = UIImageView(frame: frame)
-            backgroundImage.image = image
             cell.contentView.addSubview(title)
-            cell.contentView.addSubview(backgroundImage)
+            queue.addOperationWithBlock {
+                let urlPath = NSURL(string: picture.dir.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+                let data = NSData(contentsOfURL: urlPath!)
+                var image = UIImage(data: data!)
+                
+                image = self.resizeImage(image!, newWidth: 125)
+                dispatch_async(dispatch_get_main_queue()) {
+                    // Set the size of the image
+                    let frame = CGRectMake(0, 0, 125, 125)
+                    let backgroundImage = UIImageView(frame: frame)
+                    backgroundImage.image = image
+                    cell.contentView.addSubview(backgroundImage)
+                }
+            }
             
             return cell
         } else if (indexPath.section == 0) {
@@ -191,20 +213,6 @@ class PictureVideoCVC: UICollectionViewController {
                 self.splitViewController!.presentViewController(modalVC, animated: true, completion: nil)
                 self.splitViewController!.view.alpha = 0.2
             }
-        }
-    }
-    
-    // Generates a thumbnail of a video given an NSURL
-    func thumbnailForVideo(url: NSURL) -> UIImage? {
-        do {
-            let asset = AVURLAsset(URL: url, options: nil)
-            let imgGenerator = AVAssetImageGenerator(asset: asset)
-            imgGenerator.appliesPreferredTrackTransform = true
-            let cgImage = try imgGenerator.copyCGImageAtTime(CMTimeMake(0, 1), actualTime: nil)
-            return UIImage(CGImage: cgImage)
-        } catch {
-            print("Error creating thumbnail")
-            return nil
         }
     }
 
