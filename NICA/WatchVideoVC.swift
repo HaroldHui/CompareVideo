@@ -363,6 +363,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
             video2!.player.seekToTime(kCMTimeZero)
         }
         
+        
         // If at least one of the videos is paused
         if video1!.videoState == 0 || video2!.videoState == 0 {
             video1!.player.play()
@@ -386,6 +387,19 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
             video1!.playButton.setImage(video1!.playButtonImage, forState: .Normal)
             video2!.videoState = 0
             video2!.playButton.setImage(video1!.playButtonImage, forState: .Normal)
+        }else if video1!.videoState == 2 || video2!.videoState == 2{
+            video1!.player.play()
+            video2!.player.play()
+            if video1!.slowmotion == true {
+                video1!.player.rate = 0.5
+            }
+            if video2!.slowmotion == true {
+                video2!.player.rate = 0.5
+            }
+            video1!.videoState = 1
+            video1!.playButton.setImage(video1!.pauseButtonImage, forState: .Normal)
+            video2!.videoState = 1
+            video2!.playButton.setImage(video1!.pauseButtonImage, forState: .Normal)
         }
     }
     
