@@ -723,7 +723,7 @@
 				DEVELOPMENT_TEAM = US38475NTD;
 				INFOPLIST_FILE = NICA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = unimelb.NICA;
+				PRODUCT_BUNDLE_IDENTIFIER = com.unimelb.nica;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;
@@ -739,7 +739,7 @@
 				DEVELOPMENT_TEAM = US38475NTD;
 				INFOPLIST_FILE = NICA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = unimelb.NICA;
+				PRODUCT_BUNDLE_IDENTIFIER = com.unimelb.nica;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;
