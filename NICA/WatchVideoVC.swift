@@ -44,7 +44,7 @@ class WatchVideoVC: UIViewController, SelectionDelegate, UIScrollViewDelegate, U
     override func viewDidLoad() {
       
         super.viewDidLoad()
-        navigationItem.title = "Watch Video Pape"
+        navigationItem.title = "Watch Video Page"
         let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: navigationController, action: nil)
         navigationItem.leftBarButtonItem = backButton
 

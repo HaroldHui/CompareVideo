@@ -140,7 +140,6 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         ccGradientLayer.colors = [UIColor.clearColor().CGColor, UIColor.grayColor().CGColor]
         ccGradientLayer.locations = [0.0,1.0]
         controllerContainer.layer.insertSublayer(ccGradientLayer, atIndex: 0)
-       // controllerContainer.backgroundColor = UIColor(white: 1, alpha: 0.7)
         
         // Play/pause/replay button
         controllerContainer.addSubview(playButton)
@@ -205,7 +204,6 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         timeRemLabel.adjustsFontSizeToFitWidth = true
         timeRemLabel.numberOfLines = 1
         timeRemLabel.text = String(format: "%02d:%02d", 0, 0)
-//        timeRemLabel.textColor = .blackColor()
         
         // drawing tools view
         // it can be hidden and displayed
@@ -222,8 +220,6 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
         // Drawing Tool button
         drawContainer.addSubview(drawButton)
         drawButton.setImage(drawButtonImage, forState: .Normal)
-       // drawButton.layer.borderWidth = 1
-       //    drawButton.layer.borderColor = UIColor.blackColor().CGColor
         drawButton.frame = CGRect(x: 0,
                                   y: 0,
                                   width: BUTTON_WIDTH,
@@ -235,8 +231,6 @@ class CustomVideoController: UIViewController, UIScrollViewDelegate {
        
     
         clearButton.setImage(eraserButtonImage, forState: .Normal)
-        //clearButton.layer.borderWidth = 1
-        //clearButton.layer.borderColor = UIColor.blackColor().CGColor
         clearButton.frame = CGRect(x: 0,
                                    y: BUTTON_HEIGHT+5,
                                    width: BUTTON_WIDTH,
