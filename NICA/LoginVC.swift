@@ -53,7 +53,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     }
     
     private func loginFunc(){
-        let loginURL = NSURL(string: URLOFAPI + "login")
+        let loginURL = NSURL(string: URLOFSERVER + "/api/login")
         let request = NSMutableURLRequest(URL: loginURL!)
         request.HTTPMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
@@ -82,6 +82,8 @@ class LoginVC: UIViewController,UITextFieldDelegate {
                     }else{
                         self.loginFailed()
                     }
+                } else {
+                    self.loginFailed()
                 }
             } catch {
                 self.loginFailed()
@@ -157,6 +159,13 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         self.loginButton.userInteractionEnabled = true
     }
     
+    @IBAction func changeServer(sender: UIButton) {
+        let popUpVC = PopUpViewController()
+        self.addChildViewController(popUpVC)
+        popUpVC.view.frame = self.view.frame
+        self.view.addSubview(popUpVC.view)
+        popUpVC.didMoveToParentViewController(self)
+    }
     /*
      // MARK: - Navigation
      

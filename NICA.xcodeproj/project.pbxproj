@@ -72,6 +72,8 @@
 		F46712BE1DA4A40300D00656 /* Icon-App-83.5x83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F46712AD1DA4A40300D00656 /* Icon-App-83.5x83.5@2x.png */; };
 		F46712C01DA4ADFF00D00656 /* LandscapePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46712BF1DA4ADFF00D00656 /* LandscapePickerController.swift */; };
 		F46A0AFA1DA3F277001DCB31 /* nica_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F46A0AF91DA3F277001DCB31 /* nica_logo.png */; };
+		F47AF62E1DBF11640049A2E7 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47AF62C1DBF11640049A2E7 /* PopUpViewController.swift */; };
+		F47AF62F1DBF11640049A2E7 /* PopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F47AF62D1DBF11640049A2E7 /* PopUpViewController.xib */; };
 		F4DA56E21D93B70E00268F6F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA56E11D93B70E00268F6F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -164,6 +166,8 @@
 		F46712AD1DA4A40300D00656 /* Icon-App-83.5x83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-83.5x83.5@2x.png"; sourceTree = "<group>"; };
 		F46712BF1DA4ADFF00D00656 /* LandscapePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandscapePickerController.swift; sourceTree = "<group>"; };
 		F46A0AF91DA3F277001DCB31 /* nica_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nica_logo.png; sourceTree = "<group>"; };
+		F47AF62C1DBF11640049A2E7 /* PopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		F47AF62D1DBF11640049A2E7 /* PopUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopUpViewController.xib; sourceTree = "<group>"; };
 		F4DA56E11D93B70E00268F6F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				3F089E7A1D60572600467C2F /* PictureVideoVC.xib */,
+				F47AF62D1DBF11640049A2E7 /* PopUpViewController.xib */,
 				F439A08D1DA230AF000481B6 /* WatchVideoVC.xib */,
 				3F089E761D6054DC00467C2F /* FolderVC.xib */,
 				3F089E721D6053AC00467C2F /* LevelVC.xib */,
@@ -313,6 +318,7 @@
 				A4CDC5EE1DA3A342007B3D77 /* ModalImageVC.swift */,
 				3F69CF391DA761430080CCA8 /* PictureVideoCVC.swift */,
 				EA2084AE1DAB4DD300FE8148 /* WelcomeVC.swift */,
+				F47AF62C1DBF11640049A2E7 /* PopUpViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -505,6 +511,7 @@
 				F46712B81DA4A40300D00656 /* Icon-App-60x60@1x.png in Resources */,
 				F439A08F1DA230AF000481B6 /* WatchVideoVC.xib in Resources */,
 				A49E86D91CEC39D1002AC786 /* Main.storyboard in Resources */,
+				F47AF62F1DBF11640049A2E7 /* PopUpViewController.xib in Resources */,
 				F46712B21DA4A40300D00656 /* Icon-App-29x29@2x.png in Resources */,
 				F46712B91DA4A40300D00656 /* Icon-App-60x60@2x.png in Resources */,
 				F46712B11DA4A40300D00656 /* Icon-App-29x29@1x.png in Resources */,
@@ -566,6 +573,7 @@
 				A49E87081CEC5574002AC786 /* SelectVideoViewController.swift in Sources */,
 				A4C51AF31D58A17300D6D733 /* Act.swift in Sources */,
 				3F69CF3A1DA761430080CCA8 /* PictureVideoCVC.swift in Sources */,
+				F47AF62E1DBF11640049A2E7 /* PopUpViewController.swift in Sources */,
 				A4CDC5F01DA3A342007B3D77 /* ModalImageVC.swift in Sources */,
 				A4C51AEC1D589FE100D6D733 /* DetailVC.swift in Sources */,
 				3F84468A1D83C5BE0053844D /* Folder.swift in Sources */,

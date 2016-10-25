@@ -10,7 +10,7 @@ import Foundation
 
 class API {
     class func callAPICategories(path : String, completionHandler : ((categories : [Category]) -> Void)) {
-	let todoEndpoint: String = URLOFAPI + path
+	let todoEndpoint: String = URLOFSERVER + "/api/" + path
         var tempcategories : [Category] = []
         guard let url = NSURL(string: todoEndpoint) else {
             print("Error: cannot create URL")
@@ -55,7 +55,7 @@ class API {
 	}
     
     class func callAPI(path: String, completionHandler : ((array: [String: AnyObject]) -> Void)) {
-        let todoEndpoint: String = URLOFAPI + path
+        let todoEndpoint: String = URLOFSERVER + "/api/" + path
         guard let url = NSURL(string: todoEndpoint) else {
             print("Error: cannot create URL")
             return

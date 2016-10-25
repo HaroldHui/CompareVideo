@@ -17,6 +17,11 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(animated: Bool) {
+        if let url = NSUserDefaults.standardUserDefaults().valueForKey("ipAddress") {
+            URLOFSERVER = url as! String
+        }
+
+        
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         if userDefaults.boolForKey("login") {
             let viewcontroller = WelcomeVC()
