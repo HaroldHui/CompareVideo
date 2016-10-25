@@ -83,7 +83,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
                         self.loginFailed()
                     }
                 } else {
-                    self.loginFailed()
+                    self.loginSeverFailed()
                 }
             } catch {
                 self.loginFailed()
@@ -103,12 +103,28 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         
     }
     private func loginFailed(){
+        
         NSOperationQueue.mainQueue().addOperationWithBlock {
             self.hideSpinner()
             self.id.text = nil
             self.firstName.text = nil
             self.lastName.text = nil
             let alert = UIAlertController(title: "Error", message:"An error occurred during the login. Try again!", preferredStyle: .Alert)
+            let action = UIAlertAction(title: "OK", style: .Cancel) { _ in }
+            alert.addAction(action)
+            self.navigationController!.presentViewController(alert, animated: true){}
+            
+        }
+    }
+    
+    private func loginSeverFailed(){
+        
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self.hideSpinner()
+            self.id.text = nil
+            self.firstName.text = nil
+            self.lastName.text = nil
+            let alert = UIAlertController(title: "Error", message:"Server unavailable. Try again!", preferredStyle: .Alert)
             let action = UIAlertAction(title: "OK", style: .Cancel) { _ in }
             alert.addAction(action)
             self.navigationController!.presentViewController(alert, animated: true){}
